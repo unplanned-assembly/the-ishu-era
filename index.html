@@ -1,255 +1,1367 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ishu 24.0</title>
-
+<title>For Ishu 🎬</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=Libre+Baskerville:ital@1&display=swap" rel="stylesheet">
 <style>
-body{
-margin:0;
-font-family:Georgia,serif;
-transition:background 1s ease;
-color:#333;
-overflow-x:hidden;
-}
+  :root {
+    --pink: #f2a7b8;
+    --soft-pink: #fce4ec;
+    --cream: #faf7f2;
+    --warm-taupe: #e8ddd0;
+    --blush: #f5e6e0;
+    --deep-rose: #c2607a;
+    --text-dark: #2c1a1a;
+    --text-mid: #6b4c4c;
+    --gold: #c9a96e;
+  }
 
-/* Sections */
-.section{
-display:none;
-min-height:100vh;
-padding:60px 20px;
-text-align:center;
-animation:fade 0.8s ease forwards;
-}
-.active{display:block;}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-@keyframes fade{
-from{opacity:0;transform:translateY(15px);}
-to{opacity:1;transform:translateY(0);}
-}
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
 
-h1{font-size:64px;letter-spacing:3px;}
-h2{font-size:40px;}
+  /* ===================== SCREEN 1: ENTRY ===================== */
+  #entry-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--soft-pink);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
 
-button{
-padding:14px 28px;
-border:none;
-border-radius:30px;
-background:#e59bb3;
-color:white;
-font-size:16px;
-cursor:pointer;
-margin:10px;
-box-shadow:0 10px 25px rgba(0,0,0,0.15);
-transition:0.3s;
-}
-button:hover{transform:scale(1.07);background:#d67a98;}
+  #entry-screen.hide {
+    opacity: 0;
+    transform: scale(1.05);
+    pointer-events: none;
+  }
 
-input{
-padding:12px;
-border-radius:25px;
-border:1px solid #ccc;
-width:260px;
-text-align:center;
-}
+  .film-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.5;
+  }
 
-/* ENTRY */
-#entry{
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-height:100vh;
-background:linear-gradient(135deg,#f6a5c0,#f8c8dc);
-color:white;
-text-align:center;
-}
+  .entry-tagline {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: clamp(12px, 2vw, 16px);
+    color: var(--deep-rose);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.5s forwards;
+  }
 
-/* PASSWORD MODAL */
-#overlay{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.5);
-backdrop-filter:blur(5px);
-display:none;
-z-index:5;
-}
+  .entry-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 10vw, 120px);
+    font-weight: 900;
+    color: var(--text-dark);
+    line-height: 1;
+    text-align: center;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 1.2s forwards;
+    margin: 16px 0;
+  }
 
-#popup{
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-background:white;
-padding:35px 45px;
-border-radius:25px;
-box-shadow:0 20px 50px rgba(0,0,0,0.3);
-display:none;
-z-index:10;
-text-align:center;
-font-size:18px;
-animation:pop 0.3s ease;
-}
+  .entry-subtitle {
+    font-size: clamp(13px, 1.8vw, 16px);
+    color: var(--text-mid);
+    letter-spacing: 0.15em;
+    opacity: 0;
+    animation: fadeUp 1s ease 2s forwards;
+    font-weight: 300;
+  }
 
-@keyframes pop{
-from{transform:translate(-50%,-50%) scale(0.8);}
-to{transform:translate(-50%,-50%) scale(1);}
-}
+  .entry-btn {
+    margin-top: 48px;
+    opacity: 0;
+    animation: fadeUp 1s ease 2.8s forwards;
+    background: transparent;
+    border: 1.5px solid var(--deep-rose);
+    color: var(--deep-rose);
+    padding: 14px 40px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
 
-/* Hidden Heart */
-.hidden-heart{
-position:absolute;
-top:25px;
-right:30px;
-font-size:20px;
-opacity:0.6;
-cursor:pointer;
-}
-.hidden-heart:hover{opacity:1;}
+  .entry-btn:hover {
+    background: var(--deep-rose);
+    color: white;
+  }
 
-/* Elegant Final Glow */
-.glow{
-text-shadow:0 0 15px rgba(255,200,150,0.8);
-}
+  /* ===================== SCREEN 2: PASSWORD ===================== */
+  #password-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+  }
 
-.particle{
-position:fixed;
-width:6px;
-height:6px;
-background:#f3d19c;
-border-radius:50%;
-top:0;
-animation:float 4s linear forwards;
-}
+  #password-screen.show {
+    opacity: 1;
+    pointer-events: all;
+  }
 
-@keyframes float{
-to{transform:translateY(100vh);opacity:0;}
-}
+  .clap-overlay {
+    position: fixed;
+    inset: 0;
+    background: #1a0a0a;
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .clap-overlay.show {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .clap-board {
+    width: min(400px, 85vw);
+    text-align: center;
+    color: white;
+  }
+
+  .clap-top {
+    background: #1a1a1a;
+    border: 3px solid #444;
+    padding: 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    text-align: left;
+    position: relative;
+  }
+
+  .clap-label { color: #888; font-size: 11px; }
+  .clap-value { color: white; font-weight: 500; }
+  .clap-title-big {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 900;
+    grid-column: 1/-1;
+    color: white;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .clap-stick {
+    height: 60px;
+    background: repeating-linear-gradient(
+      45deg, #1a1a1a, #1a1a1a 10px, #f5c518 10px, #f5c518 20px
+    );
+    border: 3px solid #444;
+    border-bottom: none;
+    transform-origin: top center;
+    animation: none;
+    position: relative;
+  }
+
+  .clap-stick.snap {
+    animation: clapSnap 0.3s ease forwards;
+  }
+
+  @keyframes clapSnap {
+    0% { transform: rotate(0deg); }
+    40% { transform: rotate(-35deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  .pw-container {
+    text-align: center;
+    max-width: 420px;
+    width: 90%;
+  }
+
+  .pw-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--deep-rose);
+    margin-bottom: 20px;
+  }
+
+  .pw-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .pw-sub {
+    font-size: 14px;
+    color: var(--text-mid);
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+
+  .pw-input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid var(--warm-taupe);
+    background: transparent;
+    padding: 14px 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    text-align: center;
+    color: var(--text-dark);
+    outline: none;
+    transition: border-color 0.3s;
+    letter-spacing: 0.15em;
+  }
+
+  .pw-input:focus { border-color: var(--deep-rose); }
+
+  .pw-btn {
+    margin-top: 32px;
+    background: var(--deep-rose);
+    color: white;
+    border: none;
+    padding: 14px 48px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .pw-btn:hover { background: #a84d66; }
+
+  .pw-attempts {
+    margin-top: 20px;
+    font-size: 12px;
+    color: var(--text-mid);
+    height: 20px;
+  }
+
+  /* Toast popup */
+  .toast {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--text-dark);
+    color: white;
+    padding: 16px 28px;
+    font-size: 14px;
+    max-width: 85vw;
+    text-align: center;
+    opacity: 0;
+    transition: all 0.4s ease;
+    z-index: 2000;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ===================== MAIN SITE ===================== */
+  #main-site {
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+
+  #main-site.show { opacity: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+    background: rgba(250,247,242,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(200,180,170,0.3);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--deep-rose);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--deep-rose); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 40px 60px;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(100px, 20vw, 280px);
+    font-weight: 900;
+    color: rgba(242,167,184,0.12);
+    letter-spacing: -0.05em;
+    user-select: none;
+    white-space: nowrap;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero-content {
+    text-align: center;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--deep-rose);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(60px, 12vw, 140px);
+    font-weight: 900;
+    line-height: 0.9;
+    color: var(--text-dark);
+    opacity: 0;
+    animation: fadeUp 1s ease 0.7s forwards;
+  }
+
+  .hero-name span {
+    display: block;
+    font-style: italic;
+    color: var(--deep-rose);
+  }
+
+  .hero-desc {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: clamp(15px, 2vw, 20px);
+    color: var(--text-mid);
+    margin-top: 28px;
+    line-height: 1.7;
+    max-width: 540px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.2s forwards;
+  }
+
+  .petals {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .petal {
+    position: absolute;
+    top: -20px;
+    font-size: clamp(10px, 1.5vw, 16px);
+    opacity: 0.6;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 0.6; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* SECTION BASE */
+  section {
+    padding: 100px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--deep-rose);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--warm-taupe);
+    max-width: 60px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 48px;
+  }
+
+  /* ===================== CHRONICLES ===================== */
+  #chronicles {
+    background: var(--blush);
+    max-width: 100%;
+    padding: 100px 0;
+  }
+
+  #chronicles .inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .chronicle-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+  }
+
+  .chronicle-card {
+    background: var(--cream);
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+
+  .chronicle-card:hover { transform: translateY(-4px); }
+
+  .chronicle-card::before {
+    content: attr(data-num);
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    font-weight: 900;
+    color: rgba(242,167,184,0.2);
+    line-height: 1;
+  }
+
+  .chronicle-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text-dark);
+  }
+
+  .chronicle-card p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text-mid);
+  }
+
+  .chronicle-emoji {
+    font-size: 28px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  /* ===================== ICONIC PHRASES ===================== */
+  #phrases {
+    background: var(--cream);
+  }
+
+  .phrases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .phrase-card {
+    border: 1px solid var(--warm-taupe);
+    padding: 36px 32px;
+    position: relative;
+    background: white;
+    transition: all 0.3s ease;
+  }
+
+  .phrase-card:hover {
+    border-color: var(--pink);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(194,96,122,0.08);
+  }
+
+  .phrase-quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    color: var(--soft-pink);
+    line-height: 0.7;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .phrase-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(15px, 1.8vw, 19px);
+    line-height: 1.6;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+  }
+
+  .phrase-tag {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--deep-rose);
+  }
+
+  /* ===================== EXPOSED DOCUMENTARY ===================== */
+  #exposed {
+    background: #1a0a0a;
+    max-width: 100%;
+    padding: 100px 0;
+    color: white;
+  }
+
+  #exposed .inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  #exposed .section-label { color: #f2a7b8; }
+  #exposed .section-label::after { background: #3a2020; }
+  #exposed .section-title { color: white; }
+
+  .doc-episode {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 32px;
+    align-items: start;
+    padding: 36px 0;
+    border-bottom: 1px solid #2a1a1a;
+  }
+
+  .doc-episode:last-child { border-bottom: none; }
+
+  .ep-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--deep-rose);
+    line-height: 1;
+    opacity: 0.6;
+    min-width: 60px;
+  }
+
+  .ep-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 2.5vw, 26px);
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: white;
+  }
+
+  .ep-content p {
+    font-size: 14px;
+    line-height: 1.9;
+    color: #b09090;
+  }
+
+  .ep-badge {
+    display: inline-block;
+    background: var(--deep-rose);
+    color: white;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    margin-bottom: 12px;
+  }
+
+  /* ===================== FILMY DIALOGUES ===================== */
+  #dialogues {
+    background: var(--blush);
+    max-width: 100%;
+    padding: 100px 0;
+  }
+
+  #dialogues .inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 40px;
+    text-align: center;
+  }
+
+  .dialogue-reel {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .dialogue-item {
+    padding: 48px 40px;
+    border-bottom: 1px solid var(--warm-taupe);
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .dialogue-item:hover { background: rgba(255,255,255,0.5); }
+
+  .dialogue-item .d-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(16px, 2.5vw, 24px);
+    line-height: 1.6;
+    color: var(--text-dark);
+  }
+
+  .dialogue-item .d-context {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--deep-rose);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* ===================== GALLERY ===================== */
+  #gallery {
+    background: var(--cream);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+  }
+
+  .gallery-slot {
+    aspect-ratio: 1;
+    background: var(--warm-taupe);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+
+  .gallery-slot:hover { transform: scale(1.02); }
+
+  .gallery-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .gallery-slot .slot-placeholder {
+    text-align: center;
+    color: var(--text-mid);
+  }
+
+  .gallery-slot .slot-placeholder .slot-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+    opacity: 0.4;
+  }
+
+  .gallery-slot .slot-placeholder p {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+
+  /* Feature large slot */
+  .gallery-slot.large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  /* ===================== HIDDEN FEELS ===================== */
+  #feels-trigger {
+    text-align: center;
+    padding: 80px 40px;
+    background: var(--cream);
+  }
+
+  .feels-teaser {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--text-mid);
+    margin-bottom: 32px;
+  }
+
+  .feels-btn {
+    background: transparent;
+    border: 1px solid var(--warm-taupe);
+    color: var(--text-mid);
+    padding: 12px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .feels-btn:hover {
+    border-color: var(--deep-rose);
+    color: var(--deep-rose);
+  }
+
+  #feels-content {
+    display: none;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    text-align: center;
+    animation: fadeUp 1s ease forwards;
+  }
+
+  #feels-content.show { display: block; }
+
+  .feels-letter {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(17px, 2vw, 22px);
+    line-height: 1.9;
+    color: var(--text-dark);
+  }
+
+  .feels-letter .highlight {
+    color: var(--deep-rose);
+    font-weight: 700;
+  }
+
+  /* ===================== FOOTER ===================== */
+  footer {
+    background: var(--text-dark);
+    color: white;
+    text-align: center;
+    padding: 60px 40px;
+  }
+
+  footer .f-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 6vw, 72px);
+    font-weight: 900;
+    font-style: italic;
+    color: var(--pink);
+    margin-bottom: 16px;
+  }
+
+  footer p {
+    font-size: 13px;
+    color: #8a7070;
+    letter-spacing: 0.15em;
+  }
+
+  /* ===================== ANIMATIONS ===================== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-in-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Music player */
+  .music-player {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: white;
+    border: 1px solid var(--warm-taupe);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 500;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    display: none;
+  }
+
+  .music-player.show { display: flex; }
+
+  .music-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--deep-rose);
+    border: none;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+  }
+
+  .music-btn:hover { transform: scale(1.1); }
+
+  .music-info {
+    font-size: 12px;
+    color: var(--text-mid);
+    max-width: 160px;
+  }
+
+  .music-info .song-name {
+    font-weight: 500;
+    color: var(--text-dark);
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 600px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    section { padding: 70px 24px; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-slot.large { grid-column: span 2; }
+    .doc-episode { grid-template-columns: 1fr; gap: 8px; }
+    .ep-number { font-size: 32px; }
+    footer { padding: 50px 24px; }
+    .music-player { bottom: 12px; right: 12px; }
+  }
 </style>
 </head>
-
 <body>
 
-<div id="entry">
-<h1>ISHU 24.0</h1>
-<p>The Main Character Has Entered The Chat</p>
-<button onclick="enterSite()">Enter Her Era</button>
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- CLAPBOARD OVERLAY -->
+<div class="clap-overlay" id="clapOverlay">
+  <div class="clap-board">
+    <div class="clap-stick" id="clapStick"></div>
+    <div class="clap-top">
+      <div class="clap-title-big">THE ISHU CHRONICLES</div>
+      <div>
+        <div class="clap-label">Production</div>
+        <div class="clap-value">Bestie Studios</div>
+      </div>
+      <div>
+        <div class="clap-label">Director</div>
+        <div class="clap-value">Love & Chaos</div>
+      </div>
+      <div>
+        <div class="clap-label">Scene</div>
+        <div class="clap-value">Birthday Special</div>
+      </div>
+      <div>
+        <div class="clap-label">Date</div>
+        <div class="clap-value" id="clap-date"></div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div id="password" class="section">
-<h2>Prove You're Worthy.</h2>
-<input id="passInput" placeholder="Enter Password">
-<br><br>
-<button onclick="checkPassword()">Unlock</button>
+<!-- SCREEN 1: ENTRY -->
+<div id="entry-screen">
+  <div class="film-grain"></div>
+  <p class="entry-tagline">A Bestie Production Presents</p>
+  <h1 class="entry-title">Ek Thi<br><em style="color:var(--deep-rose);font-style:italic;">Ishu</em></h1>
+  <p class="entry-subtitle">Est. 24 years ago · Still running on rice & drama</p>
+  <button class="entry-btn" onclick="showPassword()">Enter the World ✦</button>
 </div>
 
-<div id="main" class="section">
-<div class="hidden-heart" onclick="openSofty()">♡</div>
-<h1>ISHU SONKAR</h1>
-<p>Born iconic. Operates on her own timezone.</p>
-<button onclick="openSection('archive')">Archive</button>
-<button onclick="openSection('chaos')">Chaos</button>
-<button onclick="openSection('final')">Final Scene</button>
+<!-- SCREEN 2: PASSWORD -->
+<div id="password-screen">
+  <div class="pw-container">
+    <p class="pw-eyebrow">Access Required</p>
+    <h2 class="pw-title">Prove you belong here</h2>
+    <p class="pw-sub">Only a true Ishu loyalist would know this.<br>No googling. No cheating. We're watching.</p>
+    <input type="text" class="pw-input" id="pwInput" placeholder="type the secret..." onkeydown="if(event.key==='Enter') checkPassword()">
+    <br>
+    <button class="pw-btn" onclick="checkPassword()">Submit</button>
+    <p class="pw-attempts" id="pwAttempts"></p>
+  </div>
 </div>
 
-<div id="archive" class="section">
-<h2>Archive</h2>
-<button onclick="goHome()">Back</button>
+<!-- MAIN SITE -->
+<div id="main-site">
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Ishu ✦</div>
+    <ul class="nav-links">
+      <li><a href="#chronicles">Chronicles</a></li>
+      <li><a href="#phrases">Iconic</a></li>
+      <li><a href="#exposed">Exposed</a></li>
+      <li><a href="#dialogues">Filmy</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div id="hero">
+    <div class="petals" id="petals"></div>
+    <div class="hero-bg-text">ISHU</div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">✦ Happy 24th Birthday ✦</p>
+      <h1 class="hero-name">
+        Ishu<br>
+        <span>Sonkar</span>
+      </h1>
+      <p class="hero-desc">
+        Main character. Rice enthusiast. She-Hulk in a 5'2" disguise.<br>
+        Professional sleeper. Aesthetic perfectionist. Our person.
+      </p>
+    </div>
+  </div>
+
+  <!-- CHRONICLES -->
+  <div id="chronicles">
+    <div class="inner">
+      <div class="fade-in-section">
+        <p class="section-label">The File</p>
+        <h2 class="section-title">Chronicles of<br>Ishu Sonkar</h2>
+      </div>
+      <div class="chronicle-grid fade-in-section">
+        <div class="chronicle-card" data-num="01">
+          <span class="chronicle-emoji">👑</span>
+          <h3>Main Character Energy</h3>
+          <p>She doesn't walk into a room. She <em>enters</em>. Always late. Always the best-looking person there. The universe rearranges its schedule for Ishu, not the other way around.</p>
+        </div>
+        <div class="chronicle-card" data-num="02">
+          <span class="chronicle-emoji">🍚</span>
+          <h3>Rice. Just Rice.</h3>
+          <p>Ishu has cracked the code to life that scientists have been chasing for centuries. The answer? A full bucket of rice. It is breakfast, lunch, dinner, comfort, medicine, and soulmate.</p>
+        </div>
+        <div class="chronicle-card" data-num="03">
+          <span class="chronicle-emoji">✨</span>
+          <h3>Perfectionism is a Lifestyle</h3>
+          <p>If something is under Ishu's command, it will be in its place. Every detail accounted for, every aesthetic considered. Chaos belongs to others. Not her table, not her vibe.</p>
+        </div>
+        <div class="chronicle-card" data-num="04">
+          <span class="chronicle-emoji">💤</span>
+          <h3>On Her Own Time</h3>
+          <p>The sun does not decide when Ishu wakes. Ishu decides. Sun rise? Irrelevant. Sunset? Cute. "Just gone to sleep" is a timezone that only she operates in.</p>
+        </div>
+        <div class="chronicle-card" data-num="05">
+          <span class="chronicle-emoji">🌸</span>
+          <h3>Soft Inside, Bada** Outside</h3>
+          <p>Unbothered exterior. Will cry if she hears a random dog passed away. Will also fight you if you so much as disagree with her. The range? Unmatched. The softness? Hidden but real.</p>
+        </div>
+        <div class="chronicle-card" data-num="06">
+          <span class="chronicle-emoji">💅</span>
+          <h3>Aesthetic Above All</h3>
+          <p>It must look good. It must feel right. Clutter is a crime. Ugly fonts are offensive. If it doesn't pass the vibe check, it doesn't exist in Ishu's world. Period.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ICONIC PHRASES -->
+  <section id="phrases">
+    <div class="fade-in-section">
+      <p class="section-label">Hall of Fame</p>
+      <h2 class="section-title">The Iconic Phrases</h2>
+    </div>
+    <div class="phrases-grid fade-in-section">
+      <div class="phrase-card">
+        <span class="phrase-quote-mark">"</span>
+        <p class="phrase-text">Yeh toh mein chauthi mein karti thi</p>
+        <p class="phrase-tag">Classic Ishu · Frequency: Daily</p>
+      </div>
+      <div class="phrase-card">
+        <span class="phrase-quote-mark">"</span>
+        <p class="phrase-text">Mere bina tumlog ka kuch nahi ho sakta hai</p>
+        <p class="phrase-tag">Painfully True · Documented Evidence: Infinite</p>
+      </div>
+      <div class="phrase-card">
+        <span class="phrase-quote-mark">"</span>
+        <p class="phrase-text">Mereko Tulsi dekhna hai guys, BYE 👀</p>
+        <p class="phrase-tag">The Great Exit · No Further Questions</p>
+      </div>
+      <div class="phrase-card">
+        <span class="phrase-quote-mark">"</span>
+        <p class="phrase-text">Abhi just utha hai</p>
+        <p class="phrase-tag">Timezone: Ishu Standard Time · 4PM edition</p>
+      </div>
+      <div class="phrase-card">
+        <span class="phrase-quote-mark">"</span>
+        <p class="phrase-text">Hum kal lasagna banaega</p>
+        <p class="phrase-tag">Famous Last Words · Year: Unknown · Lasagna: Still Pending</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPOSED DOCUMENTARY -->
+  <div id="exposed">
+    <div class="inner">
+      <div class="fade-in-section">
+        <p class="section-label">Netflix Presents</p>
+        <h2 class="section-title">Exposed: A Documentary<br>on Ishu Sonkar</h2>
+      </div>
+      <div class="dialogue-reel fade-in-section" style="color:white;">
+        <div class="doc-episode">
+          <div class="ep-number">EP1</div>
+          <div class="ep-content">
+            <div class="ep-badge">Sleep Studies</div>
+            <h3>The Mystery of the Eternal Nap</h3>
+            <p>Scientists have tried and failed to understand Ishu's sleep cycle. It is not day or night that triggers sleep—it is a feeling. A vibe. The sun has zero authority here. She has "just gone to sleep" at 6pm and "just woken up" at 3am. The world adjusts. Always.</p>
+          </div>
+        </div>
+        <div class="doc-episode">
+          <div class="ep-number">EP2</div>
+          <div class="ep-content">
+            <div class="ep-badge">Culinary Investigation</div>
+            <h3>Rice: A Love Story for the Ages</h3>
+            <p>Researchers estimate Ishu has consumed enough rice to fill a small swimming pool. When asked about dietary variety, she looked confused. When offered an alternative, she ordered rice. The bucket is never empty. The love is never questioned.</p>
+          </div>
+        </div>
+        <div class="doc-episode">
+          <div class="ep-number">EP3</div>
+          <div class="ep-content">
+            <div class="ep-badge">Hygiene Mysteries</div>
+            <h3>The Bath: A Rare Phenomenon</h3>
+            <p>Experts remain baffled. By all known science, this should not be possible. And yet — she always smells fine. Always looks immaculate. The bath remains a ghost story. An urban legend. A "coming soon" feature that somehow never launched. We respect it.</p>
+          </div>
+        </div>
+        <div class="doc-episode">
+          <div class="ep-number">EP4</div>
+          <div class="ep-content">
+            <div class="ep-badge">Anger Management</div>
+            <h3>Pocket-Sized She-Hulk: Origin Story</h3>
+            <p>She is small. She is sweet. She will destroy you. Disagree with Ishu once — just once — and witness the transformation. The height is a trap. The calm exterior is a trap. She does not argue. She becomes. We do not dare disagree.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILMY DIALOGUES -->
+  <div id="dialogues">
+    <div class="inner">
+      <div class="fade-in-section">
+        <p class="section-label" style="justify-content:center;">Screenplay</p>
+        <h2 class="section-title" style="margin-bottom:12px;">Dialogues Written<br>for Ishu</h2>
+        <p style="font-size:14px;color:var(--text-mid);margin-bottom:48px;font-style:italic;">She didn't say them. But she could have. Anytime.</p>
+      </div>
+      <div class="dialogue-reel fade-in-section">
+        <div class="dialogue-item">
+          <p class="d-text">"Mere boyfriend se gullu gullu karegi toh dhopduingi hi na ek"</p>
+          <p class="d-context">Energy: Chaotic Protective · Rating: 10/10 would not test</p>
+        </div>
+        <div class="dialogue-item">
+          <p class="d-text">"Mera life itna kharab ho gaya, itna kharab ho gaya hai"</p>
+          <p class="d-context">Trigger: Monday morning, no rice, disagreement about Tulsi episode</p>
+        </div>
+        <div class="dialogue-item">
+          <p class="d-text">"Kuch logo ke saath wakt bitane se sab kuch theek ho jata hai"</p>
+          <p class="d-context">About us. Obviously. We choose to believe this fully.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="fade-in-section">
+      <p class="section-label">Evidence</p>
+      <h2 class="section-title">The Gallery</h2>
+    </div>
+    <div class="gallery-grid fade-in-section">
+      <div class="gallery-slot large">
+        <div class="slot-placeholder">
+          <div class="slot-icon">📷</div>
+          <p>Your favourite photo<br>with Ishu here</p>
+        </div>
+      </div>
+      <div class="gallery-slot">
+        <div class="slot-placeholder">
+          <div class="slot-icon">🌸</div>
+          <p>Memory 02</p>
+        </div>
+      </div>
+      <div class="gallery-slot">
+        <div class="slot-placeholder">
+          <div class="slot-icon">✨</div>
+          <p>Memory 03</p>
+        </div>
+      </div>
+      <div class="gallery-slot">
+        <div class="slot-placeholder">
+          <div class="slot-icon">💖</div>
+          <p>Memory 04</p>
+        </div>
+      </div>
+      <div class="gallery-slot">
+        <div class="slot-placeholder">
+          <div class="slot-icon">🎬</div>
+          <p>Memory 05</p>
+        </div>
+      </div>
+      <div class="gallery-slot">
+        <div class="slot-placeholder">
+          <div class="slot-icon">🍚</div>
+          <p>Memory 06</p>
+        </div>
+      </div>
+      <div class="gallery-slot">
+        <div class="slot-placeholder">
+          <div class="slot-icon">🎂</div>
+          <p>Memory 07</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIDDEN FEELS -->
+  <div id="feels-trigger">
+    <p class="feels-teaser">There's something hidden here.<br>For when you're ready for feelings.</p>
+    <button class="feels-btn" onclick="showFeels()">Open if you dare 🤍</button>
+    <div id="feels-content">
+      <p class="feels-letter">
+        Ishu,<br><br>
+        Tumhara naam ek nickname hai — in itself, already iconic, already one of a kind.<br><br>
+        You are the person who <span class="highlight">shows up late but shows up perfect.</span><br>
+        The one who eats rice like it's an act of devotion.<br>
+        The one who cried for a random dog and then told someone off in the same hour.<br><br>
+        You taught us what it looks like to <span class="highlight">care deeply and look unbothered doing it.</span><br><br>
+        We fight with your sleep schedule. We question your relationship with baths.<br>We do not dare disagree with you. And we wouldn't have it any other way.<br><br>
+        <span class="highlight">"Kuch logo ke saath wakt bitane se sab kuch theek ho jata hai."</span><br><br>
+        You are that person, Ishu. You don't even know.<br><br>
+        Happy Birthday. Here's to 24 more years of rice, chaos, aesthetic vibes, and you.<br><br>
+        — Your people 🤍
+      </p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="f-title">Happy Birthday, Ishu ✦</div>
+    <p>Made with love, chaos, and absolutely zero budget · 2026</p>
+    <p style="margin-top:8px;">Ek thi ladki. Ek hi hogi. 🌸</p>
+  </footer>
+
 </div>
 
-<div id="chaos" class="section">
-<h2>Chaos</h2>
-<button onclick="goHome()">Back</button>
+<!-- MUSIC PLAYER -->
+<div class="music-player" id="musicPlayer">
+  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">▶</button>
+  <div class="music-info">
+    <div class="song-name" id="songName">Tum Hi Ho</div>
+    <div>♪ Birthday Playlist</div>
+  </div>
 </div>
-
-<div id="final" class="section">
-<h2 class="glow">The world knows Ishika.</h2>
-<h3 class="glow">We know Ishu.</h3>
-<p>And that’s the real main character.</p>
-<button onclick="elegantCelebrate()">Feel The Moment</button>
-<button onclick="goHome()">Back</button>
-</div>
-
-<div id="softy" class="section">
-<h2>Softy Mode</h2>
-<p style="max-width:600px;margin:auto;">
-Some people don’t need noise to be special.  
-They just exist… and everything feels lighter.
-</p>
-<button onclick="goHome()">Back</button>
-</div>
-
-<div id="overlay"></div>
-<div id="popup"></div>
 
 <script>
-let attempts=0;
+  // ===================== PASSWORD LOGIC =====================
+  const CORRECT_PASSWORD = "ishu"; // CHANGE THIS to whatever secret you want!
+  const wrongMessages = [
+    "why is your brain suddenly matching your height 💀",
+    "keep trying, that's what you're best at babes 👏",
+    "Looks like someone needs to be a part of Suryakiran 👀👀",
+    "Okay we are so bored of your lousy attempts. One last chance. XOXO 💋"
+  ];
+  let attempts = 0;
+  let finalChance = false;
 
-function enterSite(){
-document.getElementById('entry').style.display='none';
-document.getElementById('password').classList.add('active');
-document.body.style.background="#e6c8d8";
-}
+  function showPassword() {
+    document.getElementById('entry-screen').classList.add('hide');
+    setTimeout(() => {
+      document.getElementById('password-screen').classList.add('show');
+    }, 800);
+  }
 
-function checkPassword(){
-let val=document.getElementById("passInput").value.toLowerCase();
-if(val==="14th february 2022"){
-document.getElementById('password').classList.remove('active');
-document.getElementById('main').classList.add('active');
-document.body.style.background="#f6ede6";
-}else{
-attempts++;
-if(attempts===1) showPopup("Height and memory competing again?");
-else if(attempts===2) showPopup("This is embarrassing.");
-else if(attempts===3) showPopup("Focus. Try harder.");
-else if(attempts===4) showPopup("Hint: Day it all began.");
-else showPopup("Last attempt before we reconsider this friendship.");
-}
-}
+  function showToast(msg, duration = 3000) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), duration);
+  }
 
-function showPopup(msg){
-let overlay=document.getElementById("overlay");
-let popup=document.getElementById("popup");
-popup.innerText=msg;
-overlay.style.display="block";
-popup.style.display="block";
-setTimeout(()=>{
-overlay.style.display="none";
-popup.style.display="none";
-},2000);
-}
+  function checkPassword() {
+    const input = document.getElementById('pwInput').value.trim().toLowerCase();
+    
+    if (input === CORRECT_PASSWORD || (finalChance && input.length > 0)) {
+      triggerClapboard();
+      return;
+    }
 
-function openSection(id){
-document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-document.getElementById(id).classList.add('active');
+    if (attempts < wrongMessages.length) {
+      showToast(wrongMessages[attempts], 3500);
+      document.getElementById('pwAttempts').textContent = `Attempt ${attempts + 1} of 4`;
+      attempts++;
+      if (attempts === 4) {
+        finalChance = true;
+        document.getElementById('pwAttempts').textContent = 'Last chance, bestie 💀';
+      }
+    } else {
+      triggerClapboard();
+    }
+    document.getElementById('pwInput').value = '';
+  }
 
-if(id==="archive") document.body.style.background="#f8d7da";
-if(id==="chaos") document.body.style.background="#f7c59f";
-if(id==="final") document.body.style.background="#f3d19c";
-}
+  function triggerClapboard() {
+    document.getElementById('clapOverlay').classList.add('show');
+    document.getElementById('clap-date').textContent = new Date().toLocaleDateString('en-IN');
+    setTimeout(() => {
+      document.getElementById('clapStick').classList.add('snap');
+    }, 600);
+    setTimeout(() => {
+      document.getElementById('clapOverlay').classList.remove('show');
+      document.getElementById('password-screen').classList.remove('show');
+      showMainSite();
+    }, 2200);
+  }
 
-function goHome(){
-document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-document.getElementById('main').classList.add('active');
-document.body.style.background="#f6ede6";
-}
+  function showMainSite() {
+    const main = document.getElementById('main-site');
+    main.style.display = 'block';
+    setTimeout(() => {
+      main.classList.add('show');
+      document.getElementById('musicPlayer').classList.add('show');
+      createPetals();
+    }, 100);
+  }
 
-function openSofty(){
-document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-document.getElementById('softy').classList.add('active');
-document.body.style.background="#fbe4ec";
-}
+  // ===================== PETALS =====================
+  function createPetals() {
+    const container = document.getElementById('petals');
+    const symbols = ['🌸', '✿', '❀', '✦', '⋆'];
+    for (let i = 0; i < 18; i++) {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      petal.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      petal.style.left = Math.random() * 100 + '%';
+      petal.style.animationDuration = (8 + Math.random() * 12) + 's';
+      petal.style.animationDelay = (Math.random() * 8) + 's';
+      petal.style.fontSize = (10 + Math.random() * 12) + 'px';
+      container.appendChild(petal);
+    }
+  }
 
-function elegantCelebrate(){
-for(let i=0;i<40;i++){
-let p=document.createElement("div");
-p.className="particle";
-p.style.left=Math.random()*100+"vw";
-document.body.appendChild(p);
-setTimeout(()=>p.remove(),4000);
-}
-}
+  // ===================== SCROLL ANIMATIONS =====================
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el));
+
+  // ===================== HIDDEN FEELS =====================
+  function showFeels() {
+    const content = document.getElementById('feels-content');
+    const btn = document.querySelector('.feels-btn');
+    content.classList.add('show');
+    btn.style.display = 'none';
+  }
+
+  // ===================== MUSIC =====================
+  const songs = [
+    { name: "Tum Hi Ho - Aashiqui 2", yt: null },
+    { name: "Tera Hone Laga Hoon", yt: null },
+    { name: "Ae Dil Hai Mushkil", yt: null },
+    { name: "Kabhi Khushi Kabhie Gham", yt: null },
+  ];
+  let currentSong = 0;
+  let playing = false;
+  let audio = null;
+
+  function toggleMusic() {
+    const btn = document.getElementById('musicBtn');
+    if (!playing) {
+      btn.textContent = '⏸';
+      playing = true;
+      showToast('🎵 ' + songs[currentSong].name + ' — enjoy the vibe!', 3000);
+    } else {
+      btn.textContent = '▶';
+      playing = false;
+    }
+    // Note: actual audio requires files to be linked — see instructions below
+  }
+
+  // ===================== INIT =====================
+  document.getElementById('clap-date').textContent = new Date().toLocaleDateString('en-IN');
+  
+  // Allow Enter key on password
+  document.addEventListener('DOMContentLoaded', () => {
+    const pwInput = document.getElementById('pwInput');
+    if (pwInput) {
+      pwInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') checkPassword();
+      });
+    }
+  });
 </script>
 
 </body>
