@@ -1,1 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ishu Sonkar</title>
 
+<style>
+body {
+margin:0;
+font-family: 'Georgia', serif;
+background:#f6ede6;
+color:#333;
+overflow-x:hidden;
+transition: background 1s ease;
+}
+
+.section {
+display:none;
+padding:60px 20px;
+text-align:center;
+min-height:100vh;
+}
+
+.active {
+display:block;
+}
+
+button {
+padding:12px 24px;
+border:none;
+border-radius:25px;
+background:#e8b7c7;
+color:white;
+font-size:16px;
+cursor:pointer;
+margin:10px;
+transition:0.3s;
+}
+
+button:hover {
+background:#d98ca6;
+}
+
+input {
+padding:10px;
+border-radius:20px;
+border:1px solid #ccc;
+width:250px;
+text-align:center;
+}
+
+.card {
+background:white;
+padding:20px;
+border-radius:20px;
+box-shadow:0 5px 20px rgba(0,0,0,0.08);
+margin:15px;
+display:inline-block;
+width:250px;
+vertical-align:top;
+transition:0.3s;
+}
+
+.card:hover {
+transform:translateY(-5px);
+}
+
+.hidden-heart {
+position:absolute;
+top:20px;
+right:25px;
+font-size:18px;
+cursor:pointer;
+opacity:0.6;
+}
+
+.hidden-heart:hover {
+opacity:1;
+}
+
+.fade {
+animation:fadeIn 1.5s ease forwards;
+}
+
+@keyframes fadeIn {
+from {opacity:0;}
+to {opacity:1;}
+}
+
+#entry {
+background:#f8c8dc;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.sparkle {
+position:fixed;
+width:6px;
+height:6px;
+background:pink;
+border-radius:50%;
+pointer-events:none;
+animation:sparkleAnim 0.8s linear forwards;
+}
+
+@keyframes sparkleAnim {
+to {
+transform:translateY(-20px);
+opacity:0;
+}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ENTRY SCREEN -->
+<div id="entry">
+<h1>Loading Ishu 24.0...</h1>
+<button onclick="enterSite()">Enter the Main Character Era</button>
+</div>
+
+<!-- PASSWORD SCREEN -->
+<div id="password" class="section">
+<h2>Only real ones can enter.</h2>
+<input type="text" id="passInput" placeholder="Enter Password">
+<br><br>
+<button onclick="checkPassword()">Unlock</button>
+<p id="passMessage"></p>
+</div>
+
+<!-- MAIN PAGE -->
+<div id="main" class="section">
+<div class="hidden-heart" onclick="openSofty()">♡</div>
+<h1 class="fade">ISHU SONKAR</h1>
+<p>Born iconic. Operates on her own timezone.</p>
+
+<button onclick="openSection('archive')">The Archive</button>
+<button onclick="openSection('chaos')">Chaos Theory</button>
+<button onclick="openSection('bollywood')">Bollywood Core</button>
+<button onclick="openSection('quiz')">Bestie Intelligence Test</button>
+<button onclick="openSection('final')">Final Scene</button>
+</div>
+
+<!-- ARCHIVE -->
+<div id="archive" class="section">
+<h2>Main Character Moments</h2>
+<p>Upload your images in GitHub and name them like img1.jpg etc.</p>
+<div class="card">
+<img src="img1.jpg" style="width:100%; border-radius:15px;">
+<p>Late. But the best dressed.</p>
+</div>
+<div class="card">
+<img src="img2.jpg" style="width:100%; border-radius:15px;">
+<p>Rice solves everything.</p>
+</div>
+<button onclick="goHome()">Back</button>
+</div>
+
+<!-- CHAOS -->
+<div id="chaos" class="section">
+<h2>Chaos Theory</h2>
+<div class="card">Abhi Just Utha Hai</div>
+<div class="card">Rice Consumption: Industrial Level</div>
+<div class="card">Bath Probability: Rare Species</div>
+<div class="card">SHE HULK Activation Warning</div>
+<button onclick="goHome()">Back</button>
+</div>
+
+<!-- BOLLYWOOD -->
+<div id="bollywood" class="section">
+<h2>Bollywood Core</h2>
+<p>Playlist curated for Ishu.</p>
+<button onclick="playSong('kabhi')">Kabhi Kabhi Aditi</button>
+<button onclick="playSong('friend')">Har Ek Friend Kamina Hota Hai</button>
+<button onclick="playSong('preet')">Preet Re</button>
+<button onclick="goHome()">Back</button>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="section">
+<h2>Bestie Intelligence Test</h2>
+<p>What fixes everything?</p>
+<button onclick="alert('Correct. Rice.')">Rice</button>
+<button onclick="alert('Wrong.')">Therapy</button>
+<button onclick="alert('Wrong.')">Communication</button>
+<br><br>
+<button onclick="goHome()">Back</button>
+</div>
+
+<!-- FINAL -->
+<div id="final" class="section">
+<h2>The world knows Ishika.</h2>
+<h3>We know Ishu.</h3>
+<p>And that's the real main character.</p>
+<button onclick="goHome()">Back</button>
+</div>
+
+<!-- SOFTY MODE -->
+<div id="softy" class="section">
+<h2>Softy Mode Activated</h2>
+<p>Kuch logo ke saath waqt bitane se sab kuch theek ho jata hai.</p>
+<button onclick="goHome()">Back</button>
+</div>
+
+<!-- HIDDEN YOUTUBE AUDIO PLAYERS -->
+<div style="display:none">
+<iframe id="startSong" src="https://www.youtube.com/embed?autoplay=0&loop=1"></iframe>
+<iframe id="kabhi" src="https://www.youtube.com/embed?autoplay=0"></iframe>
+<iframe id="friend" src="https://www.youtube.com/embed?autoplay=0"></iframe>
+<iframe id="preet" src="https://www.youtube.com/embed?autoplay=0"></iframe>
+<iframe id="softySong" src="https://www.youtube.com/embed?autoplay=0"></iframe>
+</div>
+
+<script>
+let attempts = 0;
+
+function enterSite(){
+document.getElementById('entry').style.display='none';
+document.getElementById('password').classList.add('active');
+document.body.style.background="#f6ede6";
+}
+
+function checkPassword(){
+let input = document.getElementById("passInput").value.toLowerCase();
+let message = document.getElementById("passMessage");
+
+if(input === "14th february 2022"){
+document.getElementById('password').classList.remove('active');
+document.getElementById('main').classList.add('active');
+} else {
+attempts++;
+if(attempts === 1) message.innerText="Why is your brain suddenly matching your height?";
+else if(attempts === 2) message.innerText="Keep trying. That’s what you’re best at.";
+else if(attempts === 3) message.innerText="Looks like someone needs to be a part of Suryakiran 👀";
+else if(attempts === 4) message.innerText="Day it all began.";
+else message.innerText="Okay now we’re bored. One last chance. XOXO";
+}
+}
+
+function openSection(id){
+document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+
+function goHome(){
+document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+document.getElementById('main').classList.add('active');
+}
+
+function openSofty(){
+document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+document.getElementById('softy').classList.add('active');
+}
+
+document.addEventListener("mousemove", function(e){
+let sparkle = document.createElement("div");
+sparkle.className="sparkle";
+sparkle.style.left=e.pageX+"px";
+sparkle.style.top=e.pageY+"px";
+document.body.appendChild(sparkle);
+setTimeout(()=>sparkle.remove(),800);
+});
+</script>
+
+</body>
+</html>
