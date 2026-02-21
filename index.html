@@ -19,7 +19,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
+  html { scroll-behavior: smooth; }
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--cream);
@@ -27,904 +27,426 @@
     overflow-x: hidden;
   }
 
-  /* ===================== SCREEN 1: ENTRY ===================== */
+  /* ===================== ENTRY ===================== */
   #entry-screen {
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background: var(--soft-pink);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
     z-index: 1000;
     transition: opacity 1.2s ease, transform 1.2s ease;
   }
-
-  #entry-screen.hide {
-    opacity: 0;
-    transform: scale(1.05);
-    pointer-events: none;
-  }
+  #entry-screen.hide { opacity: 0; transform: scale(1.05); pointer-events: none; }
 
   .film-grain {
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
     pointer-events: none;
-    opacity: 0.5;
   }
 
   .entry-tagline {
-    font-family: 'Libre Baskerville', serif;
-    font-style: italic;
-    font-size: clamp(12px, 2vw, 16px);
-    color: var(--deep-rose);
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    opacity: 0;
-    animation: fadeUp 1.2s ease 0.5s forwards;
+    font-family: 'Libre Baskerville', serif; font-style: italic;
+    font-size: clamp(11px, 1.8vw, 15px);
+    color: var(--deep-rose); letter-spacing: 0.32em; text-transform: uppercase;
+    opacity: 0; animation: fadeUp 1.2s ease 0.5s forwards;
   }
-
   .entry-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(52px, 10vw, 120px);
-    font-weight: 900;
-    color: var(--text-dark);
-    line-height: 1;
-    text-align: center;
-    opacity: 0;
-    animation: fadeUp 1.2s ease 1.2s forwards;
-    margin: 16px 0;
+    font-size: clamp(60px, 13vw, 140px);
+    font-weight: 900; color: var(--text-dark);
+    line-height: 0.92; text-align: center;
+    opacity: 0; animation: fadeUp 1.2s ease 1.2s forwards;
+    margin: 20px 0;
   }
-
-  .entry-subtitle {
-    font-size: clamp(13px, 1.8vw, 16px);
-    color: var(--text-mid);
-    letter-spacing: 0.15em;
-    opacity: 0;
-    animation: fadeUp 1s ease 2s forwards;
-    font-weight: 300;
-  }
-
   .entry-btn {
-    margin-top: 48px;
-    opacity: 0;
-    animation: fadeUp 1s ease 2.8s forwards;
-    background: transparent;
-    border: 1.5px solid var(--deep-rose);
-    color: var(--deep-rose);
-    padding: 14px 40px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    margin-top: 56px; opacity: 0;
+    animation: fadeUp 1s ease 2.2s forwards;
+    background: transparent; border: 1.5px solid var(--deep-rose);
+    color: var(--deep-rose); padding: 15px 48px;
+    font-family: 'DM Sans', sans-serif; font-size: 13px;
+    letter-spacing: 0.24em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.3s ease;
   }
+  .entry-btn:hover { background: var(--deep-rose); color: white; }
 
-  .entry-btn:hover {
-    background: var(--deep-rose);
-    color: white;
-  }
-
-  /* ===================== SCREEN 2: PASSWORD ===================== */
+  /* ===================== PASSWORD ===================== */
   #password-screen {
-    position: fixed;
-    inset: 0;
-    background: var(--cream);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
-    opacity: 0;
-    pointer-events: none;
+    position: fixed; inset: 0; background: var(--cream);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 999; opacity: 0; pointer-events: none;
     transition: opacity 0.8s ease;
   }
-
-  #password-screen.show {
-    opacity: 1;
-    pointer-events: all;
-  }
+  #password-screen.show { opacity: 1; pointer-events: all; }
 
   .clap-overlay {
-    position: fixed;
-    inset: 0;
-    background: #1a0a0a;
-    z-index: 1100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
+    position: fixed; inset: 0; background: #100808;
+    z-index: 1100; display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
   }
-
-  .clap-overlay.show {
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  .clap-board {
-    width: min(400px, 85vw);
-    text-align: center;
-    color: white;
-  }
-
-  .clap-top {
-    background: #1a1a1a;
-    border: 3px solid #444;
-    padding: 20px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.1em;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    text-align: left;
-    position: relative;
-  }
-
-  .clap-label { color: #888; font-size: 11px; }
-  .clap-value { color: white; font-weight: 500; }
-  .clap-title-big {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 900;
-    grid-column: 1/-1;
-    color: white;
-    text-align: center;
-    margin-bottom: 8px;
-  }
-
+  .clap-overlay.show { opacity: 1; pointer-events: all; }
+  .clap-board { width: min(440px, 90vw); }
   .clap-stick {
-    height: 60px;
-    background: repeating-linear-gradient(
-      45deg, #1a1a1a, #1a1a1a 10px, #f5c518 10px, #f5c518 20px
-    );
-    border: 3px solid #444;
-    border-bottom: none;
-    transform-origin: top center;
-    animation: none;
-    position: relative;
+    height: 66px;
+    background: repeating-linear-gradient(45deg, #111 0 10px, #f5c518 10px 20px);
+    border: 3px solid #555; border-bottom: none; transform-origin: top center;
   }
-
-  .clap-stick.snap {
-    animation: clapSnap 0.3s ease forwards;
-  }
-
+  .clap-stick.snap { animation: clapSnap 0.38s ease forwards; }
   @keyframes clapSnap {
-    0% { transform: rotate(0deg); }
-    40% { transform: rotate(-35deg); }
-    100% { transform: rotate(0deg); }
+    0% { transform: rotate(0); } 35% { transform: rotate(-42deg); } 100% { transform: rotate(0); }
   }
-
-  .pw-container {
-    text-align: center;
-    max-width: 420px;
-    width: 90%;
+  .clap-top {
+    background: #111; border: 3px solid #555;
+    padding: 22px 26px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
   }
-
-  .pw-eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--deep-rose);
-    margin-bottom: 20px;
+  .clap-title-big {
+    font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 900;
+    grid-column: 1/-1; color: white; text-align: center; margin-bottom: 8px;
   }
+  .clap-label { font-size: 10px; color: #777; letter-spacing: 0.1em; text-transform: uppercase; }
+  .clap-value { font-size: 13px; color: white; font-weight: 500; margin-top: 2px; }
 
-  .pw-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 5vw, 42px);
-    font-weight: 700;
-    margin-bottom: 10px;
-    line-height: 1.2;
-  }
-
-  .pw-sub {
-    font-size: 14px;
-    color: var(--text-mid);
-    margin-bottom: 40px;
-    font-weight: 300;
-  }
-
+  .pw-container { text-align: center; max-width: 440px; width: 90%; }
+  .pw-eyebrow { font-size: 11px; letter-spacing: 0.42em; text-transform: uppercase; color: var(--deep-rose); margin-bottom: 20px; }
+  .pw-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 5vw, 44px); font-weight: 700; margin-bottom: 10px; line-height: 1.2; }
+  .pw-sub { font-size: 14px; color: var(--text-mid); margin-bottom: 40px; font-weight: 300; line-height: 1.75; }
   .pw-input {
-    width: 100%;
-    border: none;
-    border-bottom: 2px solid var(--warm-taupe);
-    background: transparent;
-    padding: 14px 0;
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    text-align: center;
-    color: var(--text-dark);
-    outline: none;
-    transition: border-color 0.3s;
-    letter-spacing: 0.15em;
+    width: 100%; border: none; border-bottom: 2px solid var(--warm-taupe);
+    background: transparent; padding: 14px 0;
+    font-family: 'Playfair Display', serif; font-size: 20px;
+    text-align: center; color: var(--text-dark); outline: none;
+    transition: border-color 0.3s; letter-spacing: 0.1em;
   }
-
   .pw-input:focus { border-color: var(--deep-rose); }
-
   .pw-btn {
-    margin-top: 32px;
-    background: var(--deep-rose);
-    color: white;
-    border: none;
-    padding: 14px 48px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    margin-top: 32px; background: var(--deep-rose); color: white; border: none;
+    padding: 14px 52px; font-family: 'DM Sans', sans-serif; font-size: 13px;
+    letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; transition: all 0.3s;
   }
-
   .pw-btn:hover { background: #a84d66; }
-
-  .pw-attempts {
-    margin-top: 20px;
-    font-size: 12px;
-    color: var(--text-mid);
-    height: 20px;
+  .pw-hint {
+    display: none; margin-top: 22px; background: var(--blush);
+    border-left: 3px solid var(--deep-rose); padding: 14px 20px;
+    font-size: 13px; color: var(--text-dark); text-align: left; font-style: italic; line-height: 1.6;
   }
+  .pw-hint.show { display: block; }
+  .pw-status { margin-top: 18px; font-size: 13px; color: var(--text-mid); min-height: 22px; }
 
-  /* Toast popup */
   .toast {
-    position: fixed;
-    bottom: 40px;
-    left: 50%;
+    position: fixed; bottom: 36px; left: 50%;
     transform: translateX(-50%) translateY(20px);
-    background: var(--text-dark);
-    color: white;
-    padding: 16px 28px;
-    font-size: 14px;
-    max-width: 85vw;
-    text-align: center;
-    opacity: 0;
-    transition: all 0.4s ease;
-    z-index: 2000;
-    font-family: 'DM Sans', sans-serif;
+    background: var(--text-dark); color: white;
+    padding: 16px 28px; font-size: 14px; max-width: 90vw;
+    text-align: center; opacity: 0; transition: all 0.4s ease;
+    z-index: 2000; font-family: 'DM Sans', sans-serif; line-height: 1.55;
   }
-
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   /* ===================== MAIN SITE ===================== */
-  #main-site {
-    opacity: 0;
-    transition: opacity 1s ease;
-  }
-
+  #main-site { opacity: 0; transition: opacity 1s ease; display: none; }
   #main-site.show { opacity: 1; }
 
-  /* NAV */
   nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    padding: 20px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 100;
-    background: rgba(250,247,242,0.85);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(200,180,170,0.3);
+    position: fixed; top: 0; left: 0; right: 0; padding: 18px 44px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 100; background: rgba(250,247,242,0.92); backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(200,175,165,0.2);
   }
-
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-style: italic;
-    color: var(--deep-rose);
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 32px;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-size: 12px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-mid);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 18px; font-style: italic; color: var(--deep-rose); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color 0.3s; }
   .nav-links a:hover { color: var(--deep-rose); }
 
-  /* HERO */
+  /* ===================== HERO ===================== */
   #hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 100px 40px 60px;
-    background: var(--cream);
-    position: relative;
-    overflow: hidden;
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    padding: 120px 40px 80px; background: var(--cream); position: relative; overflow: hidden;
   }
-
   .hero-bg-text {
-    position: absolute;
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(100px, 20vw, 280px);
-    font-weight: 900;
-    color: rgba(242,167,184,0.12);
-    letter-spacing: -0.05em;
-    user-select: none;
-    white-space: nowrap;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: absolute; font-family: 'Playfair Display', serif;
+    font-size: clamp(110px, 24vw, 320px); font-weight: 900;
+    color: rgba(242,167,184,0.1); user-select: none; white-space: nowrap;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    animation: bgDrift 9s ease-in-out infinite alternate;
   }
-
-  .hero-content {
-    text-align: center;
-    position: relative;
+  @keyframes bgDrift {
+    from { transform: translate(-50%, -50%) scale(1); }
+    to { transform: translate(-50%, -53%) scale(1.025); }
   }
-
+  .hero-content { text-align: center; position: relative; }
   .hero-eyebrow {
-    font-size: 12px;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: var(--deep-rose);
-    margin-bottom: 24px;
-    opacity: 0;
-    animation: fadeUp 1s ease 0.3s forwards;
+    font-size: 12px; letter-spacing: 0.46em; text-transform: uppercase;
+    color: var(--deep-rose); margin-bottom: 24px;
+    opacity: 0; animation: fadeUp 1s ease 0.3s forwards;
   }
-
   .hero-name {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(60px, 12vw, 140px);
-    font-weight: 900;
-    line-height: 0.9;
-    color: var(--text-dark);
-    opacity: 0;
-    animation: fadeUp 1s ease 0.7s forwards;
+    font-size: clamp(64px, 14vw, 152px); font-weight: 900;
+    line-height: 0.88; color: var(--text-dark);
+    opacity: 0; animation: fadeUp 1s ease 0.7s forwards;
   }
-
-  .hero-name span {
-    display: block;
-    font-style: italic;
-    color: var(--deep-rose);
+  .hero-name span { display: block; font-style: italic; color: var(--deep-rose); }
+  .hero-subtitle {
+    font-family: 'Libre Baskerville', serif; font-style: italic;
+    font-size: clamp(14px, 1.8vw, 19px); color: var(--deep-rose); margin-top: 28px;
+    opacity: 0; animation: fadeUp 1s ease 1.2s forwards;
   }
-
-  .hero-desc {
-    font-family: 'Libre Baskerville', serif;
-    font-style: italic;
-    font-size: clamp(15px, 2vw, 20px);
-    color: var(--text-mid);
-    margin-top: 28px;
-    line-height: 1.7;
-    max-width: 540px;
-    opacity: 0;
-    animation: fadeUp 1s ease 1.2s forwards;
-  }
-
-  .petals {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-
-  .petal {
-    position: absolute;
-    top: -20px;
-    font-size: clamp(10px, 1.5vw, 16px);
-    opacity: 0.6;
-    animation: fall linear infinite;
-  }
-
+  .petals { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .petal { position: absolute; top: -20px; opacity: 0.5; animation: fall linear infinite; }
   @keyframes fall {
-    0% { transform: translateY(-20px) rotate(0deg); opacity: 0.6; }
-    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    0% { transform: translateY(-20px) rotate(0deg) translateX(0); opacity: 0.5; }
+    50% { transform: translateY(50vh) rotate(180deg) translateX(18px); }
+    100% { transform: translateY(110vh) rotate(360deg) translateX(-12px); opacity: 0; }
   }
 
-  /* SECTION BASE */
-  section {
-    padding: 100px 40px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
+  /* ===================== SECTION BASE ===================== */
+  .section-full { padding: 100px 0; }
+  .section-full .inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
   .section-label {
-    font-size: 11px;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: var(--deep-rose);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
+    font-size: 11px; letter-spacing: 0.44em; text-transform: uppercase;
+    color: var(--deep-rose); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 16px;
   }
-
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--warm-taupe);
-    max-width: 60px;
-  }
-
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--warm-taupe); max-width: 60px; }
   .section-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(32px, 5vw, 56px);
-    font-weight: 700;
-    line-height: 1.15;
-    margin-bottom: 48px;
+    font-size: clamp(32px, 5vw, 58px); font-weight: 700; line-height: 1.1; margin-bottom: 48px;
   }
 
   /* ===================== CHRONICLES ===================== */
-  #chronicles {
-    background: var(--blush);
-    max-width: 100%;
-    padding: 100px 0;
-  }
-
-  #chronicles .inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 40px;
-  }
-
-  .chronicle-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2px;
-  }
-
+  .chronicle-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3px; }
   .chronicle-card {
-    background: var(--cream);
-    padding: 40px 36px;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease;
+    background: var(--cream); padding: 42px 36px;
+    position: relative; overflow: hidden;
+    transition: transform 0.4s cubic-bezier(.22,.68,0,1.2), box-shadow 0.4s;
   }
-
-  .chronicle-card:hover { transform: translateY(-4px); }
-
+  .chronicle-card:hover { transform: translateY(-7px); box-shadow: 0 22px 60px rgba(194,96,122,0.13); }
   .chronicle-card::before {
-    content: attr(data-num);
-    position: absolute;
-    top: -10px;
-    right: 16px;
-    font-family: 'Playfair Display', serif;
-    font-size: 80px;
-    font-weight: 900;
-    color: rgba(242,167,184,0.2);
-    line-height: 1;
+    content: attr(data-num); position: absolute; top: -12px; right: 14px;
+    font-family: 'Playfair Display', serif; font-size: 90px; font-weight: 900;
+    color: rgba(242,167,184,0.17); line-height: 1; transition: transform 0.4s;
   }
+  .chronicle-card:hover::before { transform: translateX(5px) scale(1.07); }
+  .chronicle-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+  .chronicle-card p { font-size: 14px; line-height: 1.88; color: var(--text-mid); }
+  .chronicle-emoji { font-size: 30px; margin-bottom: 16px; display: block; }
 
-  .chronicle-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: var(--text-dark);
-  }
-
-  .chronicle-card p {
-    font-size: 14px;
-    line-height: 1.8;
-    color: var(--text-mid);
-  }
-
-  .chronicle-emoji {
-    font-size: 28px;
-    margin-bottom: 16px;
-    display: block;
-  }
-
-  /* ===================== ICONIC PHRASES ===================== */
-  #phrases {
-    background: var(--cream);
-  }
-
-  .phrases-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
-  }
-
+  /* ===================== PHRASES ===================== */
+  .phrases-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
   .phrase-card {
-    border: 1px solid var(--warm-taupe);
-    padding: 36px 32px;
+    border: 1px solid var(--warm-taupe); padding: 38px 32px;
+    background: white; position: relative; overflow: hidden;
+    transition: all 0.35s cubic-bezier(.22,.68,0,1.2);
+  }
+  .phrase-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: var(--deep-rose); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.35s ease;
+  }
+  .phrase-card:hover { transform: translateY(-5px); box-shadow: 0 18px 50px rgba(194,96,122,0.1); border-color: var(--pink); }
+  .phrase-card:hover::after { transform: scaleX(1); }
+  .phrase-quote-mark { font-family: 'Playfair Display', serif; font-size: 80px; color: var(--soft-pink); line-height: 0.7; margin-bottom: 16px; display: block; }
+  .phrase-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(15px, 1.8vw, 18px); line-height: 1.65; color: var(--text-dark); margin-bottom: 16px; }
+  .phrase-tag { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--deep-rose); }
+
+  /* ===================== FRIEND FACTS (horizontal scroll cards) ===================== */
+  .facts-scroll-wrap { overflow-x: auto; padding-bottom: 20px; cursor: grab; }
+  .facts-scroll-wrap:active { cursor: grabbing; }
+  .facts-scroll-wrap::-webkit-scrollbar { height: 3px; }
+  .facts-scroll-wrap::-webkit-scrollbar-thumb { background: var(--warm-taupe); }
+  .facts-row { display: flex; gap: 20px; width: max-content; padding: 4px 2px 12px; }
+  .fact-card {
+    width: 280px; flex-shrink: 0; background: white;
+    border: 1px solid var(--warm-taupe); padding: 32px 28px;
+    transition: all 0.3s cubic-bezier(.22,.68,0,1.2);
     position: relative;
-    background: white;
-    transition: all 0.3s ease;
   }
+  .fact-card:hover { transform: translateY(-5px); box-shadow: 0 16px 44px rgba(194,96,122,0.1); }
+  .fact-icon { font-size: 28px; margin-bottom: 14px; display: block; }
+  .fact-card h4 { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+  .fact-card p { font-size: 13px; line-height: 1.85; color: var(--text-mid); }
+  .fact-scroll-hint { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mid); opacity: 0.5; margin-bottom: 20px; }
 
-  .phrase-card:hover {
-    border-color: var(--pink);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(194,96,122,0.08);
-  }
-
-  .phrase-quote-mark {
-    font-family: 'Playfair Display', serif;
-    font-size: 80px;
-    color: var(--soft-pink);
-    line-height: 0.7;
-    margin-bottom: 16px;
-    display: block;
-  }
-
-  .phrase-text {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: clamp(15px, 1.8vw, 19px);
-    line-height: 1.6;
-    color: var(--text-dark);
-    margin-bottom: 16px;
-  }
-
-  .phrase-tag {
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--deep-rose);
-  }
-
-  /* ===================== EXPOSED DOCUMENTARY ===================== */
-  #exposed {
-    background: #1a0a0a;
-    max-width: 100%;
-    padding: 100px 0;
-    color: white;
-  }
-
-  #exposed .inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 40px;
-  }
-
-  #exposed .section-label { color: #f2a7b8; }
-  #exposed .section-label::after { background: #3a2020; }
-  #exposed .section-title { color: white; }
-
+  /* ===================== EXPOSED DOC ===================== */
   .doc-episode {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 32px;
-    align-items: start;
-    padding: 36px 0;
-    border-bottom: 1px solid #2a1a1a;
-  }
-
-  .doc-episode:last-child { border-bottom: none; }
-
-  .ep-number {
-    font-family: 'Playfair Display', serif;
-    font-size: 48px;
-    font-weight: 900;
-    color: var(--deep-rose);
-    line-height: 1;
-    opacity: 0.6;
-    min-width: 60px;
-  }
-
-  .ep-content h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(18px, 2.5vw, 26px);
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: white;
-  }
-
-  .ep-content p {
-    font-size: 14px;
-    line-height: 1.9;
-    color: #b09090;
-  }
-
-  .ep-badge {
-    display: inline-block;
-    background: var(--deep-rose);
-    color: white;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    margin-bottom: 12px;
-  }
-
-  /* ===================== FILMY DIALOGUES ===================== */
-  #dialogues {
-    background: var(--blush);
-    max-width: 100%;
-    padding: 100px 0;
-  }
-
-  #dialogues .inner {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 40px;
-    text-align: center;
-  }
-
-  .dialogue-reel {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .dialogue-item {
-    padding: 48px 40px;
-    border-bottom: 1px solid var(--warm-taupe);
-    position: relative;
-    cursor: pointer;
+    display: grid; grid-template-columns: 70px 1fr; gap: 28px;
+    align-items: start; padding: 42px 0; border-bottom: 1px solid #2a1a1a;
     transition: background 0.3s;
   }
+  .doc-episode:last-child { border-bottom: none; }
+  .doc-episode:hover { background: rgba(255,255,255,0.02); }
+  .ep-number { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 900; color: var(--deep-rose); line-height: 1; opacity: 0.5; }
+  .ep-content h3 { font-family: 'Playfair Display', serif; font-size: clamp(17px, 2.2vw, 24px); font-weight: 700; margin-bottom: 10px; color: white; }
+  .ep-content p { font-size: 14px; line-height: 1.95; color: #b09090; }
+  .ep-badge { display: inline-block; background: var(--deep-rose); color: white; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 4px 12px; margin-bottom: 12px; }
 
-  .dialogue-item:hover { background: rgba(255,255,255,0.5); }
+  /* ===================== FILMY DIALOGUES ===================== */
+  .dialogue-item { padding: 48px 0; border-bottom: 1px solid var(--warm-taupe); text-align: center; transition: background 0.3s; }
+  .dialogue-item:last-child { border-bottom: none; }
+  .dialogue-item:hover { background: rgba(255,255,255,0.55); }
+  .d-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(16px, 2.5vw, 24px); line-height: 1.65; color: var(--text-dark); }
+  .d-context { margin-top: 14px; font-size: 12px; color: var(--deep-rose); letter-spacing: 0.15em; text-transform: uppercase; }
 
-  .dialogue-item .d-text {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: clamp(16px, 2.5vw, 24px);
-    line-height: 1.6;
-    color: var(--text-dark);
+  /* ===================== PARALLEL UNIVERSE ===================== */
+  .universe-block {
+    background: var(--text-dark); color: white;
+    padding: 80px 48px; text-align: center; position: relative; overflow: hidden;
   }
-
-  .dialogue-item .d-context {
-    margin-top: 12px;
-    font-size: 12px;
-    color: var(--deep-rose);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+  .universe-block::before {
+    content: 'PARALLEL';
+    position: absolute; font-family: 'Playfair Display', serif;
+    font-size: clamp(80px, 16vw, 200px); font-weight: 900;
+    color: rgba(255,255,255,0.03); top: 50%; left: 50%;
+    transform: translate(-50%, -50%); white-space: nowrap; pointer-events: none;
   }
+  .universe-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 48px); font-weight: 700; font-style: italic; color: var(--pink); margin-bottom: 20px; position: relative; }
+  .universe-text { font-size: clamp(14px, 1.8vw, 17px); color: #c0a0a0; line-height: 2; max-width: 640px; margin: 0 auto 32px; position: relative; }
+  .universe-motto { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(16px, 2vw, 20px); color: var(--warm-taupe); position: relative; }
+  .universe-motto strong { color: white; }
+
+  /* ===================== QUIZ ===================== */
+  .quiz-card { background: white; border: 1px solid var(--warm-taupe); padding: 52px 48px; max-width: 720px; margin: 0 auto; }
+  .quiz-q-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--deep-rose); margin-bottom: 12px; }
+  .quiz-question { font-family: 'Playfair Display', serif; font-size: clamp(17px, 2.2vw, 22px); font-weight: 700; margin-bottom: 30px; line-height: 1.4; }
+  .quiz-options { display: flex; flex-direction: column; gap: 12px; }
+  .quiz-option {
+    border: 1.5px solid var(--warm-taupe); padding: 14px 20px;
+    cursor: pointer; font-size: 14px; color: var(--text-dark);
+    transition: all 0.25s; text-align: left; background: transparent;
+    font-family: 'DM Sans', sans-serif; display: flex; align-items: center; gap: 14px;
+  }
+  .quiz-option:hover { border-color: var(--pink); background: var(--soft-pink); }
+  .quiz-option.correct { border-color: #4caf50; background: #e8f5e9; color: #2e7d32; }
+  .quiz-option.wrong { border-color: #ef5350; background: #ffebee; color: #c62828; }
+  .quiz-opt-letter {
+    width: 26px; height: 26px; border-radius: 50%; background: var(--warm-taupe);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; flex-shrink: 0; transition: background 0.25s;
+  }
+  .quiz-option.correct .quiz-opt-letter { background: #4caf50; color: white; }
+  .quiz-option.wrong .quiz-opt-letter { background: #ef5350; color: white; }
+  .quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; }
+  .quiz-progress { font-size: 12px; color: var(--text-mid); letter-spacing: 0.1em; }
+  .quiz-next-btn {
+    background: var(--deep-rose); color: white; border: none; padding: 12px 32px;
+    font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  .quiz-next-btn.ready { opacity: 1; pointer-events: all; }
+  .quiz-next-btn:hover { background: #a84d66; }
+  .quiz-result { text-align: center; display: none; animation: fadeUp 0.6s ease forwards; }
+  .quiz-result.show { display: block; }
+  .quiz-result-score { font-family: 'Playfair Display', serif; font-size: clamp(56px, 10vw, 88px); font-weight: 900; color: var(--deep-rose); line-height: 1; }
+  .quiz-result-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(18px, 2.5vw, 24px); margin: 18px 0 12px; }
+  .quiz-result-sub { font-size: 14px; color: var(--text-mid); line-height: 1.85; }
+  .quiz-restart { margin-top: 28px; background: transparent; border: 1.5px solid var(--warm-taupe); color: var(--text-mid); padding: 10px 28px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; font-family: 'DM Sans', sans-serif; }
+  .quiz-restart:hover { border-color: var(--deep-rose); color: var(--deep-rose); }
 
   /* ===================== GALLERY ===================== */
-  #gallery {
-    background: var(--cream);
-  }
+  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+  .gallery-slot { aspect-ratio: 1; background: var(--warm-taupe); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; transition: transform 0.4s cubic-bezier(.22,.68,0,1.2); }
+  .gallery-slot:hover { transform: scale(1.03); z-index: 2; }
+  .gallery-slot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+  .gallery-slot:hover img { transform: scale(1.07); }
+  .slot-placeholder { text-align: center; color: var(--text-mid); padding: 24px; }
+  .slot-placeholder .slot-icon { font-size: 28px; margin-bottom: 8px; opacity: 0.3; }
+  .slot-placeholder p { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.4; line-height: 1.65; }
+  .gallery-slot.large { grid-column: span 2; grid-row: span 2; }
 
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3px;
-  }
-
-  .gallery-slot {
-    aspect-ratio: 1;
-    background: var(--warm-taupe);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s;
-  }
-
-  .gallery-slot:hover { transform: scale(1.02); }
-
-  .gallery-slot img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .gallery-slot .slot-placeholder {
-    text-align: center;
-    color: var(--text-mid);
-  }
-
-  .gallery-slot .slot-placeholder .slot-icon {
-    font-size: 32px;
-    margin-bottom: 8px;
-    opacity: 0.4;
-  }
-
-  .gallery-slot .slot-placeholder p {
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    opacity: 0.5;
-  }
-
-  /* Feature large slot */
-  .gallery-slot.large {
-    grid-column: span 2;
-    grid-row: span 2;
-  }
-
-  /* ===================== HIDDEN FEELS ===================== */
-  #feels-trigger {
-    text-align: center;
-    padding: 80px 40px;
-    background: var(--cream);
-  }
-
-  .feels-teaser {
-    font-family: 'Libre Baskerville', serif;
-    font-style: italic;
-    font-size: 16px;
-    color: var(--text-mid);
-    margin-bottom: 32px;
-  }
-
-  .feels-btn {
-    background: transparent;
-    border: 1px solid var(--warm-taupe);
-    color: var(--text-mid);
-    padding: 12px 32px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-
-  .feels-btn:hover {
-    border-color: var(--deep-rose);
-    color: var(--deep-rose);
-  }
-
-  #feels-content {
-    display: none;
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 60px 40px;
-    text-align: center;
-    animation: fadeUp 1s ease forwards;
-  }
-
+  /* ===================== FEELS ===================== */
+  #feels-trigger { text-align: center; padding: 90px 40px; background: var(--cream); }
+  .feels-teaser { font-family: 'Libre Baskerville', serif; font-style: italic; font-size: 16px; color: var(--text-mid); margin-bottom: 32px; line-height: 1.85; }
+  .feels-btn { background: transparent; border: 1px solid var(--warm-taupe); color: var(--text-mid); padding: 12px 36px; font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+  .feels-btn:hover { border-color: var(--deep-rose); color: var(--deep-rose); }
+  #feels-content { display: none; max-width: 680px; margin: 0 auto; padding: 60px 40px; text-align: center; animation: fadeUp 1s ease forwards; }
   #feels-content.show { display: block; }
-
-  .feels-letter {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: clamp(17px, 2vw, 22px);
-    line-height: 1.9;
-    color: var(--text-dark);
-  }
-
-  .feels-letter .highlight {
-    color: var(--deep-rose);
-    font-weight: 700;
-  }
+  .feels-divider { width: 40px; height: 1px; background: var(--warm-taupe); margin: 32px auto; }
+  .feels-letter { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(16px, 2vw, 21px); line-height: 2; color: var(--text-dark); }
+  .feels-letter .highlight { color: var(--deep-rose); font-weight: 700; }
 
   /* ===================== FOOTER ===================== */
-  footer {
-    background: var(--text-dark);
-    color: white;
-    text-align: center;
-    padding: 60px 40px;
-  }
-
-  footer .f-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(32px, 6vw, 72px);
-    font-weight: 900;
-    font-style: italic;
-    color: var(--pink);
-    margin-bottom: 16px;
-  }
-
-  footer p {
-    font-size: 13px;
-    color: #8a7070;
-    letter-spacing: 0.15em;
-  }
+  footer { background: var(--text-dark); color: white; text-align: center; padding: 72px 40px; }
+  footer .f-title { font-family: 'Playfair Display', serif; font-size: clamp(36px, 8vw, 88px); font-weight: 900; font-style: italic; color: var(--pink); margin-bottom: 20px; }
+  footer p { font-size: 13px; color: #8a7070; letter-spacing: 0.15em; line-height: 2.2; }
 
   /* ===================== ANIMATIONS ===================== */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
 
-  .fade-in-section {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
+  .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(.22,.68,0,1), transform 0.8s cubic-bezier(.22,.68,0,1); }
+  .reveal.from-left { transform: translateX(-36px); }
+  .reveal.from-right { transform: translateX(36px); }
+  .reveal.visible { opacity: 1; transform: none; }
 
-  .fade-in-section.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .stagger > * { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .stagger.visible > *:nth-child(1) { transition-delay: 0s; }
+  .stagger.visible > *:nth-child(2) { transition-delay: 0.1s; }
+  .stagger.visible > *:nth-child(3) { transition-delay: 0.2s; }
+  .stagger.visible > *:nth-child(4) { transition-delay: 0.3s; }
+  .stagger.visible > *:nth-child(5) { transition-delay: 0.4s; }
+  .stagger.visible > *:nth-child(6) { transition-delay: 0.5s; }
+  .stagger.visible > * { opacity: 1; transform: none; }
 
-  /* Music player */
+  /* ===================== MUSIC PLAYER ===================== */
   .music-player {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background: white;
-    border: 1px solid var(--warm-taupe);
-    padding: 12px 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    z-index: 500;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-    display: none;
+    position: fixed; bottom: 24px; right: 24px; background: white;
+    border: 1px solid var(--warm-taupe); padding: 12px 18px;
+    display: none; align-items: center; gap: 12px; z-index: 500;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.07); transition: transform 0.3s;
   }
-
+  .music-player:hover { transform: translateY(-2px); }
   .music-player.show { display: flex; }
-
-  .music-btn {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--deep-rose);
-    border: none;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s;
-  }
-
+  .music-btn { width: 34px; height: 34px; border-radius: 50%; background: var(--deep-rose); border: none; color: white; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
   .music-btn:hover { transform: scale(1.1); }
-
-  .music-info {
-    font-size: 12px;
-    color: var(--text-mid);
-    max-width: 160px;
-  }
-
-  .music-info .song-name {
-    font-weight: 500;
-    color: var(--text-dark);
-    font-size: 13px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  .music-info { font-size: 11px; color: var(--text-mid); max-width: 160px; }
+  .song-name { font-weight: 500; color: var(--text-dark); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .music-next { background: none; border: none; color: var(--text-mid); cursor: pointer; font-size: 16px; padding: 4px; transition: color 0.2s; }
+  .music-next:hover { color: var(--deep-rose); }
 
   /* ===================== RESPONSIVE ===================== */
-  @media (max-width: 600px) {
-    nav { padding: 16px 20px; }
-    .nav-links { display: none; }
-    section { padding: 70px 24px; }
+  @media (max-width: 640px) {
+    nav { padding: 14px 20px; } .nav-links { display: none; }
+    .section-full .inner { padding: 0 20px; }
     .gallery-grid { grid-template-columns: repeat(2, 1fr); }
     .gallery-slot.large { grid-column: span 2; }
-    .doc-episode { grid-template-columns: 1fr; gap: 8px; }
+    .doc-episode { grid-template-columns: 1fr; gap: 6px; }
     .ep-number { font-size: 32px; }
-    footer { padding: 50px 24px; }
-    .music-player { bottom: 12px; right: 12px; }
+    .quiz-card { padding: 32px 22px; }
+    .universe-block { padding: 60px 24px; }
+    footer { padding: 52px 22px; }
   }
 </style>
 </head>
 <body>
 
-<!-- TOAST -->
+<!--
+╔══════════════════════════════════════════════════════════════╗
+║              AUDIO FILES — DROP IN SAME FOLDER               ║
+║  gulabi.mp3   → Gulabi Aankhen (Shanaya's entry song)        ║
+║  aditi.mp3    → Kabhi Kabhi Aditi — Rashid Ali               ║
+║  kamina.mp3   → Har Ek Friend Kamina Hota Hai — Sonu Nigam   ║
+║  preet.mp3    → Preet Re — Darshan Raval                     ║
+║  tu-hai-toh.mp3 → Tu Hai Toh — Neeti Mohan                  ║
+║  Download free at: cobalt.tools (paste YouTube link → mp3)   ║
+╚══════════════════════════════════════════════════════════════╝
+-->
+<audio id="audio-gulabi"   src="gulabi.mp3"    preload="none" loop></audio>
+<audio id="audio-aditi"    src="aditi.mp3"     preload="none" loop></audio>
+<audio id="audio-kamina"   src="kamina.mp3"    preload="none" loop></audio>
+<audio id="audio-preet"    src="preet.mp3"     preload="none" loop></audio>
+<audio id="audio-feels"    src="tu-hai-toh.mp3" preload="none" loop></audio>
+
 <div class="toast" id="toast"></div>
 
-<!-- CLAPBOARD OVERLAY -->
+<!-- CLAPBOARD -->
 <div class="clap-overlay" id="clapOverlay">
   <div class="clap-board">
     <div class="clap-stick" id="clapStick"></div>
     <div class="clap-top">
       <div class="clap-title-big">THE ISHU CHRONICLES</div>
-      <div>
-        <div class="clap-label">Production</div>
-        <div class="clap-value">Bestie Studios</div>
-      </div>
-      <div>
-        <div class="clap-label">Director</div>
-        <div class="clap-value">Love & Chaos</div>
-      </div>
-      <div>
-        <div class="clap-label">Scene</div>
-        <div class="clap-value">Birthday Special</div>
-      </div>
-      <div>
-        <div class="clap-label">Date</div>
-        <div class="clap-value" id="clap-date"></div>
-      </div>
+      <div><div class="clap-label">Production</div><div class="clap-value">Bestie Studios</div></div>
+      <div><div class="clap-label">Director</div><div class="clap-value">Love &amp; Chaos</div></div>
+      <div><div class="clap-label">Scene</div><div class="clap-value">Birthday Special</div></div>
+      <div><div class="clap-label">Date</div><div class="clap-value">28/02/2002</div></div>
     </div>
   </div>
 </div>
@@ -933,8 +455,7 @@
 <div id="entry-screen">
   <div class="film-grain"></div>
   <p class="entry-tagline">A Bestie Production Presents</p>
-  <h1 class="entry-title">Ek Thi<br><em style="color:var(--deep-rose);font-style:italic;">Ishu</em></h1>
-  <p class="entry-subtitle">Est. 24 years ago · Still running on rice & drama</p>
+  <h1 class="entry-title">Ek Thi<br><em style="color:var(--deep-rose)">Ishu</em></h1>
   <button class="entry-btn" onclick="showPassword()">Enter the World ✦</button>
 </div>
 
@@ -943,25 +464,26 @@
   <div class="pw-container">
     <p class="pw-eyebrow">Access Required</p>
     <h2 class="pw-title">Prove you belong here</h2>
-    <p class="pw-sub">Only a true Ishu loyalist would know this.<br>No googling. No cheating. We're watching.</p>
-    <input type="text" class="pw-input" id="pwInput" placeholder="type the secret..." onkeydown="if(event.key==='Enter') checkPassword()">
+    <p class="pw-sub">Only a true Ishu loyalist would know this.<br>No googling. No cheating. We're watching. 👀</p>
+    <input type="text" class="pw-input" id="pwInput" placeholder="type the secret...">
     <br>
     <button class="pw-btn" onclick="checkPassword()">Submit</button>
-    <p class="pw-attempts" id="pwAttempts"></p>
+    <div class="pw-hint" id="pwHint">💡 Hint: <strong>"Day it all began"</strong></div>
+    <p class="pw-status" id="pwStatus"></p>
   </div>
 </div>
 
 <!-- MAIN SITE -->
 <div id="main-site">
 
-  <!-- NAV -->
   <nav>
     <div class="nav-logo">Ishu ✦</div>
     <ul class="nav-links">
       <li><a href="#chronicles">Chronicles</a></li>
       <li><a href="#phrases">Iconic</a></li>
       <li><a href="#exposed">Exposed</a></li>
-      <li><a href="#dialogues">Filmy</a></li>
+      <li><a href="#the-trio">The Trio</a></li>
+      <li><a href="#quiz">Quiz</a></li>
       <li><a href="#gallery">Gallery</a></li>
     </ul>
   </nav>
@@ -972,396 +494,649 @@
     <div class="hero-bg-text">ISHU</div>
     <div class="hero-content">
       <p class="hero-eyebrow">✦ Happy 24th Birthday ✦</p>
-      <h1 class="hero-name">
-        Ishu<br>
-        <span>Sonkar</span>
-      </h1>
-      <p class="hero-desc">
-        Main character. Rice enthusiast. She-Hulk in a 5'2" disguise.<br>
-        Professional sleeper. Aesthetic perfectionist. Our person.
-      </p>
+      <h1 class="hero-name">Ishu<br><span>Sonkar</span></h1>
+      <p class="hero-subtitle">"Born to be iconic. Forced to be normal."</p>
     </div>
   </div>
 
-  <!-- CHRONICLES -->
-  <div id="chronicles">
+  <!-- ========== CHRONICLES ========== -->
+  <!-- Song: Gulabi Aankhen plays from entry. Aditi fades in as this section enters viewport -->
+  <div id="chronicles" class="section-full" style="background:var(--blush)" data-song="aditi">
     <div class="inner">
-      <div class="fade-in-section">
+      <div class="reveal">
         <p class="section-label">The File</p>
         <h2 class="section-title">Chronicles of<br>Ishu Sonkar</h2>
       </div>
-      <div class="chronicle-grid fade-in-section">
+      <div class="chronicle-grid stagger">
         <div class="chronicle-card" data-num="01">
           <span class="chronicle-emoji">👑</span>
           <h3>Main Character Energy</h3>
-          <p>She doesn't walk into a room. She <em>enters</em>. Always late. Always the best-looking person there. The universe rearranges its schedule for Ishu, not the other way around.</p>
+          <p>She doesn't walk into a room. She <em>enters</em>. Always late. Always the most put-together person there. The universe restructures its plans around Ishu — not the other way around. This is non-negotiable.</p>
         </div>
         <div class="chronicle-card" data-num="02">
-          <span class="chronicle-emoji">🍚</span>
-          <h3>Rice. Just Rice.</h3>
-          <p>Ishu has cracked the code to life that scientists have been chasing for centuries. The answer? A full bucket of rice. It is breakfast, lunch, dinner, comfort, medicine, and soulmate.</p>
+          <span class="chronicle-emoji">🤏</span>
+          <h3>Pocket-Sized Don</h3>
+          <p>She is short. We tease her for it. We secretly love that she comes in pocket size — a chota fashionable don in the most literal sense. All that personality in that tiny frame is genuinely impressive engineering.</p>
         </div>
         <div class="chronicle-card" data-num="03">
-          <span class="chronicle-emoji">✨</span>
-          <h3>Perfectionism is a Lifestyle</h3>
-          <p>If something is under Ishu's command, it will be in its place. Every detail accounted for, every aesthetic considered. Chaos belongs to others. Not her table, not her vibe.</p>
+          <span class="chronicle-emoji">🎵</span>
+          <h3>Exists Because Live Singing Does</h3>
+          <p>Ishu and live singing share a spiritual bond that science cannot explain. Remove music from the equation and we're not sure what remains. She does not listen to songs. She <em>feels</em> them into her body.</p>
         </div>
         <div class="chronicle-card" data-num="04">
-          <span class="chronicle-emoji">💤</span>
-          <h3>On Her Own Time</h3>
-          <p>The sun does not decide when Ishu wakes. Ishu decides. Sun rise? Irrelevant. Sunset? Cute. "Just gone to sleep" is a timezone that only she operates in.</p>
+          <span class="chronicle-emoji">🌂</span>
+          <h3>Putul Didi &amp; Bahaspati Didi</h3>
+          <p>Her true right and left hands. The ones who have seen it all — the soft, the unhinged, the dramatic, and the 3am variety. Real ones. Certified pillars. Ishu without her didi energy is an incomplete sentence.</p>
         </div>
         <div class="chronicle-card" data-num="05">
-          <span class="chronicle-emoji">🌸</span>
-          <h3>Soft Inside, Bada** Outside</h3>
-          <p>Unbothered exterior. Will cry if she hears a random dog passed away. Will also fight you if you so much as disagree with her. The range? Unmatched. The softness? Hidden but real.</p>
+          <span class="chronicle-emoji">💖</span>
+          <h3>The Loyal One</h3>
+          <p>Tell her you need her. Just say it. And she will show up — be it the world crashing on her end simultaneously. She will figure her chaos out later. You come first. That's just how Ishu is coded.</p>
         </div>
         <div class="chronicle-card" data-num="06">
-          <span class="chronicle-emoji">💅</span>
-          <h3>Aesthetic Above All</h3>
-          <p>It must look good. It must feel right. Clutter is a crime. Ugly fonts are offensive. If it doesn't pass the vibe check, it doesn't exist in Ishu's world. Period.</p>
+          <span class="chronicle-emoji">🍄</span>
+          <h3>The One Thing We All Agree On</h3>
+          <p>Wars have been fought over taste. But not about mushroom. That is the one thing all three of us can always, <em>always</em> agree on. Mushroom unites. Mushroom is peace. Mushroom is love.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ICONIC PHRASES -->
-  <section id="phrases">
-    <div class="fade-in-section">
-      <p class="section-label">Hall of Fame</p>
-      <h2 class="section-title">The Iconic Phrases</h2>
-    </div>
-    <div class="phrases-grid fade-in-section">
-      <div class="phrase-card">
-        <span class="phrase-quote-mark">"</span>
-        <p class="phrase-text">Yeh toh mein chauthi mein karti thi</p>
-        <p class="phrase-tag">Classic Ishu · Frequency: Daily</p>
-      </div>
-      <div class="phrase-card">
-        <span class="phrase-quote-mark">"</span>
-        <p class="phrase-text">Mere bina tumlog ka kuch nahi ho sakta hai</p>
-        <p class="phrase-tag">Painfully True · Documented Evidence: Infinite</p>
-      </div>
-      <div class="phrase-card">
-        <span class="phrase-quote-mark">"</span>
-        <p class="phrase-text">Mereko Tulsi dekhna hai guys, BYE 👀</p>
-        <p class="phrase-tag">The Great Exit · No Further Questions</p>
-      </div>
-      <div class="phrase-card">
-        <span class="phrase-quote-mark">"</span>
-        <p class="phrase-text">Abhi just utha hai</p>
-        <p class="phrase-tag">Timezone: Ishu Standard Time · 4PM edition</p>
-      </div>
-      <div class="phrase-card">
-        <span class="phrase-quote-mark">"</span>
-        <p class="phrase-text">Hum kal lasagna banaega</p>
-        <p class="phrase-tag">Famous Last Words · Year: Unknown · Lasagna: Still Pending</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- EXPOSED DOCUMENTARY -->
-  <div id="exposed">
+  <!-- ========== ICONIC PHRASES ========== -->
+  <div id="phrases" class="section-full" style="background:var(--cream)">
     <div class="inner">
-      <div class="fade-in-section">
-        <p class="section-label">Netflix Presents</p>
-        <h2 class="section-title">Exposed: A Documentary<br>on Ishu Sonkar</h2>
+      <div class="reveal">
+        <p class="section-label">Hall of Fame</p>
+        <h2 class="section-title">The Iconic Phrases</h2>
       </div>
-      <div class="dialogue-reel fade-in-section" style="color:white;">
+      <div class="phrases-grid stagger">
+        <div class="phrase-card">
+          <span class="phrase-quote-mark">"</span>
+          <p class="phrase-text">Yeh toh mein chauthi mein karti thi</p>
+          <p class="phrase-tag">Classic Ishu · Frequency: Daily</p>
+        </div>
+        <div class="phrase-card">
+          <span class="phrase-quote-mark">"</span>
+          <p class="phrase-text">Mere bina tumlog ka kuch nahi ho sakta hai</p>
+          <p class="phrase-tag">Painfully True · Evidence: Infinite</p>
+        </div>
+        <div class="phrase-card">
+          <span class="phrase-quote-mark">"</span>
+          <p class="phrase-text">Mereko Tulsi dekhna hai guys, BYE 👀</p>
+          <p class="phrase-tag">The Great Exit · No Further Questions</p>
+        </div>
+        <div class="phrase-card">
+          <span class="phrase-quote-mark">"</span>
+          <p class="phrase-text">Abhi just utha hai</p>
+          <p class="phrase-tag">Ishu Standard Time · 4PM Edition</p>
+        </div>
+        <div class="phrase-card">
+          <span class="phrase-quote-mark">"</span>
+          <p class="phrase-text">Hum kal lasagna banaega</p>
+          <p class="phrase-tag">Famous Last Words · Lasagna: Still Pending · Year: Unknown</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== EXPOSED DOCUMENTARY ========== -->
+  <!-- Song: Har ek friend kamina plays as this section hits viewport -->
+  <div id="exposed" class="section-full" style="background:#1a0a0a;color:white" data-song="kamina">
+    <div class="inner">
+      <div class="reveal">
+        <p class="section-label" style="color:#f2a7b8">Netflix Presents</p>
+        <h2 class="section-title" style="color:white">Exposed: A Documentary<br>on Ishu Sonkar</h2>
+      </div>
+      <div class="stagger">
         <div class="doc-episode">
           <div class="ep-number">EP1</div>
           <div class="ep-content">
-            <div class="ep-badge">Sleep Studies</div>
-            <h3>The Mystery of the Eternal Nap</h3>
-            <p>Scientists have tried and failed to understand Ishu's sleep cycle. It is not day or night that triggers sleep—it is a feeling. A vibe. The sun has zero authority here. She has "just gone to sleep" at 6pm and "just woken up" at 3am. The world adjusts. Always.</p>
+            <div class="ep-badge">Hygiene Investigation</div>
+            <h3>The Bath: A Rare Phenomenon</h3>
+            <p>Experts remain baffled. By all known science, this should not be possible. And yet — she always looks immaculate. The bath remains a ghost story. An urban legend. A "coming soon" feature that somehow never shipped. We respect it. We do not understand it. We have stopped asking.</p>
           </div>
         </div>
         <div class="doc-episode">
           <div class="ep-number">EP2</div>
           <div class="ep-content">
-            <div class="ep-badge">Culinary Investigation</div>
-            <h3>Rice: A Love Story for the Ages</h3>
-            <p>Researchers estimate Ishu has consumed enough rice to fill a small swimming pool. When asked about dietary variety, she looked confused. When offered an alternative, she ordered rice. The bucket is never empty. The love is never questioned.</p>
+            <div class="ep-badge">Anger Studies</div>
+            <h3>Pocket-Sized She-Hulk: Origin Story</h3>
+            <p>Disagree with Ishu — just once. Watch the transformation. The height is a trap. The aesthetic exterior is a trap. She does not debate. She does not discuss. She <em>becomes</em>. The Hulk at least has warning signs. Ishu does not offer that courtesy.</p>
           </div>
         </div>
         <div class="doc-episode">
           <div class="ep-number">EP3</div>
           <div class="ep-content">
-            <div class="ep-badge">Hygiene Mysteries</div>
-            <h3>The Bath: A Rare Phenomenon</h3>
-            <p>Experts remain baffled. By all known science, this should not be possible. And yet — she always smells fine. Always looks immaculate. The bath remains a ghost story. An urban legend. A "coming soon" feature that somehow never launched. We respect it.</p>
+            <div class="ep-badge">Transport Crisis</div>
+            <h3>The Driver Dilemma</h3>
+            <p>Ishu's relationship with driving is a subject of ongoing research. The motto is clear: Agar car hai toh vyapar hai. The car exists. The theory exists. The execution is where we pray.</p>
           </div>
         </div>
         <div class="doc-episode">
           <div class="ep-number">EP4</div>
           <div class="ep-content">
-            <div class="ep-badge">Anger Management</div>
-            <h3>Pocket-Sized She-Hulk: Origin Story</h3>
-            <p>She is small. She is sweet. She will destroy you. Disagree with Ishu once — just once — and witness the transformation. The height is a trap. The calm exterior is a trap. She does not argue. She becomes. We do not dare disagree.</p>
+            <div class="ep-badge">Oath Culture</div>
+            <h3>Jab Tak Kasam Nahi, Baat Hasam Nahi</h3>
+            <p>Ishu will not believe you. She has decided. Your words mean nothing. Your evidence means nothing. You must swear. On everything. The world on dau, minimum. Only then does the conversation become real. Only then. This is her law. We have accepted it.</p>
+          </div>
+        </div>
+        <div class="doc-episode">
+          <div class="ep-number">EP5</div>
+          <div class="ep-content">
+            <div class="ep-badge">Alcohol Studies</div>
+            <h3>Two Sips: The Threshold of No Return</h3>
+            <p>We promise we can hold our drinks. We really do. But two sips of Jaeger in and suddenly clothes are sweeping floors and someone is narrating their entire life story to a stranger. Alcohol tolerance: infinite — in theory. In practice: two sips. This is peer-reviewed.</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- FILMY DIALOGUES -->
-  <div id="dialogues">
-    <div class="inner">
-      <div class="fade-in-section">
-        <p class="section-label" style="justify-content:center;">Screenplay</p>
-        <h2 class="section-title" style="margin-bottom:12px;">Dialogues Written<br>for Ishu</h2>
-        <p style="font-size:14px;color:var(--text-mid);margin-bottom:48px;font-style:italic;">She didn't say them. But she could have. Anytime.</p>
+  <!-- ========== FILMY DIALOGUES ========== -->
+  <div id="dialogues" class="section-full" style="background:var(--blush)">
+    <div class="inner" style="max-width:860px">
+      <div class="reveal" style="text-align:center">
+        <p class="section-label" style="justify-content:center">Screenplay</p>
+        <h2 class="section-title" style="margin-bottom:8px">Dialogues Written<br>for Ishu</h2>
+        <p style="font-size:14px;color:var(--text-mid);margin-bottom:52px;font-style:italic">She didn't say them. But she could have. Anytime.</p>
       </div>
-      <div class="dialogue-reel fade-in-section">
+      <div class="reveal">
         <div class="dialogue-item">
           <p class="d-text">"Mere boyfriend se gullu gullu karegi toh dhopduingi hi na ek"</p>
           <p class="d-context">Energy: Chaotic Protective · Rating: 10/10 would not test</p>
         </div>
         <div class="dialogue-item">
           <p class="d-text">"Mera life itna kharab ho gaya, itna kharab ho gaya hai"</p>
-          <p class="d-context">Trigger: Monday morning, no rice, disagreement about Tulsi episode</p>
+          <p class="d-context">Trigger: Monday morning · Someone disagreed · Tulsi episode missed</p>
         </div>
         <div class="dialogue-item">
           <p class="d-text">"Kuch logo ke saath wakt bitane se sab kuch theek ho jata hai"</p>
-          <p class="d-context">About us. Obviously. We choose to believe this fully.</p>
+          <p class="d-context">About us. Obviously. We choose to believe this fully. 🤍</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- GALLERY -->
-  <section id="gallery">
-    <div class="fade-in-section">
-      <p class="section-label">Evidence</p>
-      <h2 class="section-title">The Gallery</h2>
-    </div>
-    <div class="gallery-grid fade-in-section">
-      <div class="gallery-slot large">
-        <div class="slot-placeholder">
-          <div class="slot-icon">📷</div>
-          <p>Your favourite photo<br>with Ishu here</p>
-        </div>
+  <!-- ========== THE TRIO / FRIEND FACTS ========== -->
+  <!-- Song: Preet Re plays in this section -->
+  <div id="the-trio" class="section-full" style="background:var(--cream)" data-song="preet">
+    <div class="inner">
+      <div class="reveal">
+        <p class="section-label">Classified Intel</p>
+        <h2 class="section-title">Things Only We Know</h2>
+        <p class="fact-scroll-hint">← scroll sideways →</p>
       </div>
-      <div class="gallery-slot">
-        <div class="slot-placeholder">
-          <div class="slot-icon">🌸</div>
-          <p>Memory 02</p>
-        </div>
-      </div>
-      <div class="gallery-slot">
-        <div class="slot-placeholder">
-          <div class="slot-icon">✨</div>
-          <p>Memory 03</p>
-        </div>
-      </div>
-      <div class="gallery-slot">
-        <div class="slot-placeholder">
-          <div class="slot-icon">💖</div>
-          <p>Memory 04</p>
-        </div>
-      </div>
-      <div class="gallery-slot">
-        <div class="slot-placeholder">
-          <div class="slot-icon">🎬</div>
-          <p>Memory 05</p>
-        </div>
-      </div>
-      <div class="gallery-slot">
-        <div class="slot-placeholder">
-          <div class="slot-icon">🍚</div>
-          <p>Memory 06</p>
-        </div>
-      </div>
-      <div class="gallery-slot">
-        <div class="slot-placeholder">
-          <div class="slot-icon">🎂</div>
-          <p>Memory 07</p>
+      <div class="facts-scroll-wrap reveal">
+        <div class="facts-row">
+          <div class="fact-card">
+            <span class="fact-icon">👗</span>
+            <h4>Silver Spring, Tower 2, Flat 17B</h4>
+            <p>Who really cares to shop when there's an open-access clothing center at Silver Spring Apartments Tower 2 Flat 17B? The collection updates constantly. Entry is selective. We have honorary membership.</p>
+          </div>
+          <div class="fact-card">
+            <span class="fact-icon">🍚</span>
+            <h4>Rice is the Answer</h4>
+            <p>Lost? Rice. Sad? Rice. Celebrating? Rice. The question doesn't matter — the answer is rice. A full bucket of it. Followed by sleep. In that order. Every time. This is Ishu's philosophy of life.</p>
+          </div>
+          <div class="fact-card">
+            <span class="fact-icon">💅</span>
+            <h4>Nails on Standby, Always</h4>
+            <p>Shaadi? Nails done. Sangeet? Nails done. Sagai? Nails done. Casual Tuesday with nowhere to be? Nails done. The occasion is irrelevant. The nails are har roz ready. This is not vanity — this is discipline.</p>
+          </div>
+          <div class="fact-card">
+            <span class="fact-icon">🎤</span>
+            <h4>The Darshan Raval Situation</h4>
+            <p>The obsession is real. Deeply, spiritually real. When she is pregnant someday, we genuinely think the first face she'd want to open her eyes to is his. Abh chahe poster se hi kyu na kaam chale. We fully support this vision.</p>
+          </div>
+          <div class="fact-card">
+            <span class="fact-icon">🪝</span>
+            <h4>The Hookah Paradox</h4>
+            <p>Hookah lena aata nahi. Par uska pipe dena bhi aata nahi. A complete refusal at both ends of the transaction. She is not a giver nor a taker in this specific scenario. She simply exists near the hookah. Philosophically.</p>
+          </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- HIDDEN FEELS -->
+  <!-- ========== PARALLEL UNIVERSE ========== -->
+  <div class="universe-block">
+    <div class="reveal" style="position:relative;z-index:1">
+      <div class="universe-title">In a Parallel Universe</div>
+      <div class="universe-text">
+        The three of us are on a road trip. Windows down. Volume up. No signal, no schedule, no excuses. The playlist is running — Preet Re fading into Aditi fading into something loud and slightly unhinged. Nobody is "just waking up" because nobody slept.
+      </div>
+      <div class="universe-motto">
+        <strong>"Ek din toh trip hoga hi."</strong><br>
+        Bus papa mann jae. 🙏
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== QUIZ ========== -->
+  <div id="quiz" class="section-full" style="background:var(--cream)">
+    <div class="inner" style="max-width:800px">
+      <div class="reveal" style="text-align:center">
+        <p class="section-label" style="justify-content:center">Mandatory Exam</p>
+        <h2 class="section-title" style="margin-bottom:8px">Bestie Intelligence<br>Test</h2>
+        <p style="font-size:14px;color:var(--text-mid);margin-bottom:52px">Certified by the Ishu Sonkar Academy of Knowledge. No pressure. But also — full pressure.</p>
+      </div>
+      <div class="quiz-card reveal">
+        <div id="quiz-q-wrap">
+          <p class="quiz-q-label" id="quiz-q-num">Question 1 of 6</p>
+          <p class="quiz-question" id="quiz-q-text"></p>
+          <div class="quiz-options" id="quiz-options"></div>
+          <div class="quiz-nav">
+            <p class="quiz-progress" id="quiz-score-live">Score: 0</p>
+            <button class="quiz-next-btn" id="quiz-next" onclick="nextQuestion()">Next →</button>
+          </div>
+        </div>
+        <div class="quiz-result" id="quiz-result">
+          <div class="quiz-result-score" id="result-score"></div>
+          <div class="quiz-result-title" id="result-title"></div>
+          <div class="quiz-result-sub" id="result-sub" style="margin-top:10px"></div>
+          <button class="quiz-restart" onclick="restartQuiz()">Try Again ↻</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== GALLERY ========== -->
+  <div id="gallery" class="section-full" style="background:var(--blush)">
+    <div class="inner">
+      <div class="reveal">
+        <p class="section-label">Evidence</p>
+        <h2 class="section-title">The Gallery</h2>
+      </div>
+      <!--
+        HOW TO ADD PHOTOS:
+        1. Put photo files (photo1.jpg, photo2.jpg etc.) in the SAME folder as this HTML file
+        2. Replace each <div class="slot-placeholder">...</div> with:
+           <img src="photo1.jpg" alt="Memory">
+        3. Done — it fills the slot automatically.
+      -->
+      <div class="gallery-grid reveal">
+        <div class="gallery-slot large">
+          <div class="slot-placeholder"><div class="slot-icon">📷</div><p>Best photo<br>with Ishu</p></div>
+        </div>
+        <div class="gallery-slot"><div class="slot-placeholder"><div class="slot-icon">🌸</div><p>Memory 02</p></div></div>
+        <div class="gallery-slot"><div class="slot-placeholder"><div class="slot-icon">✨</div><p>Memory 03</p></div></div>
+        <div class="gallery-slot"><div class="slot-placeholder"><div class="slot-icon">🍄</div><p>Memory 04</p></div></div>
+        <div class="gallery-slot"><div class="slot-placeholder"><div class="slot-icon">🎬</div><p>Memory 05</p></div></div>
+        <div class="gallery-slot"><div class="slot-placeholder"><div class="slot-icon">💖</div><p>Memory 06</p></div></div>
+        <div class="gallery-slot"><div class="slot-placeholder"><div class="slot-icon">🎂</div><p>Memory 07</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== HIDDEN FEELS ========== -->
   <div id="feels-trigger">
-    <p class="feels-teaser">There's something hidden here.<br>For when you're ready for feelings.</p>
-    <button class="feels-btn" onclick="showFeels()">Open if you dare 🤍</button>
+    <p class="feels-teaser">
+      There's something tucked away here.<br>
+      For when you're ready for feelings.
+    </p>
+    <button class="feels-btn" onclick="showFeels()">Open if you DARE TO LOVE 🤍</button>
     <div id="feels-content">
+      <div class="feels-divider"></div>
       <p class="feels-letter">
         Ishu,<br><br>
         Tumhara naam ek nickname hai — in itself, already iconic, already one of a kind.<br><br>
-        You are the person who <span class="highlight">shows up late but shows up perfect.</span><br>
-        The one who eats rice like it's an act of devotion.<br>
-        The one who cried for a random dog and then told someone off in the same hour.<br><br>
-        You taught us what it looks like to <span class="highlight">care deeply and look unbothered doing it.</span><br><br>
-        We fight with your sleep schedule. We question your relationship with baths.<br>We do not dare disagree with you. And we wouldn't have it any other way.<br><br>
-        <span class="highlight">"Kuch logo ke saath wakt bitane se sab kuch theek ho jata hai."</span><br><br>
-        You are that person, Ishu. You don't even know.<br><br>
-        Happy Birthday. Here's to 24 more years of rice, chaos, aesthetic vibes, and you.<br><br>
-        — Your people 🤍
+        You are the person who shows up late and is still the <span class="highlight">most beautiful person in the room.</span><br>
+        You are the one who, if told "I need you" — will drop everything. World crashing or not.<br>
+        You figure your chaos out later. We come first. And we have never, ever taken that lightly.<br><br>
+        You love fiercely, you fight fiercely, and you make mushroom feel like a sacred agreement.<br><br>
+        <span class="highlight">We want that trip, Ishu.</span> Long drive, full volume, all three of us, no plan.<br>
+        Ek din zaroor hoga. We're holding you to it.<br><br>
+        Thank you for being the kind of friend who needs a kasam before she believes you —<br>
+        because it means when she does believe you, <span class="highlight">it means everything.</span><br><br>
+        Happy Birthday, choti fashionable don.<br>
+        Silver Spring, Tower 2, Flat 17B has never been the same without you.<br><br>
+        — Your people, always 🤍
       </p>
+      <div class="feels-divider"></div>
     </div>
   </div>
 
   <!-- FOOTER -->
   <footer>
     <div class="f-title">Happy Birthday, Ishu ✦</div>
-    <p>Made with love, chaos, and absolutely zero budget · 2026</p>
-    <p style="margin-top:8px;">Ek thi ladki. Ek hi hogi. 🌸</p>
+    <p>Made with love, chaos, and absolutely zero sleep · 2026</p>
+    <p>Ek thi ladki. Ek hi hogi. 🌸</p>
   </footer>
 
 </div>
 
 <!-- MUSIC PLAYER -->
 <div class="music-player" id="musicPlayer">
-  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">▶</button>
+  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">⏸</button>
   <div class="music-info">
-    <div class="song-name" id="songName">Tum Hi Ho</div>
-    <div>♪ Birthday Playlist</div>
+    <div class="song-name" id="songName">Gulabi Aankhen 🌸</div>
+    <div>♪ Now Playing</div>
   </div>
+  <button class="music-next" onclick="skipSong()" title="Next song">⏭</button>
 </div>
 
 <script>
-  // ===================== PASSWORD LOGIC =====================
-  const CORRECT_PASSWORD = "ishu"; // CHANGE THIS to whatever secret you want!
-  const wrongMessages = [
-    "why is your brain suddenly matching your height 💀",
-    "keep trying, that's what you're best at babes 👏",
-    "Looks like someone needs to be a part of Suryakiran 👀👀",
-    "Okay we are so bored of your lousy attempts. One last chance. XOXO 💋"
-  ];
-  let attempts = 0;
-  let finalChance = false;
+// ===================== PASSWORD =====================
+const CORRECT_ANSWERS = [
+  "14th february 2022","14 february 2022","14/02/2022","14-02-2022",
+  "february 14 2022","february 14th 2022","14th feb 2022","14 feb 2022"
+];
+const wrongMessages = [
+  "why is your brain suddenly matching your height 💀",
+  "keep trying, that's what you're best at babes 👏",
+  "Looks like someone needs to be a part of Suryakiran 👀👀"
+];
+let attempts = 0;
 
-  function showPassword() {
-    document.getElementById('entry-screen').classList.add('hide');
-    setTimeout(() => {
-      document.getElementById('password-screen').classList.add('show');
-    }, 800);
+function showPassword() {
+  document.getElementById('entry-screen').classList.add('hide');
+  setTimeout(() => {
+    document.getElementById('password-screen').classList.add('show');
+    document.getElementById('pwInput').focus();
+  }, 950);
+}
+
+function showToast(msg, duration = 3500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('show'), duration);
+}
+
+function checkPassword() {
+  const raw = document.getElementById('pwInput').value.trim().toLowerCase();
+  if (!raw) return;
+  if (CORRECT_ANSWERS.includes(raw)) {
+    document.getElementById('pwStatus').textContent = '✦ Access granted. Welcome, bestie.';
+    setTimeout(triggerClapboard, 700);
+    return;
   }
-
-  function showToast(msg, duration = 3000) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), duration);
+  document.getElementById('pwInput').value = '';
+  if (attempts < 3) {
+    showToast(wrongMessages[attempts]);
+    document.getElementById('pwStatus').textContent = `Attempt ${attempts + 1} of 4 used`;
+    attempts++;
+  } else {
+    document.getElementById('pwHint').classList.add('show');
+    document.getElementById('pwStatus').textContent = 'Okay. Last chance. For real. XOXO 💋';
+    attempts++;
   }
+}
 
-  function checkPassword() {
-    const input = document.getElementById('pwInput').value.trim().toLowerCase();
-    
-    if (input === CORRECT_PASSWORD || (finalChance && input.length > 0)) {
-      triggerClapboard();
-      return;
-    }
+function triggerClapboard() {
+  document.getElementById('clapOverlay').classList.add('show');
+  setTimeout(() => document.getElementById('clapStick').classList.add('snap'), 700);
+  setTimeout(() => {
+    document.getElementById('clapOverlay').classList.remove('show');
+    document.getElementById('password-screen').classList.remove('show');
+    showMainSite();
+  }, 2500);
+}
 
-    if (attempts < wrongMessages.length) {
-      showToast(wrongMessages[attempts], 3500);
-      document.getElementById('pwAttempts').textContent = `Attempt ${attempts + 1} of 4`;
-      attempts++;
-      if (attempts === 4) {
-        finalChance = true;
-        document.getElementById('pwAttempts').textContent = 'Last chance, bestie 💀';
-      }
-    } else {
-      triggerClapboard();
-    }
-    document.getElementById('pwInput').value = '';
+function showMainSite() {
+  const main = document.getElementById('main-site');
+  main.style.display = 'block';
+  setTimeout(() => {
+    main.classList.add('show');
+    createPetals();
+    initScrollAnimations();
+    initQuiz();
+    initSongSections();
+    // Start Gulabi Aankhen immediately
+    playAudio('audio-gulabi', 'Gulabi Aankhen 🌸');
+    document.getElementById('musicPlayer').classList.add('show');
+  }, 80);
+}
+
+// ===================== PETALS =====================
+function createPetals() {
+  const c = document.getElementById('petals');
+  const s = ['🌸','✿','❀','✦','⋆','·','✧'];
+  for (let i = 0; i < 24; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = s[Math.floor(Math.random() * s.length)];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.fontSize = (8 + Math.random() * 14) + 'px';
+    p.style.animationDuration = (9 + Math.random() * 14) + 's';
+    p.style.animationDelay = (Math.random() * 12) + 's';
+    c.appendChild(p);
   }
+}
 
-  function triggerClapboard() {
-    document.getElementById('clapOverlay').classList.add('show');
-    document.getElementById('clap-date').textContent = new Date().toLocaleDateString('en-IN');
-    setTimeout(() => {
-      document.getElementById('clapStick').classList.add('snap');
-    }, 600);
-    setTimeout(() => {
-      document.getElementById('clapOverlay').classList.remove('show');
-      document.getElementById('password-screen').classList.remove('show');
-      showMainSite();
-    }, 2200);
-  }
-
-  function showMainSite() {
-    const main = document.getElementById('main-site');
-    main.style.display = 'block';
-    setTimeout(() => {
-      main.classList.add('show');
-      document.getElementById('musicPlayer').classList.add('show');
-      createPetals();
-    }, 100);
-  }
-
-  // ===================== PETALS =====================
-  function createPetals() {
-    const container = document.getElementById('petals');
-    const symbols = ['🌸', '✿', '❀', '✦', '⋆'];
-    for (let i = 0; i < 18; i++) {
-      const petal = document.createElement('div');
-      petal.className = 'petal';
-      petal.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      petal.style.left = Math.random() * 100 + '%';
-      petal.style.animationDuration = (8 + Math.random() * 12) + 's';
-      petal.style.animationDelay = (Math.random() * 8) + 's';
-      petal.style.fontSize = (10 + Math.random() * 12) + 'px';
-      container.appendChild(petal);
-    }
-  }
-
-  // ===================== SCROLL ANIMATIONS =====================
-  const observer = new IntersectionObserver((entries) => {
+// ===================== SCROLL ANIMATIONS =====================
+function initScrollAnimations() {
+  const obs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         e.target.classList.add('visible');
+        obs.unobserve(e.target);
       }
     });
   }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal, .stagger').forEach(el => obs.observe(el));
+}
 
-  document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el));
+// ===================== AUDIO =====================
+const audioMap = {
+  gulabi:  { el: document.getElementById('audio-gulabi'),  name: 'Gulabi Aankhen 🌸' },
+  aditi:   { el: document.getElementById('audio-aditi'),   name: 'Kabhi Kabhi Aditi 🎶' },
+  kamina:  { el: document.getElementById('audio-kamina'),  name: 'Har Ek Friend Kamina 😂' },
+  preet:   { el: document.getElementById('audio-preet'),   name: 'Preet Re 💕' },
+  feels:   { el: document.getElementById('audio-feels'),   name: 'Tu Hai Toh 🤍' },
+};
+const songOrder = ['gulabi','aditi','kamina','preet'];
 
-  // ===================== HIDDEN FEELS =====================
-  function showFeels() {
-    const content = document.getElementById('feels-content');
-    const btn = document.querySelector('.feels-btn');
-    content.classList.add('show');
-    btn.style.display = 'none';
+let currentAudioKey = null;
+let musicPlaying = true;
+
+function stopAll() {
+  Object.values(audioMap).forEach(a => { a.el.pause(); a.el.currentTime = 0; });
+}
+
+function playAudio(id, label) {
+  stopAll();
+  const key = id.replace('audio-','');
+  const a = audioMap[key];
+  if (!a) return;
+  currentAudioKey = key;
+  a.el.volume = 0;
+  a.el.play().catch(() => {});
+  // Fade in
+  let v = 0;
+  const fade = setInterval(() => {
+    v = Math.min(v + 0.05, 0.75);
+    a.el.volume = v;
+    if (v >= 0.75) clearInterval(fade);
+  }, 100);
+  document.getElementById('songName').textContent = label || a.name;
+  musicPlaying = true;
+  document.getElementById('musicBtn').textContent = '⏸';
+}
+
+function toggleMusic() {
+  const btn = document.getElementById('musicBtn');
+  if (!currentAudioKey) return;
+  const a = audioMap[currentAudioKey];
+  if (musicPlaying) {
+    a.el.pause();
+    musicPlaying = false;
+    btn.textContent = '▶';
+  } else {
+    a.el.play().catch(() => {});
+    musicPlaying = true;
+    btn.textContent = '⏸';
   }
+}
 
-  // ===================== MUSIC =====================
-  const songs = [
-    { name: "Tum Hi Ho - Aashiqui 2", yt: null },
-    { name: "Tera Hone Laga Hoon", yt: null },
-    { name: "Ae Dil Hai Mushkil", yt: null },
-    { name: "Kabhi Khushi Kabhie Gham", yt: null },
-  ];
-  let currentSong = 0;
-  let playing = false;
-  let audio = null;
+function skipSong() {
+  const idx = songOrder.indexOf(currentAudioKey);
+  const next = songOrder[(idx + 1) % songOrder.length];
+  playAudio('audio-' + next);
+}
 
-  function toggleMusic() {
-    const btn = document.getElementById('musicBtn');
-    if (!playing) {
-      btn.textContent = '⏸';
-      playing = true;
-      showToast('🎵 ' + songs[currentSong].name + ' — enjoy the vibe!', 3000);
-    } else {
-      btn.textContent = '▶';
-      playing = false;
-    }
-    // Note: actual audio requires files to be linked — see instructions below
-  }
+// Section-based song switching
+function initSongSections() {
+  const sectionMap = {
+    'chronicles': 'aditi',
+    'exposed':    'kamina',
+    'the-trio':   'preet'
+  };
+  const secObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const key = sectionMap[e.target.id];
+        if (key && key !== currentAudioKey) {
+          playAudio('audio-' + key);
+        }
+      }
+    });
+  }, { threshold: 0.35 });
 
-  // ===================== INIT =====================
-  document.getElementById('clap-date').textContent = new Date().toLocaleDateString('en-IN');
-  
-  // Allow Enter key on password
-  document.addEventListener('DOMContentLoaded', () => {
-    const pwInput = document.getElementById('pwInput');
-    if (pwInput) {
-      pwInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') checkPassword();
-      });
-    }
+  Object.keys(sectionMap).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) secObs.observe(el);
   });
+}
+
+// ===================== FEELS =====================
+function showFeels() {
+  document.getElementById('feels-content').classList.add('show');
+  document.querySelector('.feels-btn').style.display = 'none';
+  // Switch to Tu Hai Toh softly
+  const feelsAudio = audioMap['feels'];
+  stopAll();
+  currentAudioKey = 'feels';
+  feelsAudio.el.volume = 0.35;
+  feelsAudio.el.play().catch(() => {});
+  document.getElementById('songName').textContent = 'Tu Hai Toh 🤍';
+  musicPlaying = true;
+  document.getElementById('musicBtn').textContent = '⏸';
+}
+
+// ===================== DRAG SCROLL =====================
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.facts-scroll-wrap').forEach(el => {
+    let isDown = false, startX, scrollL;
+    el.addEventListener('mousedown', e => { isDown = true; el.classList.add('active'); startX = e.pageX - el.offsetLeft; scrollL = el.scrollLeft; });
+    el.addEventListener('mouseleave', () => { isDown = false; });
+    el.addEventListener('mouseup', () => { isDown = false; });
+    el.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - el.offsetLeft; el.scrollLeft = scrollL - (x - startX) * 1.5; });
+  });
+
+  document.getElementById('pwInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkPassword();
+  });
+});
+
+// ===================== QUIZ =====================
+const questions = [
+  {
+    q: "Ishu arrives at a party. What is guaranteed?",
+    opts: ["She's early and waiting for everyone", "She's on time, surprisingly", "She's late — but the most aesthetic person in the room", "She cancelled but sent a very convincing apology"],
+    correct: 2, fun: "Late. Flawless. Iconic. Every. Single. Time. 👑"
+  },
+  {
+    q: "What fixes every single problem in life, according to Ishu?",
+    opts: ["A) Therapy", "B) Communication", "C) Rice", "D) A long bath (wait—)"],
+    correct: 2, fun: "Obviously. Rice is the answer. Rice has always been the answer. 🍚"
+  },
+  {
+    q: "What happens if you dare to disagree with Ishu?",
+    opts: ["Calm discussion over chai", "Logical debate with sources", "SHE HULK MODE ACTIVATED", "She gives you the silent treatment gracefully"],
+    correct: 2, fun: "You do NOT want to find out firsthand. Trust the lore. 💚"
+  },
+  {
+    q: "Ishu will not believe you until you...",
+    opts: ["Show her proof", "Repeat it three times", "Swear on everything — put the world on dau", "Screenshot it"],
+    correct: 2, fun: "Jab tak kasam nahi — baat hasam nahi. This is her law. 🫵"
+  },
+  {
+    q: "The one thing all three of you will always, always agree on?",
+    opts: ["Going on a trip", "Bollywood music", "Mushroom", "That Ishu is always right"],
+    correct: 2, fun: "Mushroom is peace. Mushroom is love. Mushroom unites. 🍄"
+  },
+  {
+    q: "How tall is Ishu's anger compared to her height?",
+    opts: ["Proportional — very calm", "Slightly elevated", "Immeasurably larger in every dimension", "She doesn't get angry, she gets aesthetic"],
+    correct: 2, fun: "She comes in pocket size. The anger does NOT. 💀"
+  }
+];
+
+let currentQ = 0, score = 0, answered = false;
+
+function initQuiz() { currentQ = 0; score = 0; answered = false; renderQuestion(); }
+
+function renderQuestion() {
+  answered = false;
+  const q = questions[currentQ];
+  document.getElementById('quiz-q-num').textContent = `Question ${currentQ + 1} of ${questions.length}`;
+  document.getElementById('quiz-q-text').textContent = q.q;
+  document.getElementById('quiz-score-live').textContent = `Score: ${score}`;
+  const wrap = document.getElementById('quiz-options');
+  wrap.innerHTML = '';
+  const L = ['A','B','C','D'];
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option';
+    btn.innerHTML = `<span class="quiz-opt-letter">${L[i]}</span>${opt}`;
+    btn.onclick = () => selectAnswer(i);
+    wrap.appendChild(btn);
+  });
+  const nextBtn = document.getElementById('quiz-next');
+  nextBtn.classList.remove('ready');
+  nextBtn.textContent = currentQ < questions.length - 1 ? 'Next →' : 'See Results ✦';
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = questions[currentQ];
+  document.querySelectorAll('.quiz-option').forEach((o, i) => {
+    if (i === q.correct) o.classList.add('correct');
+    else if (i === idx) o.classList.add('wrong');
+    o.style.pointerEvents = 'none';
+  });
+  if (idx === q.correct) { score++; document.getElementById('quiz-score-live').textContent = `Score: ${score}`; showToast('✓ ' + q.fun, 3500); }
+  else showToast('✗ ' + q.fun, 3500);
+  document.getElementById('quiz-next').classList.add('ready');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= questions.length) showResult();
+  else renderQuestion();
+}
+
+function showResult() {
+  document.getElementById('quiz-q-wrap').style.display = 'none';
+  document.getElementById('quiz-result').classList.add('show');
+  document.getElementById('result-score').textContent = `${score}/${questions.length}`;
+  let title, sub;
+  if (score === questions.length) {
+    title = "Congratulations. You survive under Ishu Command.";
+    sub = "You know her, you fear her, you love her. You passed the ultimate test. Ishu would say 'yeh toh mein chauthi mein jaanti thi' but deep down she is proud. Probably.";
+  } else if (score >= 4) {
+    title = "Qualified. With conditions.";
+    sub = "You know enough to survive in Ishu's world. Don't disagree, have rice on standby, never question the sleep schedule. You will be fine. Probably.";
+  } else if (score >= 2) {
+    title = "Needs improvement. Urgently.";
+    sub = "You call yourself a bestie? Study up. Kasam le ke bata — did you even try? Ishu is internally crying like a random dog just died.";
+  } else {
+    title = "How. Just HOW.";
+    sub = "Zero points? We have concerns. Ishu is activating She-Hulk mode. The mushroom pact is under review. Please report to Silver Spring Tower 2 Flat 17B immediately.";
+  }
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('result-sub').textContent = sub;
+}
+
+function restartQuiz() {
+  document.getElementById('quiz-q-wrap').style.display = 'block';
+  document.getElementById('quiz-result').classList.remove('show');
+  initQuiz();
+}
 </script>
 
 </body>
