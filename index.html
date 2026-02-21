@@ -3,60 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ishu Sonkar</title>
+<title>Ishu 24.0</title>
 
 <style>
 body{
 margin:0;
-font-family:'Georgia',serif;
-color:#333;
+font-family:Georgia,serif;
 transition:background 1s ease;
+color:#333;
 overflow-x:hidden;
 }
 
+/* Sections */
 .section{
 display:none;
 min-height:100vh;
 padding:60px 20px;
 text-align:center;
-animation:fadeIn 1s ease forwards;
+animation:fade 0.8s ease forwards;
+}
+.active{display:block;}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(15px);}
+to{opacity:1;transform:translateY(0);}
 }
 
-.active{
-display:block;
-}
-
-h1{
-font-size:60px;
-letter-spacing:3px;
-margin-bottom:10px;
-}
-
-h2{
-font-size:40px;
-}
-
-p{
-font-size:18px;
-}
+h1{font-size:64px;letter-spacing:3px;}
+h2{font-size:40px;}
 
 button{
 padding:14px 28px;
 border:none;
 border-radius:30px;
-background:#e8a8bc;
+background:#e59bb3;
 color:white;
 font-size:16px;
 cursor:pointer;
 margin:10px;
-box-shadow:0 8px 20px rgba(0,0,0,0.1);
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
 transition:0.3s;
 }
-
-button:hover{
-transform:scale(1.05);
-background:#d982a2;
-}
+button:hover{transform:scale(1.07);background:#d67a98;}
 
 input{
 padding:12px;
@@ -64,12 +52,6 @@ border-radius:25px;
 border:1px solid #ccc;
 width:260px;
 text-align:center;
-font-size:15px;
-}
-
-@keyframes fadeIn{
-from{opacity:0;transform:translateY(20px);}
-to{opacity:1;transform:translateY(0);}
 }
 
 /* ENTRY */
@@ -79,49 +61,70 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 height:100vh;
-background:linear-gradient(135deg,#f8c8dc,#f6a5c0);
+background:linear-gradient(135deg,#f6a5c0,#f8c8dc);
 color:white;
 text-align:center;
-animation:zoomIn 1.5s ease forwards;
 }
 
-@keyframes zoomIn{
-from{transform:scale(0.95);opacity:0;}
-to{transform:scale(1);opacity:1;}
+/* PASSWORD MODAL */
+#overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.5);
+backdrop-filter:blur(5px);
+display:none;
+z-index:5;
 }
 
-/* POPUP MODAL */
 #popup{
 position:fixed;
 top:50%;
 left:50%;
-transform:translate(-50%,-50%) scale(0.8);
+transform:translate(-50%,-50%);
 background:white;
-padding:30px 40px;
-border-radius:20px;
-box-shadow:0 15px 40px rgba(0,0,0,0.2);
+padding:35px 45px;
+border-radius:25px;
+box-shadow:0 20px 50px rgba(0,0,0,0.3);
 display:none;
 z-index:10;
 text-align:center;
-animation:pop 0.4s ease forwards;
+font-size:18px;
+animation:pop 0.3s ease;
 }
 
 @keyframes pop{
+from{transform:translate(-50%,-50%) scale(0.8);}
 to{transform:translate(-50%,-50%) scale(1);}
 }
 
-/* CONFETTI */
-.confetti{
-position:fixed;
-width:8px;
-height:8px;
-background:#e8a8bc;
-top:0;
-animation:fall 3s linear forwards;
+/* Hidden Heart */
+.hidden-heart{
+position:absolute;
+top:25px;
+right:30px;
+font-size:20px;
+opacity:0.6;
+cursor:pointer;
+}
+.hidden-heart:hover{opacity:1;}
+
+/* Elegant Final Glow */
+.glow{
+text-shadow:0 0 15px rgba(255,200,150,0.8);
 }
 
-@keyframes fall{
-to{transform:translateY(100vh) rotate(360deg);opacity:0;}
+.particle{
+position:fixed;
+width:6px;
+height:6px;
+background:#f3d19c;
+border-radius:50%;
+top:0;
+animation:float 4s linear forwards;
+}
+
+@keyframes float{
+to{transform:translateY(100vh);opacity:0;}
 }
 </style>
 </head>
@@ -136,49 +139,48 @@ to{transform:translateY(100vh) rotate(360deg);opacity:0;}
 
 <div id="password" class="section">
 <h2>Prove You're Worthy.</h2>
-<input type="text" id="passInput" placeholder="Enter Password">
+<input id="passInput" placeholder="Enter Password">
 <br><br>
 <button onclick="checkPassword()">Unlock</button>
 </div>
 
 <div id="main" class="section">
+<div class="hidden-heart" onclick="openSofty()">♡</div>
 <h1>ISHU SONKAR</h1>
 <p>Born iconic. Operates on her own timezone.</p>
-<button onclick="openSection('archive')">The Archive</button>
-<button onclick="openSection('chaos')">Chaos Theory</button>
-<button onclick="openSection('bollywood')">Bollywood Core</button>
-<button onclick="openSection('quiz')">Bestie Intelligence Test</button>
+<button onclick="openSection('archive')">Archive</button>
+<button onclick="openSection('chaos')">Chaos</button>
 <button onclick="openSection('final')">Final Scene</button>
 </div>
 
 <div id="archive" class="section">
-<h2>Main Character Moments</h2>
+<h2>Archive</h2>
 <button onclick="goHome()">Back</button>
 </div>
 
 <div id="chaos" class="section">
-<h2>Chaos Theory</h2>
-<button onclick="goHome()">Back</button>
-</div>
-
-<div id="bollywood" class="section">
-<h2>Bollywood Core</h2>
-<button onclick="goHome()">Back</button>
-</div>
-
-<div id="quiz" class="section">
-<h2>Bestie Intelligence Test</h2>
+<h2>Chaos</h2>
 <button onclick="goHome()">Back</button>
 </div>
 
 <div id="final" class="section">
-<h2>The world knows Ishika.</h2>
-<h3>We know Ishu.</h3>
-<p>And that's the real main character.</p>
-<button onclick="celebrate()">Celebrate</button>
+<h2 class="glow">The world knows Ishika.</h2>
+<h3 class="glow">We know Ishu.</h3>
+<p>And that’s the real main character.</p>
+<button onclick="elegantCelebrate()">Feel The Moment</button>
 <button onclick="goHome()">Back</button>
 </div>
 
+<div id="softy" class="section">
+<h2>Softy Mode</h2>
+<p style="max-width:600px;margin:auto;">
+Some people don’t need noise to be special.  
+They just exist… and everything feels lighter.
+</p>
+<button onclick="goHome()">Back</button>
+</div>
+
+<div id="overlay"></div>
 <div id="popup"></div>
 
 <script>
@@ -191,28 +193,31 @@ document.body.style.background="#e6c8d8";
 }
 
 function checkPassword(){
-let input=document.getElementById("passInput").value.toLowerCase();
-if(input==="14th february 2022"){
+let val=document.getElementById("passInput").value.toLowerCase();
+if(val==="14th february 2022"){
 document.getElementById('password').classList.remove('active');
 document.getElementById('main').classList.add('active');
 document.body.style.background="#f6ede6";
 }else{
 attempts++;
-if(attempts<4){
-showPopup("Wrong. Try again.");
-}else if(attempts===4){
-showPopup("Hint: Day it all began.");
-}else{
-showPopup("Last chance before we revoke bestie privileges.");
-}
+if(attempts===1) showPopup("Height and memory competing again?");
+else if(attempts===2) showPopup("This is embarrassing.");
+else if(attempts===3) showPopup("Focus. Try harder.");
+else if(attempts===4) showPopup("Hint: Day it all began.");
+else showPopup("Last attempt before we reconsider this friendship.");
 }
 }
 
-function showPopup(message){
+function showPopup(msg){
+let overlay=document.getElementById("overlay");
 let popup=document.getElementById("popup");
-popup.innerText=message;
+popup.innerText=msg;
+overlay.style.display="block";
 popup.style.display="block";
-setTimeout(()=>{popup.style.display="none";},2000);
+setTimeout(()=>{
+overlay.style.display="none";
+popup.style.display="none";
+},2000);
 }
 
 function openSection(id){
@@ -221,8 +226,6 @@ document.getElementById(id).classList.add('active');
 
 if(id==="archive") document.body.style.background="#f8d7da";
 if(id==="chaos") document.body.style.background="#f7c59f";
-if(id==="bollywood") document.body.style.background="#eac4d5";
-if(id==="quiz") document.body.style.background="#d5c6e0";
 if(id==="final") document.body.style.background="#f3d19c";
 }
 
@@ -232,14 +235,19 @@ document.getElementById('main').classList.add('active');
 document.body.style.background="#f6ede6";
 }
 
-function celebrate(){
-for(let i=0;i<80;i++){
-let conf=document.createElement("div");
-conf.className="confetti";
-conf.style.left=Math.random()*100+"vw";
-conf.style.background=`hsl(${Math.random()*360},70%,70%)`;
-document.body.appendChild(conf);
-setTimeout(()=>conf.remove(),3000);
+function openSofty(){
+document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+document.getElementById('softy').classList.add('active');
+document.body.style.background="#fbe4ec";
+}
+
+function elegantCelebrate(){
+for(let i=0;i<40;i++){
+let p=document.createElement("div");
+p.className="particle";
+p.style.left=Math.random()*100+"vw";
+document.body.appendChild(p);
+setTimeout(()=>p.remove(),4000);
 }
 }
 </script>
