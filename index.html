@@ -17,7 +17,6 @@
     --text-mid: #6b4c4c;
     --gold: #c9a96e;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
@@ -26,7 +25,6 @@
     color: var(--text-dark);
     overflow-x: hidden;
   }
-
   /* ===================== ENTRY ===================== */
   #entry-screen {
     position: fixed; inset: 0;
@@ -37,13 +35,11 @@
     transition: opacity 1.2s ease, transform 1.2s ease;
   }
   #entry-screen.hide { opacity: 0; transform: scale(1.05); pointer-events: none; }
-
   .film-grain {
     position: absolute; inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
     pointer-events: none;
   }
-
   .entry-tagline {
     font-family: 'Libre Baskerville', serif; font-style: italic;
     font-size: clamp(11px, 1.8vw, 15px);
@@ -68,7 +64,6 @@
     cursor: pointer; transition: all 0.3s ease;
   }
   .entry-btn:hover { background: var(--deep-rose); color: white; }
-
   /* ===================== PASSWORD ===================== */
   #password-screen {
     position: fixed; inset: 0; background: var(--cream);
@@ -78,7 +73,6 @@
     transition: opacity 0.8s ease;
   }
   #password-screen.show { opacity: 1; pointer-events: all; }
-
   .clap-overlay {
     position: fixed; inset: 0; background: #100808;
     z-index: 1100; display: flex; align-items: center; justify-content: center;
@@ -105,7 +99,6 @@
   }
   .clap-label { font-size: 10px; color: #777; letter-spacing: 0.1em; text-transform: uppercase; }
   .clap-value { font-size: 13px; color: white; font-weight: 500; margin-top: 2px; }
-
   .pw-container { text-align: center; max-width: 440px; width: 90%; }
   .pw-eyebrow { font-size: 11px; letter-spacing: 0.42em; text-transform: uppercase; color: var(--deep-rose); margin-bottom: 20px; }
   .pw-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 5vw, 44px); font-weight: 700; margin-bottom: 10px; line-height: 1.2; }
@@ -131,7 +124,6 @@
   }
   .pw-hint.show { display: block; }
   .pw-status { margin-top: 18px; font-size: 13px; color: var(--text-mid); min-height: 22px; }
-
   .toast {
     position: fixed; bottom: 36px; left: 50%;
     transform: translateX(-50%) translateY(20px);
@@ -141,11 +133,9 @@
     z-index: 2000; font-family: 'DM Sans', sans-serif; line-height: 1.55;
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
   /* ===================== MAIN SITE ===================== */
   #main-site { opacity: 0; transition: opacity 1s ease; display: none; }
   #main-site.show { opacity: 1; }
-
   nav {
     position: fixed; top: 0; left: 0; right: 0; padding: 18px 44px;
     display: flex; align-items: center; justify-content: space-between;
@@ -156,7 +146,6 @@
   .nav-links { display: flex; gap: 28px; list-style: none; }
   .nav-links a { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color 0.3s; }
   .nav-links a:hover { color: var(--deep-rose); }
-
   /* ===================== HERO ===================== */
   #hero {
     min-height: 100vh; display: flex; align-items: center; justify-content: center;
@@ -198,7 +187,6 @@
     50% { transform: translateY(50vh) rotate(180deg) translateX(18px); }
     100% { transform: translateY(110vh) rotate(360deg) translateX(-12px); opacity: 0; }
   }
-
   /* ===================== SECTION BASE ===================== */
   .section-full { padding: 100px 0; }
   .section-full .inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
@@ -212,7 +200,6 @@
     font-family: 'Playfair Display', serif;
     font-size: clamp(32px, 5vw, 58px); font-weight: 700; line-height: 1.1; margin-bottom: 48px;
   }
-
   /* ===================== CHRONICLES ===================== */
   .chronicle-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3px; }
   .chronicle-card {
@@ -230,7 +217,6 @@
   .chronicle-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin-bottom: 12px; }
   .chronicle-card p { font-size: 14px; line-height: 1.88; color: var(--text-mid); }
   .chronicle-emoji { font-size: 30px; margin-bottom: 16px; display: block; }
-
   /* ===================== PHRASES ===================== */
   .phrases-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
   .phrase-card {
@@ -248,7 +234,6 @@
   .phrase-quote-mark { font-family: 'Playfair Display', serif; font-size: 80px; color: var(--soft-pink); line-height: 0.7; margin-bottom: 16px; display: block; }
   .phrase-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(15px, 1.8vw, 18px); line-height: 1.65; color: var(--text-dark); margin-bottom: 16px; }
   .phrase-tag { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--deep-rose); }
-
   /* ===================== FRIEND FACTS (horizontal scroll cards) ===================== */
   .facts-scroll-wrap { overflow-x: auto; padding-bottom: 20px; cursor: grab; }
   .facts-scroll-wrap:active { cursor: grabbing; }
@@ -266,7 +251,6 @@
   .fact-card h4 { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; margin-bottom: 10px; }
   .fact-card p { font-size: 13px; line-height: 1.85; color: var(--text-mid); }
   .fact-scroll-hint { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mid); opacity: 0.5; margin-bottom: 20px; }
-
   /* ===================== EXPOSED DOC ===================== */
   .doc-episode {
     display: grid; grid-template-columns: 70px 1fr; gap: 28px;
@@ -279,14 +263,12 @@
   .ep-content h3 { font-family: 'Playfair Display', serif; font-size: clamp(17px, 2.2vw, 24px); font-weight: 700; margin-bottom: 10px; color: white; }
   .ep-content p { font-size: 14px; line-height: 1.95; color: #b09090; }
   .ep-badge { display: inline-block; background: var(--deep-rose); color: white; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 4px 12px; margin-bottom: 12px; }
-
   /* ===================== FILMY DIALOGUES ===================== */
   .dialogue-item { padding: 48px 0; border-bottom: 1px solid var(--warm-taupe); text-align: center; transition: background 0.3s; }
   .dialogue-item:last-child { border-bottom: none; }
   .dialogue-item:hover { background: rgba(255,255,255,0.55); }
   .d-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(16px, 2.5vw, 24px); line-height: 1.65; color: var(--text-dark); }
   .d-context { margin-top: 14px; font-size: 12px; color: var(--deep-rose); letter-spacing: 0.15em; text-transform: uppercase; }
-
   /* ===================== PARALLEL UNIVERSE ===================== */
   .universe-block {
     background: var(--text-dark); color: white;
@@ -303,7 +285,6 @@
   .universe-text { font-size: clamp(14px, 1.8vw, 17px); color: #c0a0a0; line-height: 2; max-width: 640px; margin: 0 auto 32px; position: relative; }
   .universe-motto { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(16px, 2vw, 20px); color: var(--warm-taupe); position: relative; }
   .universe-motto strong { color: white; }
-
   /* ===================== QUIZ ===================== */
   .quiz-card { background: white; border: 1px solid var(--warm-taupe); padding: 52px 48px; max-width: 720px; margin: 0 auto; }
   .quiz-q-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--deep-rose); margin-bottom: 12px; }
@@ -341,7 +322,6 @@
   .quiz-result-sub { font-size: 14px; color: var(--text-mid); line-height: 1.85; }
   .quiz-restart { margin-top: 28px; background: transparent; border: 1.5px solid var(--warm-taupe); color: var(--text-mid); padding: 10px 28px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; font-family: 'DM Sans', sans-serif; }
   .quiz-restart:hover { border-color: var(--deep-rose); color: var(--deep-rose); }
-
   /* ===================== GALLERY ===================== */
   .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
   .gallery-slot { aspect-ratio: 1; background: var(--warm-taupe); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; transition: transform 0.4s cubic-bezier(.22,.68,0,1.2); }
@@ -352,7 +332,6 @@
   .slot-placeholder .slot-icon { font-size: 28px; margin-bottom: 8px; opacity: 0.3; }
   .slot-placeholder p { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.4; line-height: 1.65; }
   .gallery-slot.large { grid-column: span 2; grid-row: span 2; }
-
   /* ===================== FEELS ===================== */
   #feels-trigger { text-align: center; padding: 90px 40px; background: var(--cream); }
   .feels-teaser { font-family: 'Libre Baskerville', serif; font-style: italic; font-size: 16px; color: var(--text-mid); margin-bottom: 32px; line-height: 1.85; }
@@ -363,20 +342,16 @@
   .feels-divider { width: 40px; height: 1px; background: var(--warm-taupe); margin: 32px auto; }
   .feels-letter { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(16px, 2vw, 21px); line-height: 2; color: var(--text-dark); }
   .feels-letter .highlight { color: var(--deep-rose); font-weight: 700; }
-
   /* ===================== FOOTER ===================== */
   footer { background: var(--text-dark); color: white; text-align: center; padding: 72px 40px; }
   footer .f-title { font-family: 'Playfair Display', serif; font-size: clamp(36px, 8vw, 88px); font-weight: 900; font-style: italic; color: var(--pink); margin-bottom: 20px; }
   footer p { font-size: 13px; color: #8a7070; letter-spacing: 0.15em; line-height: 2.2; }
-
   /* ===================== ANIMATIONS ===================== */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
-
   .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(.22,.68,0,1), transform 0.8s cubic-bezier(.22,.68,0,1); }
   .reveal.from-left { transform: translateX(-36px); }
   .reveal.from-right { transform: translateX(36px); }
   .reveal.visible { opacity: 1; transform: none; }
-
   .stagger > * { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
   .stagger.visible > *:nth-child(1) { transition-delay: 0s; }
   .stagger.visible > *:nth-child(2) { transition-delay: 0.1s; }
@@ -385,7 +360,6 @@
   .stagger.visible > *:nth-child(5) { transition-delay: 0.4s; }
   .stagger.visible > *:nth-child(6) { transition-delay: 0.5s; }
   .stagger.visible > * { opacity: 1; transform: none; }
-
   /* ===================== MUSIC PLAYER ===================== */
   .music-player {
     position: fixed; bottom: 24px; right: 24px; background: white;
@@ -401,7 +375,6 @@
   .song-name { font-weight: 500; color: var(--text-dark); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .music-next { background: none; border: none; color: var(--text-mid); cursor: pointer; font-size: 16px; padding: 4px; transition: color 0.2s; }
   .music-next:hover { color: var(--deep-rose); }
-
   /* ===================== RESPONSIVE ===================== */
   @media (max-width: 640px) {
     nav { padding: 14px 20px; } .nav-links { display: none; }
@@ -434,7 +407,6 @@
 <audio id="audio-kamina"   src="kamina.mp3"    preload="none" loop></audio>
 <audio id="audio-preet"    src="preet.mp3"     preload="none" loop></audio>
 <audio id="audio-feels"    src="tu-hai-toh.mp3" preload="none" loop></audio>
-
 <div class="toast" id="toast"></div>
 
 <!-- CLAPBOARD -->
@@ -475,7 +447,6 @@
 
 <!-- MAIN SITE -->
 <div id="main-site">
-
   <nav>
     <div class="nav-logo">Ishu ✦</div>
     <ul class="nav-links">
@@ -785,7 +756,6 @@
     <p>Made with love, chaos, and absolutely zero sleep · 2026</p>
     <p>Ek thi ladki. Ek hi hogi. 🌸</p>
   </footer>
-
 </div>
 
 <!-- MUSIC PLAYER -->
@@ -810,7 +780,6 @@ const wrongMessages = [
   "Looks like someone needs to be a part of Suryakiran 👀👀"
 ];
 let attempts = 0;
-
 function showPassword() {
   document.getElementById('entry-screen').classList.add('hide');
   setTimeout(() => {
@@ -818,7 +787,6 @@ function showPassword() {
     document.getElementById('pwInput').focus();
   }, 950);
 }
-
 function showToast(msg, duration = 3500) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -826,7 +794,6 @@ function showToast(msg, duration = 3500) {
   clearTimeout(t._t);
   t._t = setTimeout(() => t.classList.remove('show'), duration);
 }
-
 function checkPassword() {
   const raw = document.getElementById('pwInput').value.trim().toLowerCase();
   if (!raw) return;
@@ -846,7 +813,6 @@ function checkPassword() {
     attempts++;
   }
 }
-
 function triggerClapboard() {
   document.getElementById('clapOverlay').classList.add('show');
   setTimeout(() => document.getElementById('clapStick').classList.add('snap'), 700);
@@ -856,7 +822,6 @@ function triggerClapboard() {
     showMainSite();
   }, 2500);
 }
-
 function showMainSite() {
   const main = document.getElementById('main-site');
   main.style.display = 'block';
@@ -870,7 +835,6 @@ function showMainSite() {
     document.getElementById('musicPlayer').classList.add('show');
   }, 80);
 }
-
 // ===================== PETALS =====================
 function createPetals() {
   const c = document.getElementById('petals');
@@ -886,7 +850,6 @@ function createPetals() {
     c.appendChild(p);
   }
 }
-
 // ===================== SCROLL ANIMATIONS =====================
 function initScrollAnimations() {
   const obs = new IntersectionObserver((entries) => {
@@ -899,8 +862,9 @@ function initScrollAnimations() {
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal, .stagger').forEach(el => obs.observe(el));
 }
-
 // ===================== AUDIO =====================
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
 const audioMap = {
   gulabi:  { el: document.getElementById('audio-gulabi'),  name: 'Gulabi Aankhen 🌸' },
   aditi:   { el: document.getElementById('audio-aditi'),   name: 'Kabhi Kabhi Aditi 🎶' },
@@ -909,45 +873,108 @@ const audioMap = {
   feels:   { el: document.getElementById('audio-feels'),   name: 'Tu Hai Toh 🤍' },
 };
 const songOrder = ['gulabi','aditi','kamina','preet'];
-
 let currentAudioKey = null;
 let musicPlaying = true;
+// On iOS we use a single Audio element and swap src to avoid unlock issues
+let iosAudio = null;
+let iosPendingKey = null;
+
+function getIOSAudio() {
+  if (!iosAudio) {
+    iosAudio = new Audio();
+    iosAudio.loop = true;
+    iosAudio.volume = 0.75;
+  }
+  return iosAudio;
+}
 
 function stopAll() {
-  Object.values(audioMap).forEach(a => { a.el.pause(); a.el.currentTime = 0; });
+  if (isIOS) {
+    const a = getIOSAudio();
+    a.pause();
+  } else {
+    Object.values(audioMap).forEach(a => { a.el.pause(); a.el.currentTime = 0; });
+  }
 }
 
 function playAudio(id, label) {
-  stopAll();
   const key = id.replace('audio-','');
-  const a = audioMap[key];
-  if (!a) return;
-  currentAudioKey = key;
-  a.el.volume = 0;
-  a.el.play().catch(() => {});
-  let v = 0;
-  const fade = setInterval(() => {
-    v = Math.min(v + 0.05, 0.75);
-    a.el.volume = v;
-    if (v >= 0.75) clearInterval(fade);
-  }, 100);
-  document.getElementById('songName').textContent = label || a.name;
+  const info = audioMap[key];
+  if (!info) return;
+
+  document.getElementById('songName').textContent = label || info.name;
   musicPlaying = true;
   document.getElementById('musicBtn').textContent = '⏸';
+
+  if (isIOS) {
+    const a = getIOSAudio();
+    // Build the src from the original element's src
+    const srcEl = info.el;
+    const newSrc = srcEl.src || srcEl.getAttribute('src');
+    if (a.src !== newSrc) {
+      a.pause();
+      a.src = newSrc;
+      a.load();
+    }
+    currentAudioKey = key;
+    const playPromise = a.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Autoplay blocked — queue it, will resume on next user tap
+        iosPendingKey = key;
+        musicPlaying = false;
+        document.getElementById('musicBtn').textContent = '▶';
+      });
+    }
+  } else {
+    stopAll();
+    currentAudioKey = key;
+    const a = info.el;
+    a.currentTime = 0;
+    a.volume = 0;
+    a.play().catch(() => {});
+    let v = 0;
+    const fade = setInterval(() => {
+      v = Math.min(v + 0.05, 0.75);
+      a.volume = v;
+      if (v >= 0.75) clearInterval(fade);
+    }, 100);
+  }
 }
 
 function toggleMusic() {
   const btn = document.getElementById('musicBtn');
-  if (!currentAudioKey) return;
-  const a = audioMap[currentAudioKey];
-  if (musicPlaying) {
-    a.el.pause();
-    musicPlaying = false;
-    btn.textContent = '▶';
+  if (isIOS) {
+    const a = getIOSAudio();
+    // If there's a pending song waiting for user interaction, play it now
+    if (iosPendingKey) {
+      const info = audioMap[iosPendingKey];
+      a.src = info.el.src || info.el.getAttribute('src');
+      a.load();
+      currentAudioKey = iosPendingKey;
+      iosPendingKey = null;
+    }
+    if (musicPlaying) {
+      a.pause();
+      musicPlaying = false;
+      btn.textContent = '▶';
+    } else {
+      a.play().catch(() => {});
+      musicPlaying = true;
+      btn.textContent = '⏸';
+    }
   } else {
-    a.el.play().catch(() => {});
-    musicPlaying = true;
-    btn.textContent = '⏸';
+    if (!currentAudioKey) return;
+    const a = audioMap[currentAudioKey];
+    if (musicPlaying) {
+      a.el.pause();
+      musicPlaying = false;
+      btn.textContent = '▶';
+    } else {
+      a.el.play().catch(() => {});
+      musicPlaying = true;
+      btn.textContent = '⏸';
+    }
   }
 }
 
@@ -963,6 +990,54 @@ function initSongSections() {
     'exposed':    'kamina',
     'the-trio':   'preet'
   };
+
+  if (isIOS) {
+    // --- SCROLL: queue the song when section scrolls into view ---
+    const secObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const key = sectionMap[e.target.id];
+          if (key && key !== currentAudioKey) {
+            iosPendingKey = key;
+            // Update player label so user knows what's ready
+            document.getElementById('songName').textContent = audioMap[key].name;
+          }
+        }
+      });
+    }, { threshold: 0.3 });
+    Object.keys(sectionMap).forEach(id => {
+      const el = document.getElementById(id);
+      if (el) secObs.observe(el);
+    });
+
+    // --- OPTION 1: Any tap anywhere inside the section fires the queued song ---
+    Object.keys(sectionMap).forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('touchend', () => {
+        if (iosPendingKey && iosPendingKey !== currentAudioKey) {
+          playPendingIOS();
+        }
+      }, { passive: true });
+    });
+
+    // --- OPTION 4: Tapping a nav link fires that section's song ---
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('touchend', () => {
+        const href = link.getAttribute('href');
+        const sectionId = href ? href.replace('#', '') : null;
+        const key = sectionId && sectionMap[sectionId];
+        if (key) {
+          iosPendingKey = key;
+          playPendingIOS();
+        }
+      }, { passive: true });
+    });
+
+    return;
+  }
+
+  // --- Android / Windows: auto-switch on scroll as normal ---
   const secObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -972,28 +1047,43 @@ function initSongSections() {
         }
       }
     });
-  }, { threshold: 0.35 });
-
+  }, { threshold: 0.3 });
   Object.keys(sectionMap).forEach(id => {
     const el = document.getElementById(id);
     if (el) secObs.observe(el);
   });
 }
 
+function playPendingIOS() {
+  if (!iosPendingKey) return;
+  const key = iosPendingKey;
+  iosPendingKey = null;
+  playAudio('audio-' + key);
+}
 // ===================== FEELS =====================
 function showFeels() {
   document.getElementById('feels-content').classList.add('show');
   document.querySelector('.feels-btn').style.display = 'none';
-  const feelsAudio = audioMap['feels'];
+  // showFeels is triggered by a button tap, so iOS will allow playback
   stopAll();
   currentAudioKey = 'feels';
-  feelsAudio.el.volume = 0.35;
-  feelsAudio.el.play().catch(() => {});
+  iosPendingKey = null;
   document.getElementById('songName').textContent = 'Tu Hai Toh 🤍';
   musicPlaying = true;
   document.getElementById('musicBtn').textContent = '⏸';
+  if (isIOS) {
+    const a = getIOSAudio();
+    const src = audioMap['feels'].el.src || audioMap['feels'].el.getAttribute('src');
+    a.src = src;
+    a.volume = 0.35;
+    a.load();
+    a.play().catch(() => {});
+  } else {
+    const feelsAudio = audioMap['feels'];
+    feelsAudio.el.volume = 0.35;
+    feelsAudio.el.play().catch(() => {});
+  }
 }
-
 // ===================== DRAG SCROLL =====================
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.facts-scroll-wrap').forEach(el => {
@@ -1003,12 +1093,10 @@ document.addEventListener('DOMContentLoaded', () => {
     el.addEventListener('mouseup', () => { isDown = false; });
     el.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - el.offsetLeft; el.scrollLeft = scrollL - (x - startX) * 1.5; });
   });
-
   document.getElementById('pwInput').addEventListener('keydown', e => {
     if (e.key === 'Enter') checkPassword();
   });
 });
-
 // ===================== QUIZ =====================
 const questions = [
   {
@@ -1042,11 +1130,8 @@ const questions = [
     correct: 2, fun: "She comes in pocket size. The anger does NOT. 💀"
   }
 ];
-
 let currentQ = 0, score = 0, answered = false;
-
 function initQuiz() { currentQ = 0; score = 0; answered = false; renderQuestion(); }
-
 function renderQuestion() {
   answered = false;
   const q = questions[currentQ];
@@ -1067,7 +1152,6 @@ function renderQuestion() {
   nextBtn.classList.remove('ready');
   nextBtn.textContent = currentQ < questions.length - 1 ? 'Next →' : 'See Results ✦';
 }
-
 function selectAnswer(idx) {
   if (answered) return;
   answered = true;
@@ -1081,13 +1165,11 @@ function selectAnswer(idx) {
   else showToast('✗ ' + q.fun, 3500);
   document.getElementById('quiz-next').classList.add('ready');
 }
-
 function nextQuestion() {
   currentQ++;
   if (currentQ >= questions.length) showResult();
   else renderQuestion();
 }
-
 function showResult() {
   document.getElementById('quiz-q-wrap').style.display = 'none';
   document.getElementById('quiz-result').classList.add('show');
@@ -1109,13 +1191,11 @@ function showResult() {
   document.getElementById('result-title').textContent = title;
   document.getElementById('result-sub').textContent = sub;
 }
-
 function restartQuiz() {
   document.getElementById('quiz-q-wrap').style.display = 'block';
   document.getElementById('quiz-result').classList.remove('show');
   initQuiz();
 }
 </script>
-
 </body>
 </html>
