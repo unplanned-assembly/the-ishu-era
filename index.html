@@ -781,6 +781,7 @@ const wrongMessages = [
 ];
 let attempts = 0;
 function showPassword() {
+  unlockAudio();
   document.getElementById('entry-screen').classList.add('hide');
   setTimeout(() => {
     document.getElementById('password-screen').classList.add('show');
@@ -795,6 +796,7 @@ function showToast(msg, duration = 3500) {
   t._t = setTimeout(() => t.classList.remove('show'), duration);
 }
 function checkPassword() {
+  unlockAudio();
   const raw = document.getElementById('pwInput').value.trim().toLowerCase();
   if (!raw) return;
   if (CORRECT_ANSWERS.includes(raw)) {
@@ -863,7 +865,31 @@ function initScrollAnimations() {
   document.querySelectorAll('.reveal, .stagger').forEach(el => obs.observe(el));
 }
 // ===================== AUDIO =====================
-const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+// Web Audio API unlock pattern:
+// The very first user tap (entry button / password submit) creates and resumes
+// an AudioContext. Once resumed, iOS treats the entire page as "user-activated"
+// for the lifetime of the session — so all subsequent audio.play() calls,
+// including those triggered by scroll, work without any tap requirement.
+
+let audioCtx = null;
+let audioUnlocked = false;
+
+function unlockAudio() {
+  if (audioUnlocked) return;
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    // Play a silent buffer — this is the magic handshake iOS needs
+    const buf = audioCtx.createBuffer(1, 1, 22050);
+    const src = audioCtx.createBufferSource();
+    src.buffer = buf;
+    src.connect(audioCtx.destination);
+    src.start(0);
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    audioUnlocked = true;
+  } catch(e) {}
+}
 
 const audioMap = {
   gulabi:  { el: document.getElementById('audio-gulabi'),  name: 'Gulabi Aankhen 🌸' },
@@ -875,106 +901,44 @@ const audioMap = {
 const songOrder = ['gulabi','aditi','kamina','preet'];
 let currentAudioKey = null;
 let musicPlaying = true;
-// On iOS we use a single Audio element and swap src to avoid unlock issues
-let iosAudio = null;
-let iosPendingKey = null;
-
-function getIOSAudio() {
-  if (!iosAudio) {
-    iosAudio = new Audio();
-    iosAudio.loop = true;
-    iosAudio.volume = 0.75;
-  }
-  return iosAudio;
-}
 
 function stopAll() {
-  if (isIOS) {
-    const a = getIOSAudio();
-    a.pause();
-  } else {
-    Object.values(audioMap).forEach(a => { a.el.pause(); a.el.currentTime = 0; });
-  }
+  Object.values(audioMap).forEach(a => { a.el.pause(); a.el.currentTime = 0; });
 }
 
 function playAudio(id, label) {
+  stopAll();
   const key = id.replace('audio-','');
   const info = audioMap[key];
   if (!info) return;
-
+  currentAudioKey = key;
+  const a = info.el;
+  a.currentTime = 0;
+  a.volume = 0;
+  a.play().catch(() => {});
+  let v = 0;
+  const fade = setInterval(() => {
+    v = Math.min(v + 0.05, 0.75);
+    a.volume = v;
+    if (v >= 0.75) clearInterval(fade);
+  }, 80);
   document.getElementById('songName').textContent = label || info.name;
   musicPlaying = true;
   document.getElementById('musicBtn').textContent = '⏸';
-
-  if (isIOS) {
-    const a = getIOSAudio();
-    // Build the src from the original element's src
-    const srcEl = info.el;
-    const newSrc = srcEl.src || srcEl.getAttribute('src');
-    if (a.src !== newSrc) {
-      a.pause();
-      a.src = newSrc;
-      a.load();
-    }
-    currentAudioKey = key;
-    const playPromise = a.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // Autoplay blocked — queue it, will resume on next user tap
-        iosPendingKey = key;
-        musicPlaying = false;
-        document.getElementById('musicBtn').textContent = '▶';
-      });
-    }
-  } else {
-    stopAll();
-    currentAudioKey = key;
-    const a = info.el;
-    a.currentTime = 0;
-    a.volume = 0;
-    a.play().catch(() => {});
-    let v = 0;
-    const fade = setInterval(() => {
-      v = Math.min(v + 0.05, 0.75);
-      a.volume = v;
-      if (v >= 0.75) clearInterval(fade);
-    }, 100);
-  }
 }
 
 function toggleMusic() {
   const btn = document.getElementById('musicBtn');
-  if (isIOS) {
-    const a = getIOSAudio();
-    // If there's a pending song waiting for user interaction, play it now
-    if (iosPendingKey) {
-      const info = audioMap[iosPendingKey];
-      a.src = info.el.src || info.el.getAttribute('src');
-      a.load();
-      currentAudioKey = iosPendingKey;
-      iosPendingKey = null;
-    }
-    if (musicPlaying) {
-      a.pause();
-      musicPlaying = false;
-      btn.textContent = '▶';
-    } else {
-      a.play().catch(() => {});
-      musicPlaying = true;
-      btn.textContent = '⏸';
-    }
+  if (!currentAudioKey) return;
+  const a = audioMap[currentAudioKey];
+  if (musicPlaying) {
+    a.el.pause();
+    musicPlaying = false;
+    btn.textContent = '▶';
   } else {
-    if (!currentAudioKey) return;
-    const a = audioMap[currentAudioKey];
-    if (musicPlaying) {
-      a.el.pause();
-      musicPlaying = false;
-      btn.textContent = '▶';
-    } else {
-      a.el.play().catch(() => {});
-      musicPlaying = true;
-      btn.textContent = '⏸';
-    }
+    a.el.play().catch(() => {});
+    musicPlaying = true;
+    btn.textContent = '⏸';
   }
 }
 
@@ -985,59 +949,13 @@ function skipSong() {
 }
 
 function initSongSections() {
+  // Web Audio API is unlocked on first tap — scroll-based switching now works
+  // identically on iOS, Android, and Windows. No special cases needed.
   const sectionMap = {
     'chronicles': 'aditi',
     'exposed':    'kamina',
     'the-trio':   'preet'
   };
-
-  if (isIOS) {
-    // --- SCROLL: queue the song when section scrolls into view ---
-    const secObs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          const key = sectionMap[e.target.id];
-          if (key && key !== currentAudioKey) {
-            iosPendingKey = key;
-            // Update player label so user knows what's ready
-            document.getElementById('songName').textContent = audioMap[key].name;
-          }
-        }
-      });
-    }, { threshold: 0.3 });
-    Object.keys(sectionMap).forEach(id => {
-      const el = document.getElementById(id);
-      if (el) secObs.observe(el);
-    });
-
-    // --- OPTION 1: Any tap anywhere inside the section fires the queued song ---
-    Object.keys(sectionMap).forEach(id => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.addEventListener('touchend', () => {
-        if (iosPendingKey && iosPendingKey !== currentAudioKey) {
-          playPendingIOS();
-        }
-      }, { passive: true });
-    });
-
-    // --- OPTION 4: Tapping a nav link fires that section's song ---
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('touchend', () => {
-        const href = link.getAttribute('href');
-        const sectionId = href ? href.replace('#', '') : null;
-        const key = sectionId && sectionMap[sectionId];
-        if (key) {
-          iosPendingKey = key;
-          playPendingIOS();
-        }
-      }, { passive: true });
-    });
-
-    return;
-  }
-
-  // --- Android / Windows: auto-switch on scroll as normal ---
   const secObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -1047,42 +965,25 @@ function initSongSections() {
         }
       }
     });
-  }, { threshold: 0.3 });
+  }, { threshold: 0.35 });
   Object.keys(sectionMap).forEach(id => {
     const el = document.getElementById(id);
     if (el) secObs.observe(el);
   });
 }
-
-function playPendingIOS() {
-  if (!iosPendingKey) return;
-  const key = iosPendingKey;
-  iosPendingKey = null;
-  playAudio('audio-' + key);
-}
 // ===================== FEELS =====================
 function showFeels() {
   document.getElementById('feels-content').classList.add('show');
   document.querySelector('.feels-btn').style.display = 'none';
-  // showFeels is triggered by a button tap, so iOS will allow playback
   stopAll();
   currentAudioKey = 'feels';
-  iosPendingKey = null;
+  const a = audioMap['feels'].el;
+  a.currentTime = 0;
+  a.volume = 0.35;
+  a.play().catch(() => {});
   document.getElementById('songName').textContent = 'Tu Hai Toh 🤍';
   musicPlaying = true;
   document.getElementById('musicBtn').textContent = '⏸';
-  if (isIOS) {
-    const a = getIOSAudio();
-    const src = audioMap['feels'].el.src || audioMap['feels'].el.getAttribute('src');
-    a.src = src;
-    a.volume = 0.35;
-    a.load();
-    a.play().catch(() => {});
-  } else {
-    const feelsAudio = audioMap['feels'];
-    feelsAudio.el.volume = 0.35;
-    feelsAudio.el.play().catch(() => {});
-  }
 }
 // ===================== DRAG SCROLL =====================
 document.addEventListener('DOMContentLoaded', () => {
