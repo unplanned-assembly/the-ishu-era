@@ -827,8 +827,8 @@ function triggerClapboard() {
 function showMainSite() {
   const main = document.getElementById('main-site');
   main.style.display = 'block';
-  // On iOS, playAudio must be called synchronously within the gesture stack.
-  // We call it immediately, then do visual setup in setTimeout.
+  // unlockAudio MUST be called here — still inside the gesture call stack
+  unlockAudio();
   playAudio('gulabi', 'Gulabi Aankhen 🌸');
   document.getElementById('musicPlayer').classList.add('show');
   setTimeout(() => {
@@ -963,9 +963,9 @@ function skipSong() {
 }
 
 function initSongSections() {
-  // Same logic for iOS and non-iOS now — switching is just volume on iOS,
-  // so scroll-triggered switching works with zero gesture requirement.
   const sectionMap = { 'chronicles':'aditi', 'exposed':'kamina', 'the-trio':'preet' };
+
+  // Scroll-based switching — works on all platforms since iOS uses volume-swap (no new play() needed)
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -977,6 +977,26 @@ function initSongSections() {
   Object.keys(sectionMap).forEach(id => {
     const el = document.getElementById(id);
     if (el) obs.observe(el);
+  });
+
+  // OPTION 4: Nav link taps — fires song switch for that section immediately
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      const href = link.getAttribute('href');
+      const id = href ? href.replace('#', '') : null;
+      const key = id && sectionMap[id];
+      if (key) switchToKey(key);
+    });
+  });
+
+  // OPTION 1: Tap anywhere on a section — fires song switch for that section
+  Object.keys(sectionMap).forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('touchstart', () => {
+      const key = sectionMap[id];
+      if (key && key !== currentAudioKey) switchToKey(key);
+    }, { passive: true });
   });
 }
 // ===================== FEELS =====================
