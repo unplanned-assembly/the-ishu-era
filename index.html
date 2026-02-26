@@ -781,7 +781,6 @@ const wrongMessages = [
 ];
 let attempts = 0;
 function showPassword() {
-  unlockAudio();
   document.getElementById('entry-screen').classList.add('hide');
   setTimeout(() => {
     document.getElementById('password-screen').classList.add('show');
@@ -796,7 +795,6 @@ function showToast(msg, duration = 3500) {
   t._t = setTimeout(() => t.classList.remove('show'), duration);
 }
 function checkPassword() {
-  unlockAudio();
   const raw = document.getElementById('pwInput').value.trim().toLowerCase();
   if (!raw) return;
   if (CORRECT_ANSWERS.includes(raw)) {
@@ -827,16 +825,14 @@ function triggerClapboard() {
 function showMainSite() {
   const main = document.getElementById('main-site');
   main.style.display = 'block';
-  // unlockAudio MUST be called here — still inside the gesture call stack
-  unlockAudio();
-  playAudio('gulabi', 'Gulabi Aankhen 🌸');
-  document.getElementById('musicPlayer').classList.add('show');
   setTimeout(() => {
     main.classList.add('show');
     createPetals();
     initScrollAnimations();
     initQuiz();
     initSongSections();
+    playAudio('audio-gulabi', 'Gulabi Aankhen 🌸');
+    document.getElementById('musicPlayer').classList.add('show');
   }, 80);
 }
 // ===================== PETALS =====================
@@ -867,146 +863,226 @@ function initScrollAnimations() {
   document.querySelectorAll('.reveal, .stagger').forEach(el => obs.observe(el));
 }
 // ===================== AUDIO =====================
-// iOS trick: start ALL songs playing simultaneously (muted) on the first user tap.
-// Switching songs = just mute/unmute. No new .play() calls needed on scroll ever.
 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-const songs = {
-  gulabi: { src: 'gulabi.mp3',     name: 'Gulabi Aankhen 🌸' },
-  aditi:  { src: 'aditi.mp3',      name: 'Kabhi Kabhi Aditi 🎶' },
-  kamina: { src: 'kamina.mp3',     name: 'Har Ek Friend Kamina 😂' },
-  preet:  { src: 'preet.mp3',      name: 'Preet Re 💕' },
-  feels:  { src: 'tu-hai-toh.mp3', name: 'Tu Hai Toh 🤍' },
-};
 const audioMap = {
-  gulabi: { el: document.getElementById('audio-gulabi') },
-  aditi:  { el: document.getElementById('audio-aditi')  },
-  kamina: { el: document.getElementById('audio-kamina') },
-  preet:  { el: document.getElementById('audio-preet')  },
-  feels:  { el: document.getElementById('audio-feels')  },
+  gulabi:  { el: document.getElementById('audio-gulabi'),  name: 'Gulabi Aankhen 🌸' },
+  aditi:   { el: document.getElementById('audio-aditi'),   name: 'Kabhi Kabhi Aditi 🎶' },
+  kamina:  { el: document.getElementById('audio-kamina'),  name: 'Har Ek Friend Kamina 😂' },
+  preet:   { el: document.getElementById('audio-preet'),   name: 'Preet Re 💕' },
+  feels:   { el: document.getElementById('audio-feels'),   name: 'Tu Hai Toh 🤍' },
 };
 const songOrder = ['gulabi','aditi','kamina','preet'];
 let currentAudioKey = null;
-let musicPlaying = false;
-const iosPlayers = {};
-let iosReady = false;
+let musicPlaying = true;
+// On iOS we use a single Audio element and swap src to avoid unlock issues
+let iosAudio = null;
+let iosPendingKey = null;
 
-function unlockAudio() {
-  if (!isIOS || iosReady) return;
-  iosReady = true;
-  // Inside gesture: start every song playing at volume 0 simultaneously.
-  // They stay "playing" forever — switching = just change volume. No new play() on scroll.
-  Object.entries(songs).forEach(([key, info]) => {
-    const a = new Audio(info.src);
-    a.loop = true;
-    a.volume = 0;  // muted until needed
-    a.play().catch(() => {});
-    iosPlayers[key] = a;
-  });
-}
-
-function switchToKey(key, label) {
-  if (!songs[key]) return;
-  currentAudioKey = key;
-  document.getElementById('songName').textContent = label || songs[key].name;
-  musicPlaying = true;
-  document.getElementById('musicBtn').textContent = '⏸';
-
-  if (isIOS) {
-    // Just mute all, unmute the target — no .play() needed
-    Object.entries(iosPlayers).forEach(([k, a]) => {
-      a.volume = (k === key) ? 0.75 : 0;
-    });
-  } else {
-    Object.values(audioMap).forEach(({ el }) => { el.pause(); el.currentTime = 0; });
-    const a = audioMap[key].el;
-    a.currentTime = 0;
-    a.volume = 0.75;
-    a.play().catch(() => {});
+function getIOSAudio() {
+  if (!iosAudio) {
+    iosAudio = new Audio();
+    iosAudio.loop = true;
+    iosAudio.volume = 0.75;
   }
-}
-
-// Keep playAudio as alias for compatibility
-function playAudio(key, label) {
-  key = key.replace('audio-', '');
-  switchToKey(key, label);
+  return iosAudio;
 }
 
 function stopAll() {
   if (isIOS) {
-    Object.values(iosPlayers).forEach(a => { a.volume = 0; });
+    const a = getIOSAudio();
+    a.pause();
   } else {
-    Object.values(audioMap).forEach(({ el }) => { el.pause(); el.currentTime = 0; });
+    Object.values(audioMap).forEach(a => { a.el.pause(); a.el.currentTime = 0; });
   }
-  musicPlaying = false;
-  document.getElementById('musicBtn').textContent = '▶';
+}
+
+function playAudio(id, label) {
+  const key = id.replace('audio-','');
+  const info = audioMap[key];
+  if (!info) return;
+
+  document.getElementById('songName').textContent = label || info.name;
+  musicPlaying = true;
+  document.getElementById('musicBtn').textContent = '⏸';
+
+  if (isIOS) {
+    const a = getIOSAudio();
+    // Build the src from the original element's src
+    const srcEl = info.el;
+    const newSrc = srcEl.src || srcEl.getAttribute('src');
+    if (a.src !== newSrc) {
+      a.pause();
+      a.src = newSrc;
+      a.load();
+    }
+    currentAudioKey = key;
+    const playPromise = a.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Autoplay blocked — queue it, will resume on next user tap
+        iosPendingKey = key;
+        musicPlaying = false;
+        document.getElementById('musicBtn').textContent = '▶';
+      });
+    }
+  } else {
+    stopAll();
+    currentAudioKey = key;
+    const a = info.el;
+    a.currentTime = 0;
+    a.volume = 0;
+    a.play().catch(() => {});
+    let v = 0;
+    const fade = setInterval(() => {
+      v = Math.min(v + 0.05, 0.75);
+      a.volume = v;
+      if (v >= 0.75) clearInterval(fade);
+    }, 100);
+  }
 }
 
 function toggleMusic() {
   const btn = document.getElementById('musicBtn');
-  if (!currentAudioKey) return;
   if (isIOS) {
-    const a = iosPlayers[currentAudioKey];
-    if (!a) return;
-    if (musicPlaying) { a.volume = 0; musicPlaying = false; btn.textContent = '▶'; }
-    else { a.volume = 0.75; musicPlaying = true; btn.textContent = '⏸'; }
+    const a = getIOSAudio();
+    // If there's a pending song waiting for user interaction, play it now
+    if (iosPendingKey) {
+      const info = audioMap[iosPendingKey];
+      a.src = info.el.src || info.el.getAttribute('src');
+      a.load();
+      currentAudioKey = iosPendingKey;
+      iosPendingKey = null;
+    }
+    if (musicPlaying) {
+      a.pause();
+      musicPlaying = false;
+      btn.textContent = '▶';
+    } else {
+      a.play().catch(() => {});
+      musicPlaying = true;
+      btn.textContent = '⏸';
+    }
   } else {
-    const a = audioMap[currentAudioKey].el;
-    if (musicPlaying) { a.pause(); musicPlaying = false; btn.textContent = '▶'; }
-    else { a.play().catch(() => {}); musicPlaying = true; btn.textContent = '⏸'; }
+    if (!currentAudioKey) return;
+    const a = audioMap[currentAudioKey];
+    if (musicPlaying) {
+      a.el.pause();
+      musicPlaying = false;
+      btn.textContent = '▶';
+    } else {
+      a.el.play().catch(() => {});
+      musicPlaying = true;
+      btn.textContent = '⏸';
+    }
   }
 }
 
 function skipSong() {
   const idx = songOrder.indexOf(currentAudioKey);
-  switchToKey(songOrder[(idx + 1) % songOrder.length]);
+  const next = songOrder[(idx + 1) % songOrder.length];
+  playAudio('audio-' + next);
 }
 
 function initSongSections() {
-  const sectionMap = { 'chronicles':'aditi', 'exposed':'kamina', 'the-trio':'preet' };
+  const sectionMap = {
+    'chronicles': 'aditi',
+    'exposed':    'kamina',
+    'the-trio':   'preet'
+  };
 
-  // Scroll-based switching — works on all platforms since iOS uses volume-swap (no new play() needed)
-  const obs = new IntersectionObserver((entries) => {
+  if (isIOS) {
+    // --- SCROLL: queue the song when section scrolls into view ---
+    const secObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const key = sectionMap[e.target.id];
+          if (key && key !== currentAudioKey) {
+            iosPendingKey = key;
+            // Update player label so user knows what's ready
+            document.getElementById('songName').textContent = audioMap[key].name;
+          }
+        }
+      });
+    }, { threshold: 0.3 });
+    Object.keys(sectionMap).forEach(id => {
+      const el = document.getElementById(id);
+      if (el) secObs.observe(el);
+    });
+
+    // --- OPTION 1: Any tap anywhere inside the section fires the queued song ---
+    Object.keys(sectionMap).forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('touchend', () => {
+        if (iosPendingKey && iosPendingKey !== currentAudioKey) {
+          playPendingIOS();
+        }
+      }, { passive: true });
+    });
+
+    // --- OPTION 4: Tapping a nav link fires that section's song ---
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('touchend', () => {
+        const href = link.getAttribute('href');
+        const sectionId = href ? href.replace('#', '') : null;
+        const key = sectionId && sectionMap[sectionId];
+        if (key) {
+          iosPendingKey = key;
+          playPendingIOS();
+        }
+      }, { passive: true });
+    });
+
+    return;
+  }
+
+  // --- Android / Windows: auto-switch on scroll as normal ---
+  const secObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        const k = sectionMap[e.target.id];
-        if (k && k !== currentAudioKey) switchToKey(k);
+        const key = sectionMap[e.target.id];
+        if (key && key !== currentAudioKey) {
+          playAudio('audio-' + key);
+        }
       }
     });
-  }, { threshold: 0.4 });
+  }, { threshold: 0.3 });
   Object.keys(sectionMap).forEach(id => {
     const el = document.getElementById(id);
-    if (el) obs.observe(el);
+    if (el) secObs.observe(el);
   });
+}
 
-  // OPTION 4: Nav link taps — fires song switch for that section immediately
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      const href = link.getAttribute('href');
-      const id = href ? href.replace('#', '') : null;
-      const key = id && sectionMap[id];
-      if (key) switchToKey(key);
-    });
-  });
-
-  // OPTION 1: Tap anywhere on a section — fires song switch for that section
-  Object.keys(sectionMap).forEach(id => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.addEventListener('touchstart', () => {
-      const key = sectionMap[id];
-      if (key && key !== currentAudioKey) switchToKey(key);
-    }, { passive: true });
-  });
+function playPendingIOS() {
+  if (!iosPendingKey) return;
+  const key = iosPendingKey;
+  iosPendingKey = null;
+  playAudio('audio-' + key);
 }
 // ===================== FEELS =====================
 function showFeels() {
   document.getElementById('feels-content').classList.add('show');
   document.querySelector('.feels-btn').style.display = 'none';
-  switchToKey('feels', 'Tu Hai Toh 🤍');
-  // Lower volume slightly for the intimate feels section
-  if (isIOS && iosPlayers['feels']) iosPlayers['feels'].volume = 0.5;
-  else if (!isIOS && audioMap['feels']) audioMap['feels'].el.volume = 0.5;
+  // showFeels is triggered by a button tap, so iOS will allow playback
+  stopAll();
+  currentAudioKey = 'feels';
+  iosPendingKey = null;
+  document.getElementById('songName').textContent = 'Tu Hai Toh 🤍';
+  musicPlaying = true;
+  document.getElementById('musicBtn').textContent = '⏸';
+  if (isIOS) {
+    const a = getIOSAudio();
+    const src = audioMap['feels'].el.src || audioMap['feels'].el.getAttribute('src');
+    a.src = src;
+    a.volume = 0.35;
+    a.load();
+    a.play().catch(() => {});
+  } else {
+    const feelsAudio = audioMap['feels'];
+    feelsAudio.el.volume = 0.35;
+    feelsAudio.el.play().catch(() => {});
+  }
 }
 // ===================== DRAG SCROLL =====================
 document.addEventListener('DOMContentLoaded', () => {
