@@ -816,6 +816,13 @@ function checkPassword() {
   }
 }
 function triggerClapboard() {
+  // Pre-load the iOS player src RIGHT NOW while we're still in the gesture stack,
+  // then actually play when showMainSite is called (also in gesture stack via checkPassword chain).
+  if (isIOS) {
+    const p = getIOSPlayer();
+    p.src = songs['gulabi'].src;
+    p.load();
+  }
   document.getElementById('clapOverlay').classList.add('show');
   setTimeout(() => document.getElementById('clapStick').classList.add('snap'), 700);
   setTimeout(() => {
@@ -827,14 +834,16 @@ function triggerClapboard() {
 function showMainSite() {
   const main = document.getElementById('main-site');
   main.style.display = 'block';
+  // On iOS, playAudio must be called synchronously within the gesture stack.
+  // We call it immediately, then do visual setup in setTimeout.
+  playAudio('gulabi', 'Gulabi Aankhen 🌸');
+  document.getElementById('musicPlayer').classList.add('show');
   setTimeout(() => {
     main.classList.add('show');
     createPetals();
     initScrollAnimations();
     initQuiz();
     initSongSections();
-    playAudio('audio-gulabi', 'Gulabi Aankhen 🌸');
-    document.getElementById('musicPlayer').classList.add('show');
   }, 80);
 }
 // ===================== PETALS =====================
@@ -865,107 +874,145 @@ function initScrollAnimations() {
   document.querySelectorAll('.reveal, .stagger').forEach(el => obs.observe(el));
 }
 // ===================== AUDIO =====================
-// Web Audio API unlock pattern:
-// The very first user tap (entry button / password submit) creates and resumes
-// an AudioContext. Once resumed, iOS treats the entire page as "user-activated"
-// for the lifetime of the session — so all subsequent audio.play() calls,
-// including those triggered by scroll, work without any tap requirement.
+// iOS requires a SINGLE <audio> element with src swapped — multiple elements
+// can only be unlocked one at a time. We use one shared player and swap src.
+// The unlock happens on the very first real tap (showPassword / checkPassword).
 
-let audioCtx = null;
-let audioUnlocked = false;
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-function unlockAudio() {
-  if (audioUnlocked) return;
-  try {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    // Play a silent buffer — this is the magic handshake iOS needs
-    const buf = audioCtx.createBuffer(1, 1, 22050);
-    const src = audioCtx.createBufferSource();
-    src.buffer = buf;
-    src.connect(audioCtx.destination);
-    src.start(0);
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
-    audioUnlocked = true;
-  } catch(e) {}
-}
-
+const songs = {
+  gulabi: { src: 'gulabi.mp3',    name: 'Gulabi Aankhen 🌸' },
+  aditi:  { src: 'aditi.mp3',     name: 'Kabhi Kabhi Aditi 🎶' },
+  kamina: { src: 'kamina.mp3',    name: 'Har Ek Friend Kamina 😂' },
+  preet:  { src: 'preet.mp3',     name: 'Preet Re 💕' },
+  feels:  { src: 'tu-hai-toh.mp3',name: 'Tu Hai Toh 🤍' },
+};
+// Keep original <audio> elements for non-iOS
 const audioMap = {
-  gulabi:  { el: document.getElementById('audio-gulabi'),  name: 'Gulabi Aankhen 🌸' },
-  aditi:   { el: document.getElementById('audio-aditi'),   name: 'Kabhi Kabhi Aditi 🎶' },
-  kamina:  { el: document.getElementById('audio-kamina'),  name: 'Har Ek Friend Kamina 😂' },
-  preet:   { el: document.getElementById('audio-preet'),   name: 'Preet Re 💕' },
-  feels:   { el: document.getElementById('audio-feels'),   name: 'Tu Hai Toh 🤍' },
+  gulabi:  { el: document.getElementById('audio-gulabi'),  name: songs.gulabi.name },
+  aditi:   { el: document.getElementById('audio-aditi'),   name: songs.aditi.name },
+  kamina:  { el: document.getElementById('audio-kamina'),  name: songs.kamina.name },
+  preet:   { el: document.getElementById('audio-preet'),   name: songs.preet.name },
+  feels:   { el: document.getElementById('audio-feels'),   name: songs.feels.name },
 };
 const songOrder = ['gulabi','aditi','kamina','preet'];
 let currentAudioKey = null;
-let musicPlaying = true;
+let musicPlaying = false;
 
-function stopAll() {
-  Object.values(audioMap).forEach(a => { a.el.pause(); a.el.currentTime = 0; });
+// ---- iOS single shared player ----
+let iosPlayer = null;   // one <audio> element, src-swapped
+let iosUnlocked = false;
+
+function getIOSPlayer() {
+  if (!iosPlayer) {
+    iosPlayer = new Audio();
+    iosPlayer.loop = true;
+    iosPlayer.volume = 0.75;
+  }
+  return iosPlayer;
 }
 
-function playAudio(id, label) {
-  stopAll();
-  const key = id.replace('audio-','');
-  const info = audioMap[key];
+// Call this synchronously inside every button onclick so iOS grants media permission
+function unlockAudio() {
+  if (!isIOS || iosUnlocked) return;
+  const p = getIOSPlayer();
+  // Play silence — grants unlock for this element permanently
+  p.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=';
+  p.play().then(() => { p.pause(); iosUnlocked = true; }).catch(() => {});
+}
+
+function stopAll() {
+  if (isIOS) {
+    if (iosPlayer) iosPlayer.pause();
+  } else {
+    Object.values(audioMap).forEach(a => { a.el.pause(); a.el.currentTime = 0; });
+  }
+}
+
+function playAudio(key, label) {
+  key = key.replace('audio-', '');
+  const info = songs[key];
   if (!info) return;
-  currentAudioKey = key;
-  const a = info.el;
-  a.currentTime = 0;
-  a.volume = 0;
-  a.play().catch(() => {});
-  let v = 0;
-  const fade = setInterval(() => {
-    v = Math.min(v + 0.05, 0.75);
-    a.volume = v;
-    if (v >= 0.75) clearInterval(fade);
-  }, 80);
+
   document.getElementById('songName').textContent = label || info.name;
   musicPlaying = true;
   document.getElementById('musicBtn').textContent = '⏸';
+  currentAudioKey = key;
+
+  if (isIOS) {
+    const p = getIOSPlayer();
+    if (p.src !== location.origin + '/' + info.src && !p.src.endsWith(info.src)) {
+      p.pause();
+      p.src = info.src;
+      p.load();
+    }
+    p.play().catch(() => {});
+  } else {
+    Object.values(audioMap).forEach(a => { a.el.pause(); a.el.currentTime = 0; });
+    const a = audioMap[key].el;
+    a.currentTime = 0;
+    a.volume = 0.75;
+    a.play().catch(() => {});
+  }
 }
 
 function toggleMusic() {
   const btn = document.getElementById('musicBtn');
-  if (!currentAudioKey) return;
-  const a = audioMap[currentAudioKey];
-  if (musicPlaying) {
-    a.el.pause();
-    musicPlaying = false;
-    btn.textContent = '▶';
+  if (isIOS) {
+    const p = getIOSPlayer();
+    if (musicPlaying) { p.pause(); musicPlaying = false; btn.textContent = '▶'; }
+    else { p.play().catch(() => {}); musicPlaying = true; btn.textContent = '⏸'; }
   } else {
-    a.el.play().catch(() => {});
-    musicPlaying = true;
-    btn.textContent = '⏸';
+    if (!currentAudioKey) return;
+    const a = audioMap[currentAudioKey].el;
+    if (musicPlaying) { a.pause(); musicPlaying = false; btn.textContent = '▶'; }
+    else { a.play().catch(() => {}); musicPlaying = true; btn.textContent = '⏸'; }
   }
 }
 
 function skipSong() {
   const idx = songOrder.indexOf(currentAudioKey);
   const next = songOrder[(idx + 1) % songOrder.length];
-  playAudio('audio-' + next);
+  playAudio(next);
 }
 
 function initSongSections() {
-  // Web Audio API is unlocked on first tap — scroll-based switching now works
-  // identically on iOS, Android, and Windows. No special cases needed.
-  const sectionMap = {
-    'chronicles': 'aditi',
-    'exposed':    'kamina',
-    'the-trio':   'preet'
-  };
+  const sectionMap = { 'chronicles':'aditi', 'exposed':'kamina', 'the-trio':'preet' };
+
+  if (isIOS) {
+    // On iOS: queue next song on scroll, play it on next touchstart (any touch on page)
+    let pendingKey = null;
+    const secObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const key = sectionMap[e.target.id];
+          if (key && key !== currentAudioKey) pendingKey = key;
+        }
+      });
+    }, { threshold: 0.4 });
+    Object.keys(sectionMap).forEach(id => {
+      const el = document.getElementById(id);
+      if (el) secObs.observe(el);
+    });
+    // Any touch anywhere on the page drains the queue
+    document.addEventListener('touchstart', () => {
+      if (pendingKey && pendingKey !== currentAudioKey) {
+        playAudio(pendingKey);
+        pendingKey = null;
+      }
+    }, { passive: true });
+    return;
+  }
+
+  // Non-iOS: auto-switch on scroll freely
   const secObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         const key = sectionMap[e.target.id];
-        if (key && key !== currentAudioKey) {
-          playAudio('audio-' + key);
-        }
+        if (key && key !== currentAudioKey) playAudio(key);
       }
     });
-  }, { threshold: 0.35 });
+  }, { threshold: 0.4 });
   Object.keys(sectionMap).forEach(id => {
     const el = document.getElementById(id);
     if (el) secObs.observe(el);
@@ -975,15 +1022,8 @@ function initSongSections() {
 function showFeels() {
   document.getElementById('feels-content').classList.add('show');
   document.querySelector('.feels-btn').style.display = 'none';
-  stopAll();
-  currentAudioKey = 'feels';
-  const a = audioMap['feels'].el;
-  a.currentTime = 0;
-  a.volume = 0.35;
-  a.play().catch(() => {});
-  document.getElementById('songName').textContent = 'Tu Hai Toh 🤍';
-  musicPlaying = true;
-  document.getElementById('musicBtn').textContent = '⏸';
+  // Button tap — plays immediately on iOS and all platforms
+  playAudio('feels', 'Tu Hai Toh 🤍');
 }
 // ===================== DRAG SCROLL =====================
 document.addEventListener('DOMContentLoaded', () => {
