@@ -17,7 +17,6 @@
     --text-mid: #6b4c4c;
     --gold: #c9a96e;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
@@ -26,7 +25,6 @@
     color: var(--text-dark);
     overflow-x: hidden;
   }
-
   /* ===================== ENTRY ===================== */
   #entry-screen {
     position: fixed; inset: 0;
@@ -37,13 +35,11 @@
     transition: opacity 1.2s ease, transform 1.2s ease;
   }
   #entry-screen.hide { opacity: 0; transform: scale(1.05); pointer-events: none; }
-
   .film-grain {
     position: absolute; inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
     pointer-events: none;
   }
-
   .entry-tagline {
     font-family: 'Libre Baskerville', serif; font-style: italic;
     font-size: clamp(11px, 1.8vw, 15px);
@@ -68,7 +64,6 @@
     cursor: pointer; transition: all 0.3s ease;
   }
   .entry-btn:hover { background: var(--deep-rose); color: white; }
-
   /* ===================== PASSWORD ===================== */
   #password-screen {
     position: fixed; inset: 0; background: var(--cream);
@@ -78,7 +73,6 @@
     transition: opacity 0.8s ease;
   }
   #password-screen.show { opacity: 1; pointer-events: all; }
-
   .clap-overlay {
     position: fixed; inset: 0; background: #100808;
     z-index: 1100; display: flex; align-items: center; justify-content: center;
@@ -105,7 +99,6 @@
   }
   .clap-label { font-size: 10px; color: #777; letter-spacing: 0.1em; text-transform: uppercase; }
   .clap-value { font-size: 13px; color: white; font-weight: 500; margin-top: 2px; }
-
   .pw-container { text-align: center; max-width: 440px; width: 90%; }
   .pw-eyebrow { font-size: 11px; letter-spacing: 0.42em; text-transform: uppercase; color: var(--deep-rose); margin-bottom: 20px; }
   .pw-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 5vw, 44px); font-weight: 700; margin-bottom: 10px; line-height: 1.2; }
@@ -131,7 +124,6 @@
   }
   .pw-hint.show { display: block; }
   .pw-status { margin-top: 18px; font-size: 13px; color: var(--text-mid); min-height: 22px; }
-
   .toast {
     position: fixed; bottom: 36px; left: 50%;
     transform: translateX(-50%) translateY(20px);
@@ -141,11 +133,9 @@
     z-index: 2000; font-family: 'DM Sans', sans-serif; line-height: 1.55;
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
   /* ===================== MAIN SITE ===================== */
   #main-site { opacity: 0; transition: opacity 1s ease; display: none; }
   #main-site.show { opacity: 1; }
-
   nav {
     position: fixed; top: 0; left: 0; right: 0; padding: 18px 44px;
     display: flex; align-items: center; justify-content: space-between;
@@ -156,7 +146,6 @@
   .nav-links { display: flex; gap: 28px; list-style: none; }
   .nav-links a { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color 0.3s; }
   .nav-links a:hover { color: var(--deep-rose); }
-
   /* ===================== HERO ===================== */
   #hero {
     min-height: 100vh; display: flex; align-items: center; justify-content: center;
@@ -198,7 +187,6 @@
     50% { transform: translateY(50vh) rotate(180deg) translateX(18px); }
     100% { transform: translateY(110vh) rotate(360deg) translateX(-12px); opacity: 0; }
   }
-
   /* ===================== SECTION BASE ===================== */
   .section-full { padding: 100px 0; }
   .section-full .inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
@@ -212,7 +200,6 @@
     font-family: 'Playfair Display', serif;
     font-size: clamp(32px, 5vw, 58px); font-weight: 700; line-height: 1.1; margin-bottom: 48px;
   }
-
   /* ===================== CHRONICLES ===================== */
   .chronicle-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3px; }
   .chronicle-card {
@@ -230,7 +217,6 @@
   .chronicle-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin-bottom: 12px; }
   .chronicle-card p { font-size: 14px; line-height: 1.88; color: var(--text-mid); }
   .chronicle-emoji { font-size: 30px; margin-bottom: 16px; display: block; }
-
   /* ===================== PHRASES ===================== */
   .phrases-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
   .phrase-card {
@@ -248,7 +234,6 @@
   .phrase-quote-mark { font-family: 'Playfair Display', serif; font-size: 80px; color: var(--soft-pink); line-height: 0.7; margin-bottom: 16px; display: block; }
   .phrase-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(15px, 1.8vw, 18px); line-height: 1.65; color: var(--text-dark); margin-bottom: 16px; }
   .phrase-tag { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--deep-rose); }
-
   /* ===================== FRIEND FACTS (horizontal scroll cards) ===================== */
   .facts-scroll-wrap { overflow-x: auto; padding-bottom: 20px; cursor: grab; }
   .facts-scroll-wrap:active { cursor: grabbing; }
@@ -266,7 +251,6 @@
   .fact-card h4 { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; margin-bottom: 10px; }
   .fact-card p { font-size: 13px; line-height: 1.85; color: var(--text-mid); }
   .fact-scroll-hint { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mid); opacity: 0.5; margin-bottom: 20px; }
-
   /* ===================== EXPOSED DOC ===================== */
   .doc-episode {
     display: grid; grid-template-columns: 70px 1fr; gap: 28px;
@@ -279,14 +263,12 @@
   .ep-content h3 { font-family: 'Playfair Display', serif; font-size: clamp(17px, 2.2vw, 24px); font-weight: 700; margin-bottom: 10px; color: white; }
   .ep-content p { font-size: 14px; line-height: 1.95; color: #b09090; }
   .ep-badge { display: inline-block; background: var(--deep-rose); color: white; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 4px 12px; margin-bottom: 12px; }
-
   /* ===================== FILMY DIALOGUES ===================== */
   .dialogue-item { padding: 48px 0; border-bottom: 1px solid var(--warm-taupe); text-align: center; transition: background 0.3s; }
   .dialogue-item:last-child { border-bottom: none; }
   .dialogue-item:hover { background: rgba(255,255,255,0.55); }
   .d-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(16px, 2.5vw, 24px); line-height: 1.65; color: var(--text-dark); }
   .d-context { margin-top: 14px; font-size: 12px; color: var(--deep-rose); letter-spacing: 0.15em; text-transform: uppercase; }
-
   /* ===================== PARALLEL UNIVERSE ===================== */
   .universe-block {
     background: var(--text-dark); color: white;
@@ -303,7 +285,6 @@
   .universe-text { font-size: clamp(14px, 1.8vw, 17px); color: #c0a0a0; line-height: 2; max-width: 640px; margin: 0 auto 32px; position: relative; }
   .universe-motto { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(16px, 2vw, 20px); color: var(--warm-taupe); position: relative; }
   .universe-motto strong { color: white; }
-
   /* ===================== QUIZ ===================== */
   .quiz-card { background: white; border: 1px solid var(--warm-taupe); padding: 52px 48px; max-width: 720px; margin: 0 auto; }
   .quiz-q-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--deep-rose); margin-bottom: 12px; }
@@ -341,7 +322,6 @@
   .quiz-result-sub { font-size: 14px; color: var(--text-mid); line-height: 1.85; }
   .quiz-restart { margin-top: 28px; background: transparent; border: 1.5px solid var(--warm-taupe); color: var(--text-mid); padding: 10px 28px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; font-family: 'DM Sans', sans-serif; }
   .quiz-restart:hover { border-color: var(--deep-rose); color: var(--deep-rose); }
-
   /* ===================== GALLERY ===================== */
   .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
   .gallery-slot { aspect-ratio: 1; background: var(--warm-taupe); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; transition: transform 0.4s cubic-bezier(.22,.68,0,1.2); }
@@ -352,7 +332,870 @@
   .slot-placeholder .slot-icon { font-size: 28px; margin-bottom: 8px; opacity: 0.3; }
   .slot-placeholder p { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.4; line-height: 1.65; }
   .gallery-slot.large { grid-column: span 2; grid-row: span 2; }
-
   /* ===================== FEELS ===================== */
   #feels-trigger { text-align: center; padding: 90px 40px; background: var(--cream); }
-  .feels-teaser { font-family: 'Libre Baskerville', serif; font-style: italic; font-size: 16px; color: var(--text-mid); margin-bot
+  .feels-teaser { font-family: 'Libre Baskerville', serif; font-style: italic; font-size: 16px; color: var(--text-mid); margin-bottom: 32px; line-height: 1.85; }
+  .feels-btn { background: transparent; border: 1px solid var(--warm-taupe); color: var(--text-mid); padding: 12px 36px; font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+  .feels-btn:hover { border-color: var(--deep-rose); color: var(--deep-rose); }
+  #feels-content { display: none; max-width: 680px; margin: 0 auto; padding: 60px 40px; text-align: center; animation: fadeUp 1s ease forwards; }
+  #feels-content.show { display: block; }
+  .feels-divider { width: 40px; height: 1px; background: var(--warm-taupe); margin: 32px auto; }
+  .feels-letter { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(16px, 2vw, 21px); line-height: 2; color: var(--text-dark); }
+  .feels-letter .highlight { color: var(--deep-rose); font-weight: 700; }
+  /* ===================== FOOTER ===================== */
+  footer { background: var(--text-dark); color: white; text-align: center; padding: 72px 40px; }
+  footer .f-title { font-family: 'Playfair Display', serif; font-size: clamp(36px, 8vw, 88px); font-weight: 900; font-style: italic; color: var(--pink); margin-bottom: 20px; }
+  footer p { font-size: 13px; color: #8a7070; letter-spacing: 0.15em; line-height: 2.2; }
+  /* ===================== ANIMATIONS ===================== */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(.22,.68,0,1), transform 0.8s cubic-bezier(.22,.68,0,1); }
+  .reveal.from-left { transform: translateX(-36px); }
+  .reveal.from-right { transform: translateX(36px); }
+  .reveal.visible { opacity: 1; transform: none; }
+  .stagger > * { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .stagger.visible > *:nth-child(1) { transition-delay: 0s; }
+  .stagger.visible > *:nth-child(2) { transition-delay: 0.1s; }
+  .stagger.visible > *:nth-child(3) { transition-delay: 0.2s; }
+  .stagger.visible > *:nth-child(4) { transition-delay: 0.3s; }
+  .stagger.visible > *:nth-child(5) { transition-delay: 0.4s; }
+  .stagger.visible > *:nth-child(6) { transition-delay: 0.5s; }
+  .stagger.visible > * { opacity: 1; transform: none; }
+  /* ===================== MUSIC PLAYER ===================== */
+  .music-player {
+    position: fixed; bottom: 24px; right: 24px; background: white;
+    border: 1px solid var(--warm-taupe); padding: 12px 18px;
+    display: none; align-items: center; gap: 12px; z-index: 500;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.07); transition: transform 0.3s;
+  }
+  .music-player:hover { transform: translateY(-2px); }
+  .music-player.show { display: flex; }
+  .music-btn { width: 34px; height: 34px; border-radius: 50%; background: var(--deep-rose); border: none; color: white; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+  .music-btn:hover { transform: scale(1.1); }
+  .music-info { font-size: 11px; color: var(--text-mid); max-width: 160px; }
+  .song-name { font-weight: 500; color: var(--text-dark); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .music-next { background: none; border: none; color: var(--text-mid); cursor: pointer; font-size: 16px; padding: 4px; transition: color 0.2s; }
+  .music-next:hover { color: var(--deep-rose); }
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 640px) {
+    nav { padding: 14px 20px; } .nav-links { display: none; }
+    .section-full .inner { padding: 0 20px; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-slot.large { grid-column: span 2; }
+    .doc-episode { grid-template-columns: 1fr; gap: 6px; }
+    .ep-number { font-size: 32px; }
+    .quiz-card { padding: 32px 22px; }
+    .universe-block { padding: 60px 24px; }
+    footer { padding: 52px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!--
+╔══════════════════════════════════════════════════════════════╗
+║              AUDIO FILES — DROP IN SAME FOLDER               ║
+║  gulabi.mp3   → Gulabi Aankhen (Shanaya's entry song)        ║
+║  aditi.mp3    → Kabhi Kabhi Aditi — Rashid Ali               ║
+║  kamina.mp3   → Har Ek Friend Kamina Hota Hai — Sonu Nigam   ║
+║  preet.mp3    → Preet Re — Darshan Raval                     ║
+║  tu-hai-toh.mp3 → Tu Hai Toh — Neeti Mohan                  ║
+║  Download free at: cobalt.tools (paste YouTube link → mp3)   ║
+╚══════════════════════════════════════════════════════════════╝
+-->
+<audio id="audio-gulabi"   src="gulabi.mp3"    preload="none" loop></audio>
+<audio id="audio-aditi"    src="aditi.mp3"     preload="none" loop></audio>
+<audio id="audio-kamina"   src="kamina.mp3"    preload="none" loop></audio>
+<audio id="audio-preet"    src="preet.mp3"     preload="none" loop></audio>
+<audio id="audio-feels"    src="tu-hai-toh.mp3" preload="none" loop></audio>
+<div class="toast" id="toast"></div>
+
+<!-- CLAPBOARD -->
+<div class="clap-overlay" id="clapOverlay">
+  <div class="clap-board">
+    <div class="clap-stick" id="clapStick"></div>
+    <div class="clap-top">
+      <div class="clap-title-big">THE ISHU CHRONICLES</div>
+      <div><div class="clap-label">Production</div><div class="clap-value">Bestie Studios</div></div>
+      <div><div class="clap-label">Director</div><div class="clap-value">Love &amp; Chaos</div></div>
+      <div><div class="clap-label">Scene</div><div class="clap-value">Birthday Special</div></div>
+      <div><div class="clap-label">Date</div><div class="clap-value">28/02/2002</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 1: ENTRY -->
+<div id="entry-screen">
+  <div class="film-grain"></div>
+  <p class="entry-tagline">A Bestie Production Presents</p>
+  <h1 class="entry-title">Ek Thi<br><em style="color:var(--deep-rose)">Ishu</em></h1>
+  <button class="entry-btn" onclick="showPassword()">Enter the World ✦</button>
+</div>
+
+<!-- SCREEN 2: PASSWORD -->
+<div id="password-screen">
+  <div class="pw-container">
+    <p class="pw-eyebrow">Access Required</p>
+    <h2 class="pw-title">Prove you belong here</h2>
+    <p class="pw-sub">Only a true Ishu loyalist would know this.<br>No googling. No cheating. We're watching. 👀</p>
+    <input type="text" class="pw-input" id="pwInput" placeholder="type the secret...">
+    <br>
+    <button class="pw-btn" onclick="checkPassword()">Submit</button>
+    <div class="pw-hint" id="pwHint">💡 Hint: <strong>"Day it all began"</strong></div>
+    <p class="pw-status" id="pwStatus"></p>
+  </div>
+</div>
+
+<!-- MAIN SITE -->
+<div id="main-site">
+  <nav>
+    <div class="nav-logo">Ishu ✦</div>
+    <ul class="nav-links">
+      <li><a href="#chronicles">Chronicles</a></li>
+      <li><a href="#phrases">Iconic</a></li>
+      <li><a href="#exposed">Exposed</a></li>
+      <li><a href="#the-trio">The Trio</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div id="hero">
+    <div class="petals" id="petals"></div>
+    <div class="hero-bg-text">ISHU</div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">✦ Happy 24th Birthday ✦</p>
+      <h1 class="hero-name">Ishu<br><span>Sonkar</span></h1>
+      <p class="hero-subtitle">"Born to be iconic. Forced to be normal."</p>
+    </div>
+  </div>
+
+  <!-- ========== CHRONICLES ========== -->
+  <div id="chronicles" class="section-full" style="background:var(--blush)" data-song="aditi">
+    <div class="inner">
+      <div class="reveal">
+        <p class="section-label">The File</p>
+        <h2 class="section-title">Chronicles of<br>Ishu Sonkar</h2>
+      </div>
+      <div class="chronicle-grid stagger">
+        <div class="chronicle-card" data-num="01">
+          <span class="chronicle-emoji">👑</span>
+          <h3>Main Character Energy</h3>
+          <p>She doesn't walk into a room. She <em>enters</em>. Always late. Always the most put-together person there. The universe restructures its plans around Ishu — not the other way around. This is non-negotiable.</p>
+        </div>
+        <div class="chronicle-card" data-num="02">
+          <span class="chronicle-emoji">🤏</span>
+          <h3>Pocket-Sized Don</h3>
+          <p>She is short. We tease her for it. We secretly love that she comes in pocket size — a chota fashionable don in the most literal sense. All that personality in that tiny frame is genuinely impressive engineering.</p>
+        </div>
+        <div class="chronicle-card" data-num="03">
+          <span class="chronicle-emoji">🎵</span>
+          <h3>Exists Because Live Singing Does</h3>
+          <p>Ishu and live singing share a spiritual bond that science cannot explain. Remove music from the equation and we're not sure what remains. She does not listen to songs. She <em>feels</em> them into her body.</p>
+        </div>
+        <div class="chronicle-card" data-num="04">
+          <span class="chronicle-emoji">🌂</span>
+          <h3>Putul Didi &amp; Bahaspati Didi</h3>
+          <p>Her true right and left hands. The ones who have seen it all — the soft, the unhinged, the dramatic, and the 3am variety. Real ones. Certified pillars. Ishu without her didi energy is an incomplete sentence.</p>
+        </div>
+        <div class="chronicle-card" data-num="05">
+          <span class="chronicle-emoji">💖</span>
+          <h3>The Loyal One</h3>
+          <p>Tell her you need her. Just say it. And she will show up — be it the world crashing on her end simultaneously. She will figure her chaos out later. You come first. That's just how Ishu is coded.</p>
+        </div>
+        <div class="chronicle-card" data-num="06">
+          <span class="chronicle-emoji">🍄</span>
+          <h3>The One Thing We All Agree On</h3>
+          <p>Wars have been fought over taste. But not about mushroom. That is the one thing all three of us can always, <em>always</em> agree on. Mushroom unites. Mushroom is peace. Mushroom is love.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== ICONIC PHRASES ========== -->
+  <div id="phrases" class="section-full" style="background:var(--cream)">
+    <div class="inner">
+      <div class="reveal">
+        <p class="section-label">Hall of Fame</p>
+        <h2 class="section-title">The Iconic Phrases</h2>
+      </div>
+      <div class="phrases-grid stagger">
+        <div class="phrase-card">
+          <span class="phrase-quote-mark">"</span>
+          <p class="phrase-text">Yeh toh mein chauthi mein karti thi</p>
+          <p class="phrase-tag">Classic Ishu · Frequency: Daily</p>
+        </div>
+        <div class="phrase-card">
+          <span class="phrase-quote-mark">"</span>
+          <p class="phrase-text">Mere bina tumlog ka kuch nahi ho sakta hai</p>
+          <p class="phrase-tag">Painfully True · Evidence: Infinite</p>
+        </div>
+        <div class="phrase-card">
+          <span class="phrase-quote-mark">"</span>
+          <p class="phrase-text">Mereko Tulsi dekhna hai guys, BYE 👀</p>
+          <p class="phrase-tag">The Great Exit · No Further Questions</p>
+        </div>
+        <div class="phrase-card">
+          <span class="phrase-quote-mark">"</span>
+          <p class="phrase-text">Abhi just utha hai</p>
+          <p class="phrase-tag">Ishu Standard Time · 4PM Edition</p>
+        </div>
+        <div class="phrase-card">
+          <span class="phrase-quote-mark">"</span>
+          <p class="phrase-text">Hum kal lasagna banaega</p>
+          <p class="phrase-tag">Famous Last Words · Lasagna: Still Pending · Year: Unknown</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== EXPOSED DOCUMENTARY ========== -->
+  <div id="exposed" class="section-full" style="background:#1a0a0a;color:white" data-song="kamina">
+    <div class="inner">
+      <div class="reveal">
+        <p class="section-label" style="color:#f2a7b8">Netflix Presents</p>
+        <h2 class="section-title" style="color:white">Exposed: A Documentary<br>on Ishu Sonkar</h2>
+      </div>
+      <div class="stagger">
+        <div class="doc-episode">
+          <div class="ep-number">EP1</div>
+          <div class="ep-content">
+            <div class="ep-badge">Hygiene Investigation</div>
+            <h3>The Bath: A Rare Phenomenon</h3>
+            <p>Experts remain baffled. By all known science, this should not be possible. And yet — she always looks immaculate. The bath remains a ghost story. An urban legend. A "coming soon" feature that somehow never shipped. We respect it. We do not understand it. We have stopped asking.</p>
+          </div>
+        </div>
+        <div class="doc-episode">
+          <div class="ep-number">EP2</div>
+          <div class="ep-content">
+            <div class="ep-badge">Anger Studies</div>
+            <h3>Pocket-Sized She-Hulk: Origin Story</h3>
+            <p>Disagree with Ishu — just once. Watch the transformation. The height is a trap. The aesthetic exterior is a trap. She does not debate. She does not discuss. She <em>becomes</em>. The Hulk at least has warning signs. Ishu does not offer that courtesy.</p>
+          </div>
+        </div>
+        <div class="doc-episode">
+          <div class="ep-number">EP3</div>
+          <div class="ep-content">
+            <div class="ep-badge">Transport Crisis</div>
+            <h3>The Driver Dilemma</h3>
+            <p>Ishu's relationship with driving is a subject of ongoing research. The motto is clear: Agar car hai toh vyapar hai. The car exists. The theory exists. The execution is where we pray.</p>
+          </div>
+        </div>
+        <div class="doc-episode">
+          <div class="ep-number">EP4</div>
+          <div class="ep-content">
+            <div class="ep-badge">Oath Culture</div>
+            <h3>Jab Tak Kasam Nahi, Baat Hasam Nahi</h3>
+            <p>Ishu will not believe you. She has decided. Your words mean nothing. Your evidence means nothing. You must swear. On everything. The world on dau, minimum. Only then does the conversation become real. Only then. This is her law. We have accepted it.</p>
+          </div>
+        </div>
+        <div class="doc-episode">
+          <div class="ep-number">EP5</div>
+          <div class="ep-content">
+            <div class="ep-badge">Alcohol Studies</div>
+            <h3>Two Sips: The Threshold of No Return</h3>
+            <p>We promise we can hold our drinks. We really do. But two sips of Jaeger in and suddenly clothes are sweeping floors and someone is narrating their entire life story to a stranger. Alcohol tolerance: infinite — in theory. In practice: two sips. This is peer-reviewed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== FILMY DIALOGUES ========== -->
+  <div id="dialogues" class="section-full" style="background:var(--blush)">
+    <div class="inner" style="max-width:860px">
+      <div class="reveal" style="text-align:center">
+        <p class="section-label" style="justify-content:center">Screenplay</p>
+        <h2 class="section-title" style="margin-bottom:8px">Dialogues Written<br>for Ishu</h2>
+        <p style="font-size:14px;color:var(--text-mid);margin-bottom:52px;font-style:italic">She didn't say them. But she could have. Anytime.</p>
+      </div>
+      <div class="reveal">
+        <div class="dialogue-item">
+          <p class="d-text">"Mere boyfriend se gullu gullu karegi toh dhopduingi hi na ek"</p>
+          <p class="d-context">Energy: Chaotic Protective · Rating: 10/10 would not test</p>
+        </div>
+        <div class="dialogue-item">
+          <p class="d-text">"Mera life itna kharab ho gaya, itna kharab ho gaya hai"</p>
+          <p class="d-context">Trigger: Monday morning · Someone disagreed · Tulsi episode missed</p>
+        </div>
+        <div class="dialogue-item">
+          <p class="d-text">"Kuch logo ke saath wakt bitane se sab kuch theek ho jata hai"</p>
+          <p class="d-context">About us. Obviously. We choose to believe this fully. 🤍</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== THE TRIO / FRIEND FACTS ========== -->
+  <div id="the-trio" class="section-full" style="background:var(--cream)" data-song="preet">
+    <div class="inner">
+      <div class="reveal">
+        <p class="section-label">Classified Intel</p>
+        <h2 class="section-title">Things Only We Know</h2>
+        <p class="fact-scroll-hint">← scroll sideways →</p>
+      </div>
+      <div class="facts-scroll-wrap reveal">
+        <div class="facts-row">
+          <div class="fact-card">
+            <span class="fact-icon">👗</span>
+            <h4>Silver Spring, Tower 2, Flat 17B</h4>
+            <p>Who really cares to shop when there's an open-access clothing center at Silver Spring Apartments Tower 2 Flat 17B? The collection updates constantly. Entry is selective. We have honorary membership.</p>
+          </div>
+          <div class="fact-card">
+            <span class="fact-icon">🍚</span>
+            <h4>Rice is the Answer</h4>
+            <p>Lost? Rice. Sad? Rice. Celebrating? Rice. The question doesn't matter — the answer is rice. A full bucket of it. Followed by sleep. In that order. Every time. This is Ishu's philosophy of life.</p>
+          </div>
+          <div class="fact-card">
+            <span class="fact-icon">💅</span>
+            <h4>Nails on Standby, Always</h4>
+            <p>Shaadi? Nails done. Sangeet? Nails done. Sagai? Nails done. Casual Tuesday with nowhere to be? Nails done. The occasion is irrelevant. The nails are har roz ready. This is not vanity — this is discipline.</p>
+          </div>
+          <div class="fact-card">
+            <span class="fact-icon">🎤</span>
+            <h4>The Darshan Raval Situation</h4>
+            <p>The obsession is real. Deeply, spiritually real. When she is pregnant someday, we genuinely think the first face she'd want to open her eyes to is his. Abh chahe poster se hi kyu na kaam chale. We fully support this vision.</p>
+          </div>
+          <div class="fact-card">
+            <span class="fact-icon">🪝</span>
+            <h4>The Hookah Paradox</h4>
+            <p>Hookah lena aata nahi. Par uska pipe dena bhi aata nahi. A complete refusal at both ends of the transaction. She is not a giver nor a taker in this specific scenario. She simply exists near the hookah. Philosophically.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== PARALLEL UNIVERSE ========== -->
+  <div class="universe-block">
+    <div class="reveal" style="position:relative;z-index:1">
+      <div class="universe-title">In a Parallel Universe</div>
+      <div class="universe-text">
+        The three of us are on a road trip. Windows down. Volume up. No signal, no schedule, no excuses. The playlist is running — Preet Re fading into Aditi fading into something loud and slightly unhinged. Nobody is "just waking up" because nobody slept.
+      </div>
+      <div class="universe-motto">
+        <strong>"Ek din toh trip hoga hi."</strong><br>
+        Bus papa mann jae. 🙏
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== QUIZ ========== -->
+  <div id="quiz" class="section-full" style="background:var(--cream)">
+    <div class="inner" style="max-width:800px">
+      <div class="reveal" style="text-align:center">
+        <p class="section-label" style="justify-content:center">Mandatory Exam</p>
+        <h2 class="section-title" style="margin-bottom:8px">Bestie Intelligence<br>Test</h2>
+        <p style="font-size:14px;color:var(--text-mid);margin-bottom:52px">Certified by the Ishu Sonkar Academy of Knowledge. No pressure. But also — full pressure.</p>
+      </div>
+      <div class="quiz-card reveal">
+        <div id="quiz-q-wrap">
+          <p class="quiz-q-label" id="quiz-q-num">Question 1 of 6</p>
+          <p class="quiz-question" id="quiz-q-text"></p>
+          <div class="quiz-options" id="quiz-options"></div>
+          <div class="quiz-nav">
+            <p class="quiz-progress" id="quiz-score-live">Score: 0</p>
+            <button class="quiz-next-btn" id="quiz-next" onclick="nextQuestion()">Next →</button>
+          </div>
+        </div>
+        <div class="quiz-result" id="quiz-result">
+          <div class="quiz-result-score" id="result-score"></div>
+          <div class="quiz-result-title" id="result-title"></div>
+          <div class="quiz-result-sub" id="result-sub" style="margin-top:10px"></div>
+          <button class="quiz-restart" onclick="restartQuiz()">Try Again ↻</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== GALLERY ========== -->
+  <div id="gallery" class="section-full" style="background:var(--blush)">
+    <div class="inner">
+      <div class="reveal">
+        <p class="section-label">Evidence</p>
+        <h2 class="section-title">The Gallery</h2>
+      </div>
+      <div class="gallery-grid reveal">
+        <div class="gallery-slot large">
+          <img src="photo1.jpg" alt="Memory">
+        </div>
+        <div class="gallery-slot"><img src="photo2.jpg" alt="Memory"></div>
+        <div class="gallery-slot"><img src="photo3.jpg" alt="Memory"></div>
+        <div class="gallery-slot"><img src="photo4.jpg" alt="Memory"></div>
+        <div class="gallery-slot"><img src="photo5.jpg" alt="Memory"></div>
+        <div class="gallery-slot"><img src="photo6.jpg" alt="Memory"></div>
+        <div class="gallery-slot"><img src="photo7.jpg" alt="Memory"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== HIDDEN FEELS ========== -->
+  <div id="feels-trigger">
+    <p class="feels-teaser">
+      There's something tucked away here.<br>
+      For when you're ready for feelings.
+    </p>
+    <button class="feels-btn" onclick="showFeels()">Open if you DARE TO LOVE 🤍</button>
+    <div id="feels-content">
+      <div class="feels-divider"></div>
+      <p class="feels-letter">
+        From the very beginning, we just knew you were it for us — no slow realisation, no gradual build-up, just that quiet, instant certainty that this was ours. Somewhere between random late-night calls, half-finished conversations, unnecessary teasing, and those comfortable silences where nobody feels the need to perform, you became our permanent.<br><br>
+        There's something about you that makes the ordinary feel extraordinary; we could sit in the same boring place we've been to a hundred times, crib about life, overanalyse nonsense, randomly say "hatt chutiya" to each other, and somehow it still feels like the best part of the week. We don't need big plans, constant texting, or some grand display of closeness — one 3 a.m. <span class="highlight">"tu jaag rahi hai?"</span> is enough to collapse the distance of months. That's our magic. Effortless but unshakeable.<br><br>
+        And the funny thing is, you probably don't even realise what you are to us. You move through life like you're still figuring yourself out, like you're still becoming something, but from where we stand, <span class="highlight">you already are there.</span> There's a softness in you that you hide behind sarcasm, a depth behind the chill exterior, a loyalty so quiet but so fierce that it makes everything feel safe.<br><br>
+        Being around you doesn't feel like trying. It feels like exhaling after holding your breath all day. And maybe we don't say it enough because we'd rather joke about it, but the truth is simple — if you weren't here, something fundamental would feel missing. Not dramatically broken. Just off. Like a rhythm slightly out of sync.<br><br>
+        On this birthday, we don't want to wish you bigger dreams or louder achievements. We just hope you see yourself the way we do — <span class="highlight">steady, rare, irreplaceable.</span> Tu samajhti nahi hai yaar, but you matter in ways nobody can measure.<br><br>
+        And if life ever gets overwhelming, confusing, or too heavy, just remember — before the world gets us, we get each other. Always. ♾️
+      </p>
+      <div class="feels-divider"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="f-title">Happy Birthday, Ishu ✦</div>
+    <p>Made with love, chaos, and absolutely zero sleep · 2026</p>
+    <p>Ek thi ladki. Ek hi hogi. 🌸</p>
+  </footer>
+</div>
+
+<!-- MUSIC PLAYER -->
+<div class="music-player" id="musicPlayer">
+  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">⏸</button>
+  <div class="music-info">
+    <div class="song-name" id="songName">Gulabi Aankhen 🌸</div>
+    <div>♪ Now Playing</div>
+  </div>
+  <button class="music-next" onclick="skipSong()" title="Next song">⏭</button>
+</div>
+
+<script>
+// ===================== PASSWORD =====================
+const CORRECT_ANSWERS = [
+  "14th february 2022","14 february 2022","14/02/2022","14-02-2022",
+  "february 14 2022","february 14th 2022","14th feb 2022","14 feb 2022"
+];
+const wrongMessages = [
+  "why is your brain suddenly matching your height 💀",
+  "keep trying, that's what you're best at babes 👏",
+  "Looks like someone needs to be a part of Suryakiran 👀👀"
+];
+let attempts = 0;
+function showPassword() {
+  document.getElementById('entry-screen').classList.add('hide');
+  setTimeout(() => {
+    document.getElementById('password-screen').classList.add('show');
+    document.getElementById('pwInput').focus();
+  }, 950);
+}
+function showToast(msg, duration = 3500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('show'), duration);
+}
+function checkPassword() {
+  const raw = document.getElementById('pwInput').value.trim().toLowerCase();
+  if (!raw) return;
+  if (CORRECT_ANSWERS.includes(raw)) {
+    document.getElementById('pwStatus').textContent = '✦ Access granted. Welcome, bestie.';
+    setTimeout(triggerClapboard, 700);
+    return;
+  }
+  document.getElementById('pwInput').value = '';
+  if (attempts < 3) {
+    showToast(wrongMessages[attempts]);
+    document.getElementById('pwStatus').textContent = `Attempt ${attempts + 1} of 4 used`;
+    attempts++;
+  } else {
+    document.getElementById('pwHint').classList.add('show');
+    document.getElementById('pwStatus').textContent = 'Okay. Last chance. For real. XOXO 💋';
+    attempts++;
+  }
+}
+function triggerClapboard() {
+  document.getElementById('clapOverlay').classList.add('show');
+  setTimeout(() => document.getElementById('clapStick').classList.add('snap'), 700);
+  setTimeout(() => {
+    document.getElementById('clapOverlay').classList.remove('show');
+    document.getElementById('password-screen').classList.remove('show');
+    showMainSite();
+  }, 2500);
+}
+function showMainSite() {
+  const main = document.getElementById('main-site');
+  main.style.display = 'block';
+  setTimeout(() => {
+    main.classList.add('show');
+    createPetals();
+    initScrollAnimations();
+    initQuiz();
+    initSongSections();
+    playAudio('audio-gulabi', 'Gulabi Aankhen 🌸');
+    document.getElementById('musicPlayer').classList.add('show');
+  }, 80);
+}
+// ===================== PETALS =====================
+function createPetals() {
+  const c = document.getElementById('petals');
+  const s = ['🌸','✿','❀','✦','⋆','·','✧'];
+  for (let i = 0; i < 24; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = s[Math.floor(Math.random() * s.length)];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.fontSize = (8 + Math.random() * 14) + 'px';
+    p.style.animationDuration = (9 + Math.random() * 14) + 's';
+    p.style.animationDelay = (Math.random() * 12) + 's';
+    c.appendChild(p);
+  }
+}
+// ===================== SCROLL ANIMATIONS =====================
+function initScrollAnimations() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal, .stagger').forEach(el => obs.observe(el));
+}
+// ===================== AUDIO =====================
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+const audioMap = {
+  gulabi:  { el: document.getElementById('audio-gulabi'),  name: 'Gulabi Aankhen 🌸' },
+  aditi:   { el: document.getElementById('audio-aditi'),   name: 'Kabhi Kabhi Aditi 🎶' },
+  kamina:  { el: document.getElementById('audio-kamina'),  name: 'Har Ek Friend Kamina 😂' },
+  preet:   { el: document.getElementById('audio-preet'),   name: 'Preet Re 💕' },
+  feels:   { el: document.getElementById('audio-feels'),   name: 'Tu Hai Toh 🤍' },
+};
+const songOrder = ['gulabi','aditi','kamina','preet'];
+let currentAudioKey = null;
+let musicPlaying = true;
+// On iOS we use a single Audio element and swap src to avoid unlock issues
+let iosAudio = null;
+let iosPendingKey = null;
+
+function getIOSAudio() {
+  if (!iosAudio) {
+    iosAudio = new Audio();
+    iosAudio.loop = true;
+    iosAudio.volume = 0.75;
+  }
+  return iosAudio;
+}
+
+function stopAll() {
+  if (isIOS) {
+    const a = getIOSAudio();
+    a.pause();
+  } else {
+    Object.values(audioMap).forEach(a => { a.el.pause(); a.el.currentTime = 0; });
+  }
+}
+
+function playAudio(id, label) {
+  const key = id.replace('audio-','');
+  const info = audioMap[key];
+  if (!info) return;
+
+  document.getElementById('songName').textContent = label || info.name;
+  musicPlaying = true;
+  document.getElementById('musicBtn').textContent = '⏸';
+
+  if (isIOS) {
+    const a = getIOSAudio();
+    // Build the src from the original element's src
+    const srcEl = info.el;
+    const newSrc = srcEl.src || srcEl.getAttribute('src');
+    if (a.src !== newSrc) {
+      a.pause();
+      a.src = newSrc;
+      a.load();
+    }
+    currentAudioKey = key;
+    const playPromise = a.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Autoplay blocked — queue it, will resume on next user tap
+        iosPendingKey = key;
+        musicPlaying = false;
+        document.getElementById('musicBtn').textContent = '▶';
+      });
+    }
+  } else {
+    stopAll();
+    currentAudioKey = key;
+    const a = info.el;
+    a.currentTime = 0;
+    a.volume = 0;
+    a.play().catch(() => {});
+    let v = 0;
+    const fade = setInterval(() => {
+      v = Math.min(v + 0.05, 0.75);
+      a.volume = v;
+      if (v >= 0.75) clearInterval(fade);
+    }, 100);
+  }
+}
+
+function toggleMusic() {
+  const btn = document.getElementById('musicBtn');
+  if (isIOS) {
+    const a = getIOSAudio();
+    // If there's a pending song waiting for user interaction, play it now
+    if (iosPendingKey) {
+      const info = audioMap[iosPendingKey];
+      a.src = info.el.src || info.el.getAttribute('src');
+      a.load();
+      currentAudioKey = iosPendingKey;
+      iosPendingKey = null;
+    }
+    if (musicPlaying) {
+      a.pause();
+      musicPlaying = false;
+      btn.textContent = '▶';
+    } else {
+      a.play().catch(() => {});
+      musicPlaying = true;
+      btn.textContent = '⏸';
+    }
+  } else {
+    if (!currentAudioKey) return;
+    const a = audioMap[currentAudioKey];
+    if (musicPlaying) {
+      a.el.pause();
+      musicPlaying = false;
+      btn.textContent = '▶';
+    } else {
+      a.el.play().catch(() => {});
+      musicPlaying = true;
+      btn.textContent = '⏸';
+    }
+  }
+}
+
+function skipSong() {
+  const idx = songOrder.indexOf(currentAudioKey);
+  const next = songOrder[(idx + 1) % songOrder.length];
+  playAudio('audio-' + next);
+}
+
+function initSongSections() {
+  const sectionMap = {
+    'chronicles': 'aditi',
+    'exposed':    'kamina',
+    'the-trio':   'preet'
+  };
+
+  if (isIOS) {
+    // --- SCROLL: queue the song when section scrolls into view ---
+    const secObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const key = sectionMap[e.target.id];
+          if (key && key !== currentAudioKey) {
+            iosPendingKey = key;
+            // Update player label so user knows what's ready
+            document.getElementById('songName').textContent = audioMap[key].name;
+          }
+        }
+      });
+    }, { threshold: 0.3 });
+    Object.keys(sectionMap).forEach(id => {
+      const el = document.getElementById(id);
+      if (el) secObs.observe(el);
+    });
+
+    // --- OPTION 1: Any tap anywhere inside the section fires the queued song ---
+    Object.keys(sectionMap).forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('touchend', () => {
+        if (iosPendingKey && iosPendingKey !== currentAudioKey) {
+          playPendingIOS();
+        }
+      }, { passive: true });
+    });
+
+    // --- OPTION 4: Tapping a nav link fires that section's song ---
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('touchend', () => {
+        const href = link.getAttribute('href');
+        const sectionId = href ? href.replace('#', '') : null;
+        const key = sectionId && sectionMap[sectionId];
+        if (key) {
+          iosPendingKey = key;
+          playPendingIOS();
+        }
+      }, { passive: true });
+    });
+
+    return;
+  }
+
+  // --- Android / Windows: auto-switch on scroll as normal ---
+  const secObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const key = sectionMap[e.target.id];
+        if (key && key !== currentAudioKey) {
+          playAudio('audio-' + key);
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+  Object.keys(sectionMap).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) secObs.observe(el);
+  });
+}
+
+function playPendingIOS() {
+  if (!iosPendingKey) return;
+  const key = iosPendingKey;
+  iosPendingKey = null;
+  playAudio('audio-' + key);
+}
+// ===================== FEELS =====================
+function showFeels() {
+  document.getElementById('feels-content').classList.add('show');
+  document.querySelector('.feels-btn').style.display = 'none';
+  // showFeels is triggered by a button tap, so iOS will allow playback
+  stopAll();
+  currentAudioKey = 'feels';
+  iosPendingKey = null;
+  document.getElementById('songName').textContent = 'Tu Hai Toh 🤍';
+  musicPlaying = true;
+  document.getElementById('musicBtn').textContent = '⏸';
+  if (isIOS) {
+    const a = getIOSAudio();
+    const src = audioMap['feels'].el.src || audioMap['feels'].el.getAttribute('src');
+    a.src = src;
+    a.volume = 0.35;
+    a.load();
+    a.play().catch(() => {});
+  } else {
+    const feelsAudio = audioMap['feels'];
+    feelsAudio.el.volume = 0.35;
+    feelsAudio.el.play().catch(() => {});
+  }
+}
+// ===================== DRAG SCROLL =====================
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.facts-scroll-wrap').forEach(el => {
+    let isDown = false, startX, scrollL;
+    el.addEventListener('mousedown', e => { isDown = true; el.classList.add('active'); startX = e.pageX - el.offsetLeft; scrollL = el.scrollLeft; });
+    el.addEventListener('mouseleave', () => { isDown = false; });
+    el.addEventListener('mouseup', () => { isDown = false; });
+    el.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - el.offsetLeft; el.scrollLeft = scrollL - (x - startX) * 1.5; });
+  });
+  document.getElementById('pwInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkPassword();
+  });
+});
+// ===================== QUIZ =====================
+const questions = [
+  {
+    q: "Ishu arrives at a party. What is guaranteed?",
+    opts: ["She's early and waiting for everyone", "She's on time, surprisingly", "She's late — but the most aesthetic person in the room", "She cancelled but sent a very convincing apology"],
+    correct: 2, fun: "Late. Flawless. Iconic. Every. Single. Time. 👑"
+  },
+  {
+    q: "What fixes every single problem in life, according to Ishu?",
+    opts: ["A) Therapy", "B) Communication", "C) Rice", "D) A long bath (wait—)"],
+    correct: 2, fun: "Obviously. Rice is the answer. Rice has always been the answer. 🍚"
+  },
+  {
+    q: "What happens if you dare to disagree with Ishu?",
+    opts: ["Calm discussion over chai", "Logical debate with sources", "SHE HULK MODE ACTIVATED", "She gives you the silent treatment gracefully"],
+    correct: 2, fun: "You do NOT want to find out firsthand. Trust the lore. 💚"
+  },
+  {
+    q: "Ishu will not believe you until you...",
+    opts: ["Show her proof", "Repeat it three times", "Swear on everything — put the world on dau", "Screenshot it"],
+    correct: 2, fun: "Jab tak kasam nahi — baat hasam nahi. This is her law. 🫵"
+  },
+  {
+    q: "The one thing all three of you will always, always agree on?",
+    opts: ["Going on a trip", "Bollywood music", "Mushroom", "That Ishu is always right"],
+    correct: 2, fun: "Mushroom is peace. Mushroom is love. Mushroom unites. 🍄"
+  },
+  {
+    q: "How tall is Ishu's anger compared to her height?",
+    opts: ["Proportional — very calm", "Slightly elevated", "Immeasurably larger in every dimension", "She doesn't get angry, she gets aesthetic"],
+    correct: 2, fun: "She comes in pocket size. The anger does NOT. 💀"
+  }
+];
+let currentQ = 0, score = 0, answered = false;
+function initQuiz() { currentQ = 0; score = 0; answered = false; renderQuestion(); }
+function renderQuestion() {
+  answered = false;
+  const q = questions[currentQ];
+  document.getElementById('quiz-q-num').textContent = `Question ${currentQ + 1} of ${questions.length}`;
+  document.getElementById('quiz-q-text').textContent = q.q;
+  document.getElementById('quiz-score-live').textContent = `Score: ${score}`;
+  const wrap = document.getElementById('quiz-options');
+  wrap.innerHTML = '';
+  const L = ['A','B','C','D'];
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option';
+    btn.innerHTML = `<span class="quiz-opt-letter">${L[i]}</span>${opt}`;
+    btn.onclick = () => selectAnswer(i);
+    wrap.appendChild(btn);
+  });
+  const nextBtn = document.getElementById('quiz-next');
+  nextBtn.classList.remove('ready');
+  nextBtn.textContent = currentQ < questions.length - 1 ? 'Next →' : 'See Results ✦';
+}
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = questions[currentQ];
+  document.querySelectorAll('.quiz-option').forEach((o, i) => {
+    if (i === q.correct) o.classList.add('correct');
+    else if (i === idx) o.classList.add('wrong');
+    o.style.pointerEvents = 'none';
+  });
+  if (idx === q.correct) { score++; document.getElementById('quiz-score-live').textContent = `Score: ${score}`; showToast('✓ ' + q.fun, 3500); }
+  else showToast('✗ ' + q.fun, 3500);
+  document.getElementById('quiz-next').classList.add('ready');
+}
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= questions.length) showResult();
+  else renderQuestion();
+}
+function showResult() {
+  document.getElementById('quiz-q-wrap').style.display = 'none';
+  document.getElementById('quiz-result').classList.add('show');
+  document.getElementById('result-score').textContent = `${score}/${questions.length}`;
+  let title, sub;
+  if (score === questions.length) {
+    title = "Congratulations. You survive under Ishu Command.";
+    sub = "You know her, you fear her, you love her. You passed the ultimate test. Ishu would say 'yeh toh mein chauthi mein jaanti thi' but deep down she is proud. Probably.";
+  } else if (score >= 4) {
+    title = "Qualified. With conditions.";
+    sub = "You know enough to survive in Ishu's world. Don't disagree, have rice on standby, never question the sleep schedule. You will be fine. Probably.";
+  } else if (score >= 2) {
+    title = "Needs improvement. Urgently.";
+    sub = "You call yourself a bestie? Study up. Kasam le ke bata — did you even try? Ishu is internally crying like a random dog just died.";
+  } else {
+    title = "How. Just HOW.";
+    sub = "Zero points? We have concerns. Ishu is activating She-Hulk mode. The mushroom pact is under review. Please report to Silver Spring Tower 2 Flat 17B immediately.";
+  }
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('result-sub').textContent = sub;
+}
+function restartQuiz() {
+  document.getElementById('quiz-q-wrap').style.display = 'block';
+  document.getElementById('quiz-result').classList.remove('show');
+  initQuiz();
+}
+</script>
+</body>
+</html>
